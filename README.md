@@ -11,7 +11,7 @@ $ npm start
 
 - - - - - - - - -
 
-This web app use some npm packages
+This web app use some npm packages : 
     "@types/react-router": "^4.0.15",
     "@types/react-router-dom": "^4.0.8",
     "react": "^16.0.0",
