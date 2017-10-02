@@ -1,14 +1,19 @@
+
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-// import { Router, Route, hashHistory } from 'react-router'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
-
+import { Provider } from 'react-redux'
+import createHistory from 'history/createBrowserHistory'
+import { Route } from 'react-router'
+import { ConnectedRouter } from 'react-router-redux'
+// import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import App from './App'
 import LoginPage from './LoginPage'
 
 import registerServiceWorker from './registerServiceWorker'
 import './index.css'
 
+import store from './redux/store'
+export const history = createHistory()
 /*
 ReactDOM.render(
   <App />,  //Element
@@ -18,15 +23,16 @@ ReactDOM.render(
 registerServiceWorker();
 */
 ReactDOM.render(
-  <BrowserRouter>
-  <Switch>
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
       <Route path="/App" component={App}/>
       <Route path="/Login" component={LoginPage}/>
-  </Switch>
-  </BrowserRouter>, 
+    </ConnectedRouter>
+  </Provider>, 
   document.getElementById('root')
 )
 registerServiceWorker()
+
 /*
 ReactDOM.render(
   <Router history={BrowserRouter}>
