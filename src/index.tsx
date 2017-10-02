@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 /*Pages Components Imports */
 import App from './App';
-import LoginPage from './LoginPage';
+import LoginPage from './routes/LoginPage';
 
 import registerServiceWorker from './registerServiceWorker';
 import './index.css';
@@ -14,10 +14,10 @@ import 'semantic-ui-css/semantic.min.css';
 ReactDOM.render(
   <BrowserRouter>
   <Switch>
-      <Route path="/App" component={ App }/>
-      <Route path="/Login" component={ LoginPage }/>
+      <Route path="/App" component={App}/>
+      <Route path="/Login" component={LoginPage}/>
   </Switch>
-  </BrowserRouter>, document.getElementById('root')
+  </BrowserRouter>, 
+  document.getElementById('root')
 );
 registerServiceWorker();
-
