@@ -1,11 +1,11 @@
 import * as React from 'react';
-//import 'semantic-ui-css/semantic.min.css';
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react';
+import './LoginForm.css';
 
-class LoginPage extends React.Component {
+export default class LoginForm extends React.Component {
     render() {
       return (
-        <div className='login-form'>
+        <div className="LoginForm">
                 {}
                 <style>{`
                 body > div,
@@ -21,7 +21,7 @@ class LoginPage extends React.Component {
                 >
                 <Grid.Column style={{ maxWidth: 450 }}>
                     <Header as='h2' color='blue' textAlign='center'>
-                    <Image src='/logo.png' />
+                    <Image src='./../../logo.svg' />
                     {' '}Log-in to your Prello account
                     </Header>
                     <Form size='large'>
@@ -39,7 +39,8 @@ class LoginPage extends React.Component {
                         placeholder='Password'
                         type='password'
                         />
-                        <Button color='blue' fluid size='large'>Login</Button>
+                        <Button className="loginButton" >Login</Button>
+                        <Button color='blue' size='large' fluid>Login</Button>
                     </Segment>
                     </Form>
                     <Segment >
@@ -54,5 +55,3 @@ class LoginPage extends React.Component {
       );
     }
   }
-  
-  export default LoginPage;
