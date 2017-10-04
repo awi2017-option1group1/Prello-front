@@ -94,3 +94,11 @@ workflows:
       - tests_linting:
           requires:
             - build            
+      - deploy:
+          filters:
+            branches:
+              only: master
+          requires:
+            - tests
+            - tests_linting   
+ 
