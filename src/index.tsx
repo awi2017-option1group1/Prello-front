@@ -1,23 +1,34 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
+import * as React from 'react'
+import * as ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
+import createHistory from 'history/createBrowserHistory'
+import { Route } from 'react-router'
+import { ConnectedRouter } from 'react-router-redux'
+import { } from 'react-router-dom';
 
 /*Pages Components Imports */
-import App from './App';
+import App from './App'
 import {LoginPage} from './routes/LoginPage';
+import Board from './components/Board'
 
-import registerServiceWorker from './registerServiceWorker';
+import registerServiceWorker from './registerServiceWorker'
 import './index.css';
-import 'semantic-ui-css/semantic.min.css';
 
-/*Routes*/
+import store from './redux/store'
+export const history = createHistory()
+
 ReactDOM.render(
-  <BrowserRouter>
-  <Switch>
-      <Route exact path="/" component={App}/>
-      <Route path="/Login" component={LoginPage}/>
-  </Switch>
-  </BrowserRouter>, 
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+      <div>
+        <Route exact path="/" component={App}/>
+        <Route path="/Login" component={LoginPage}/>
+        <Route path="/board" component={Board}/>
+      </div>
+    </ConnectedRouter>
+  </Provider>, 
   document.getElementById('root')
-);
-registerServiceWorker();
+)
+registerServiceWorker()
+

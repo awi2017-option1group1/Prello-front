@@ -14,7 +14,7 @@
             "check-space"
         ],
         "curly": true,
-        "eofline": false,
+        "eofline": true,
         "forin": true,
         "indent": [ true, "spaces" ],
         "interface-name": [true, "never-prefix"],
@@ -63,7 +63,7 @@
         ],
         "quotemark": [true, "single", "jsx-double"],
         "radix": true,
-        "semicolon": [true, "always"],
+        "semicolon": [true, "never"],
         "switch-default": true,
 
         "trailing-comma": [false],

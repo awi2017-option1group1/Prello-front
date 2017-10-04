@@ -39,7 +39,6 @@ export default class LoginForm extends React.Component {
                         placeholder='Password'
                         type='password'
                         />
-                        <Button className="loginButton" >Login</Button>
                         <Button color='blue' size='large' fluid>Login</Button>
                     </Segment>
                     </Form>
