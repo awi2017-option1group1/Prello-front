@@ -1,0 +1,16 @@
+.ui.segment.tasks-list {
+    background: rgba(0,0,0,.01);
+    display: inline-block;
+    vertical-align: top;
+    width: 300px;
+    padding: 10px;
+    margin: 3em 15px 3em 0;
+}
+
+.ui.segment.tasks-list header {
+    margin-bottom: 10px;
+}
+
+.ui.segment.tasks-list footer {
+    margin-top: 10px;
+}

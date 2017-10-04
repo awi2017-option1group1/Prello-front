@@ -8,5 +8,7 @@ function configureStore(initialState?: RootState) {
     )
     return createStore(rootReducer, initialState!, enhancer)
 }
+
 const store = configureStore()
+
 export default store

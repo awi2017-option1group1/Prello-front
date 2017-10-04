@@ -8,8 +8,10 @@ import { ConnectedRouter } from 'react-router-redux'
 // import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import App from './App'
 import LoginPage from './LoginPage'
+import Board from './components/Board'
 
 import registerServiceWorker from './registerServiceWorker'
+
 import './index.css'
 
 import store from './redux/store'
@@ -25,8 +27,11 @@ registerServiceWorker();
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <Route path="/App" component={App}/>
-      <Route path="/Login" component={LoginPage}/>
+      <div>
+        <Route path="/App" component={App}/>
+        <Route path="/Login" component={LoginPage}/>
+        <Route path="/board" component={Board}/>
+      </div>
     </ConnectedRouter>
   </Provider>, 
   document.getElementById('root')

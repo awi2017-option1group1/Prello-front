@@ -1,0 +1,13 @@
+.draggable-card {
+    cursor: grab;
+    cursor: -webkit-grab; 
+    cursor: -moz-grab;
+    margin: 7px;
+    box-sizing: border-box;
+}
+
+.draggable-card.dragged {
+    cursor: grabbing;
+    cursor: -webkit-grabbing; 
+    cursor: -moz-grabbing;
+}
