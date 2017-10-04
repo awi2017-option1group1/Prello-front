@@ -3,6 +3,8 @@ Prello-front
 
 Prello's application front-end.
 
+[![CircleCI](https://circleci.com/gh/awi2017-option1group1/Prello-front/tree/master.svg?style=svg)](https://circleci.com/gh/awi2017-option1group1/Prello-front/tree/master)
+
 - - - - - - - - -
 
 In the project directory, you can run to access the web app:
