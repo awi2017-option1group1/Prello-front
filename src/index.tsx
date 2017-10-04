@@ -1,13 +1,13 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-//import { Router, Route, hashHistory } from 'react-router'
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import * as React from 'react'
+import * as ReactDOM from 'react-dom'
+// import { Router, Route, hashHistory } from 'react-router'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
-import App from './App';
-import LoginPage from './LoginPage';
+import App from './App'
+import LoginPage from './LoginPage'
 
-import registerServiceWorker from './registerServiceWorker';
-import './index.css';
+import registerServiceWorker from './registerServiceWorker'
+import './index.css'
 
 /*
 ReactDOM.render(
@@ -20,12 +20,13 @@ registerServiceWorker();
 ReactDOM.render(
   <BrowserRouter>
   <Switch>
-      <Route path="/App" component={ App }/>
-      <Route path="/Login" component={ LoginPage }/>
+      <Route path="/App" component={App}/>
+      <Route path="/Login" component={LoginPage}/>
   </Switch>
-  </BrowserRouter>, document.getElementById('root')
-);
-registerServiceWorker();
+  </BrowserRouter>, 
+  document.getElementById('root')
+)
+registerServiceWorker()
 /*
 ReactDOM.render(
   <Router history={BrowserRouter}>
