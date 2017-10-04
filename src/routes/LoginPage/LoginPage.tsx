@@ -1,5 +1,5 @@
-import * as React from 'react';
-import {LoginForm} from './../../components/LoginForm';
+import * as React from 'react'
+import { LoginForm } from './../../components/LoginForm'
 
 class LoginPage extends React.Component {
     render() {
@@ -11,4 +11,4 @@ class LoginPage extends React.Component {
     }
   }
 
-export default LoginPage;
+export default LoginPage

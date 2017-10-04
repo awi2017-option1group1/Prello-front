@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react';
-import './LoginForm.css';
+import * as React from 'react'
+import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
+import './LoginForm.css'
 
 export default class LoginForm extends React.Component {
     render() {
@@ -15,42 +15,42 @@ export default class LoginForm extends React.Component {
                 }
                 `}</style>
                 <Grid
-                textAlign='center'
-                style={{ height: '100%' }}
-                verticalAlign='middle'
+                    textAlign="center"
+                    style={{ height: '100%' }}
+                    verticalAlign="middle"
                 >
                 <Grid.Column style={{ maxWidth: 450 }}>
-                    <Header as='h2' color='blue' textAlign='center'>
-                    <Image src='./../../logo.svg' />
+                    <Header as="h2" color="blue" textAlign="center">
+                    <Image src="./../../logo.svg" />
                     {' '}Log-in to your Prello account
                     </Header>
-                    <Form size='large'>
+                    <Form size="large">
                     <Segment >
                         <Form.Input
-                        fluid
-                        icon='user'
-                        iconPosition='left'
-                        placeholder='E-mail address or User name'
+                            fluid={true}
+                            icon="user"
+                            iconPosition="left"
+                            placeholder="E-mail address or User name"
                         />
                         <Form.Input
-                        fluid
-                        icon='lock'
-                        iconPosition='left'
-                        placeholder='Password'
-                        type='password'
+                            fluid={true}
+                            icon="lock"
+                            iconPosition="left"
+                            placeholder="Password"
+                            type="password"
                         />
-                        <Button color='blue' size='large' fluid>Login</Button>
+                        <Button color="blue" size="large" fluid={true}>Login</Button>
                     </Segment>
                     </Form>
                     <Segment >
-                        <Button color='teal' fluid size='large'>Connect with GitHub</Button>
+                        <Button color="teal" fluid={true} size="large">Connect with GitHub</Button>
                         <Message>
-                        New to us? <a href='#'>Sign Up</a>
+                        New to us? <a href="#">Sign Up</a>
                         </Message>
                     </Segment>
                 </Grid.Column>
                 </Grid>
             </div>
-      );
+      )
     }
   }
