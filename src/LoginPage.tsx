@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from 'react'
 
 class LoginPage extends React.Component {
     render() {
@@ -6,8 +6,8 @@ class LoginPage extends React.Component {
         <div >
             LoginPage
         </div>
-      );
+      )
     }
-  }
+}
   
-  export default LoginPage;
+export default LoginPage
