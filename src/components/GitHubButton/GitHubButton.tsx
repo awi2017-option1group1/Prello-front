@@ -1,12 +1,12 @@
 import * as React from 'react'
 import { Button } from 'semantic-ui-react'
 
-export default class LoginForm extends React.Component {
-    render() {
-      return (
-        <div className="LoginForm">
-            <Button color="teal" fluid={true} size="large">Connect with GitHub</Button>
-        </div>
-      )
-    }
-  }
+const GitHubButton = () => {
+  return (
+    <div>
+        <Button color="teal" fluid={true} size="large">Connect with GitHub</Button>
+    </div>
+  )
+}
+
+export default GitHubButton

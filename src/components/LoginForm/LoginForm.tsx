@@ -18,7 +18,7 @@ export default class LoginForm extends React.Component {
                 <Grid
                     textAlign="center"
                     style={{ height: '100%' }}
-                    verticalAlign="bottom"
+                    verticalAlign="middle"
                     columns={2}
                 >
                 <Grid.Column style={{ maxWidth: 450 }}>
