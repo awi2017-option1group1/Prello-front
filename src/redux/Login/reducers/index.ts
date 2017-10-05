@@ -10,7 +10,7 @@ export const reducer = combineReducers<RootAction>({
         switch (action.type) {
 
             case LOGIN:
-                console.log('Login', action.email, action.password)
+                // TODO : Link with API
                 return state
 
             default:
