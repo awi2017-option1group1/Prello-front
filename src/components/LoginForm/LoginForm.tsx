@@ -7,14 +7,6 @@ export default class LoginForm extends React.Component {
     render() {
       return (
         <div className="LoginForm">
-                {/*}
-                <style>{`
-                body > div,
-                body > div > div,
-                body > div > div > div.login-form {
-                    height: 100%;
-                }
-                `}</style>*/}
                 <Grid
                     textAlign="center"
                     style={{ height: '100%' }}
@@ -45,7 +37,6 @@ export default class LoginForm extends React.Component {
                     </Segment>
                     </Form>
                     <Segment >
-                        {/*<Button color="teal" fluid={true} size="large">Connect with GitHub</Button>*/}
                         <GitHubButton />
                         <Message>
                         New to us? <a href="#">Sign Up</a>
