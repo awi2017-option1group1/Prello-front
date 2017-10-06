@@ -1,13 +1,14 @@
-import { connect, MapStateToProps, MapDispatchToProps } from 'react-redux'
+import { connect } from 'react-redux'
 
+import { RootState, Dispatch } from '../../redux/RootReducer'
 import { actionCreators } from '../../redux/Login/actions'
-import LoginForm, { LoginFormProps } from './LoginForm'
+import LoginForm from './LoginForm'
 
-const mapStateToProps: MapStateToProps<{}, {}> = (state, ownProps) => {
+const mapStateToProps = (state: RootState) => {
   return {}
 }
 
-const mapDispatchToProps: MapDispatchToProps<LoginFormProps, {}> = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     login: (email: string, password: string) => {
       dispatch(actionCreators.login(email, password))

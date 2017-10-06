@@ -7,5 +7,5 @@ type ReactRouterAction = RouterAction | LocationChangeAction
 
 export type RootAction =
   | ReactRouterAction
-  | ListActions
-  | LoginActions
+  | ListActions[keyof ListActions]
+  | LoginActions[keyof LoginActions]

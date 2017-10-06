@@ -1,20 +1,16 @@
 import { LOGIN } from '../actions'
-import { combineReducers } from 'redux'
 import { RootAction } from '../../RootAction'
 
 export type State = {
 }
 
-export const reducer = combineReducers<RootAction>({
-    login: (state = [], action) => {
-        switch (action.type) {
+export const reducer = (state: State, action: RootAction) => {
+    switch (action.type) {
+        case LOGIN:
+            // TODO : Link with API
+            return state
 
-            case LOGIN:
-                // TODO : Link with API
-                return state
-
-            default:
-                return state
+        default:
+            return state
     }
-  }
-})
+}
