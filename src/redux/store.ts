@@ -1,8 +1,10 @@
 import { createStore, compose, Middleware, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
+
 import { rootReducer, RootState } from './RootReducer'
 
 function configureStore(initialState?: RootState) {
-    const middlewares: Middleware[] = []
+    const middlewares: Middleware[] = [thunk]
     const enhancer = compose(
         applyMiddleware(...middlewares),
     )

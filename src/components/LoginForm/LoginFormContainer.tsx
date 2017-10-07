@@ -5,20 +5,23 @@ import { actionCreators } from '../../redux/Login/actions'
 import LoginForm from './LoginForm'
 
 const mapStateToProps = (state: RootState) => {
-  return {}
+    return {
+        isProcessing: state.login.isProcessing,
+        error: state.login.error
+    }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    login: (email: string, password: string) => {
-      dispatch(actionCreators.login(email, password))
+    return {
+        login: (email: string, password: string) => {
+            dispatch(actionCreators.login(email, password))
+        }
     }
-  }
 }
 
 const LoginFormContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(LoginForm)
 
 export default LoginFormContainer
