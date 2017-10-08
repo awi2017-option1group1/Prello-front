@@ -1,14 +1,38 @@
-import { LOGIN } from '../actions'
+import { LOGIN_REQUEST, LOGIN_RESPONSE_ERROR, LOGIN_RESPONSE_SUCCESS } from '../actions'
 import { RootAction } from '../../RootAction'
 
 export type State = {
+    content: {}
+    error: string | null,
+    isProcessing: boolean
 }
 
-export const reducer = (state: State, action: RootAction) => {
+const defaultValue: State = {
+    content: {},
+    error: null,
+    isProcessing: false
+}
+
+export const reducer = (state: State = defaultValue, action: RootAction) => {
     switch (action.type) {
-        case LOGIN:
-            // TODO : Link with API
-            return state
+        case LOGIN_REQUEST:
+            return {
+                ...state,
+                isProcessing: true
+            }
+
+        case LOGIN_RESPONSE_SUCCESS:
+            return {
+                ...state,
+                isProcessing: false
+            }
+            
+        case LOGIN_RESPONSE_ERROR:
+            return {
+                ...state,
+                isProcessing: false,
+                error: action.error
+            }
 
         default:
             return state
