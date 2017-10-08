@@ -12,6 +12,9 @@
     "react-router-redux": "^5.0.0-alpha.6",
     "react-scripts-ts": "2.7.0",
     "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2",
     "semantic-ui-react": "^0.74.2",
     "serve": "^6.2.0"
   },
@@ -32,6 +35,9 @@
     "@types/react-router": "^4.0.15",
     "@types/react-router-dom": "^4.0.8",
     "@types/react-router-redux": "^5.0.8",
+    "@types/redux-thunk": "^2.1.0",
+    "@types/request": "^2.0.4",
+    "@types/request-promise": "^4.1.38",
     "tslint": "^5.0.0",
     "typescript": "^2.4.0"
   }

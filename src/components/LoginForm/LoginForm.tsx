@@ -1,9 +1,15 @@
 import * as React from 'react'
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
+
+import ErrorSegment from '../common/ErrorSegment'
 import { GitHubButton } from './../GitHubButton'
+
 import './LoginForm.css'
 
 export interface LoginFormProps {
+    isProcessing: boolean
+    error: string | null
+
     login: (email: string, password: string) => void
 }
 
@@ -58,6 +64,7 @@ export default class LoginForm extends React.Component<LoginFormProps, LoginForm
                     </Header>
                     <Form size="large" onSubmit={this.handleSubmit}>
                     <Segment >
+                        <ErrorSegment error={this.props.error} />
                         <Form.Input
                             fluid={true}
                             icon="user"
@@ -75,7 +82,15 @@ export default class LoginForm extends React.Component<LoginFormProps, LoginForm
                             value={this.state.passwordInput}
                             onChange={this.handlePasswordInput}
                         />
-                        <Button color="blue" size="large" fluid={true}>Login</Button>
+                        <Button 
+                            color="blue" 
+                            size="large" 
+                            fluid={true} 
+                            loading={this.props.isProcessing} 
+                            disabled={this.props.isProcessing}
+                        >
+                                Login
+                        </Button>
                     </Segment>
                     </Form>
                     <Segment >

@@ -1,25 +1,46 @@
-export const LOGIN = 'LOGIN'
-export const LOGGED = 'LOGGED'
+import { Dispatch } from '../../RootReducer'
+import { API } from '../../../services'
+
+export const LOGIN_REQUEST = 'LOGIN_REQUEST'
+export const LOGIN_RESPONSE_SUCCESS = 'LOGIN_RESPONSE_SUCCESS'
+export const LOGIN_RESPONSE_ERROR = 'LOGIN_RESPONSE_ERROR'
 
 export type Actions = {
-    LOGIN: {
-        type: typeof LOGIN,
-        email: string,
-        password: string,
+    LOGIN_REQUEST: {
+        type: typeof LOGIN_REQUEST
     },
-    LOGIN_RESPONSE: {
-        type: typeof LOGGED
+    LOGIN_RESPONSE_SUCCESS: {
+        type: typeof LOGIN_RESPONSE_SUCCESS,
+        content: {}
+    },
+    LOGIN_RESPONSE_ERROR: {
+        type: typeof LOGIN_RESPONSE_ERROR,
+        error: string
     }
 }
 
 export const actionCreators = {
-    login: (email: string, password: string): Actions[typeof LOGIN] => {
-        // call api
-        // call().then(response => dispatch(logged(response)))
-        return {
-            type: LOGIN,
-            email,
-            password
+    loginRequest: (): Actions[typeof LOGIN_REQUEST] => ({
+        type: LOGIN_REQUEST
+    }),
+
+    loginError: (error: string): Actions[typeof LOGIN_RESPONSE_ERROR] => ({
+        type: LOGIN_RESPONSE_ERROR,
+        error
+    }),
+
+    loginSuccess: (content: {}): Actions[typeof LOGIN_RESPONSE_SUCCESS] => ({
+        type: LOGIN_RESPONSE_SUCCESS,
+        content
+    }),
+
+    login: (email: string, password: string) => {
+        return (dispatch: Dispatch) => {
+            dispatch(actionCreators.loginRequest())
+            API.post('/login', { email, password }).then(
+                response => dispatch(actionCreators.loginSuccess(response)),
+                error => dispatch(actionCreators.loginError(error.error.message))
+            )
         }
     }
 }
