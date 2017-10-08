@@ -38,4 +38,12 @@ Prello's application front-end.
 - To test the application we use `Jest` enhanced with `Enzyme`.
 - The look and feel is provided by `semantic-react`.
 
+- - - - - - - - -
+
+## Contributing
+
+Please follow the Google Angular guidelines: 
+[Guidelines](https://github.com/angular/angular.js/blob/master/CONTRIBUTING.md#-git-commit-guidelines)
+
+
 
