@@ -24,7 +24,8 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
         case LOGIN_RESPONSE_SUCCESS:
             return {
                 ...state,
-                isProcessing: false
+                isProcessing: false,
+                content: action.content
             }
             
         case LOGIN_RESPONSE_ERROR:

@@ -37,7 +37,7 @@ export const actionCreators = {
     login: (email: string, password: string) => {
         return (dispatch: Dispatch) => {
             dispatch(actionCreators.loginRequest())
-            API.post('/login', { email, password }).then(
+            return API.post('/login', { email, password }).then(
                 response => dispatch(actionCreators.loginSuccess(response)),
                 error => dispatch(actionCreators.loginError(error.error.message))
             )
