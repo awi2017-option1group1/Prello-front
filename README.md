@@ -1,5 +1,5 @@
 
-Prello-front
+# Prello-front
 
 Prello's application front-end.
 
@@ -7,21 +7,43 @@ Prello's application front-end.
 
 - - - - - - - - -
 
-In the project directory, you can run to access the web app:
+## Installation
 
-$ npm start
+- Clone the github repository. 
+
+    `git clone https://github.com/awi2017-option1group1/Prello-front`
+- Install the dependencies for development mode 
+
+	`npm install`
+
+## Execution
+
+- To run the application in development mode (need the back-end up and running) 
+
+    `npm run start:dev`
+- To run the application in production mode (need the back-end up and running) 
+
+	`npm run build && npm start`
+- To run the tests
+
+	`npm test`
 
 - - - - - - - - -
 
-This web app use some npm packages : 
-    "@types/react-router": "^4.0.15",
-    "@types/react-router-dom": "^4.0.8",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
-    "react-router": "^4.2.0",
-    "react-router-dom": "^4.2.2",
-    "react-scripts-ts": "2.7.0",
-    "semantic-ui-css": "^2.2.12",
-    "semantic-ui-react": "^0.74.2"
+## Dependencies
+
+- Prello front end application is written in `Typescript`.  
+- It is built with the React ecosystem: `React`, `Redux`, `React-Router`, `React-Dom`, `Redux-thunk`.  
+- To handle the packaging of the application we use `Webpack`.  
+- To test the application we use `Jest` enhanced with `Enzyme`.
+- The look and feel is provided by `semantic-react`.
+
+- - - - - - - - -
+
+## Contributing
+
+Please follow the Google Angular guidelines: 
+[Guidelines](https://github.com/angular/angular.js/blob/master/CONTRIBUTING.md#-git-commit-guidelines)
+
 
 
