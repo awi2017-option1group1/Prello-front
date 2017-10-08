@@ -1,7 +1,7 @@
 
 # Prello-front
 
-Prello's application front-end.
+Prello's application front-end (a Trello-like application).
 
 [![CircleCI](https://circleci.com/gh/awi2017-option1group1/Prello-front/tree/master.svg?style=svg)](https://circleci.com/gh/awi2017-option1group1/Prello-front/tree/master)
 
