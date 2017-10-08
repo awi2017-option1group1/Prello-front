@@ -10,4 +10,4 @@ export type RootAction =
   | ReactRouterAction
   | ListActions[keyof ListActions]
   | LoginActions[keyof LoginActions]
-  | TestActions[keyof testActions]
+  | TestActions[keyof TestActions]
