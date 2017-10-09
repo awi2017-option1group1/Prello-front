@@ -70,7 +70,7 @@ class EditableTitle extends React.Component<EditableTitleProps, EditableTitleSta
             const HeaderTag = `${this.props.type}`
             return (
                 <HeaderTag className="editable-title" onClick={this.handleClick}>
-                    {this.props.content}
+                    {this.state.value}
                 </HeaderTag>
             )
         }
