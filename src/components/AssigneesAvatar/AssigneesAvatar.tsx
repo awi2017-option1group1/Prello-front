@@ -5,7 +5,7 @@ interface AssigneesAvatarProps {
     assignees: string[]
 }
 
-const getHeaderText = (assignees: string[]) => {
+const getPopupHeaderText = (assignees: string[]) => {
     if (assignees.length >= 2) {
         return `${assignees[0]} and ${assignees.length - 1} more`
     } else {
@@ -13,7 +13,7 @@ const getHeaderText = (assignees: string[]) => {
     }
 }
 
-const getContentText = (assignees: string[]) => assignees.slice(1).map(assignee => (
+const getPopupContent = (assignees: string[]) => assignees.slice(1).map(assignee => (
     <Label image={true} key={assignee}>
         <Image
             size="mini"
@@ -42,9 +42,9 @@ const AssigneesAvatar: React.StatelessComponent<AssigneesAvatarProps> = (props) 
     return (
         <div>
             <Popup trigger={MainAvatar} position="top center">
-                <PopupHeader>{getHeaderText(props.assignees)}</PopupHeader>
+                <PopupHeader>{getPopupHeaderText(props.assignees)}</PopupHeader>
                 <PopupContent>
-                    {getContentText(props.assignees)}
+                    {getPopupContent(props.assignees)}
                 </PopupContent>
             </Popup>
         </div>
