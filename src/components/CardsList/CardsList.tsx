@@ -1,12 +1,11 @@
-import { CardGroup } from 'semantic-ui-react'
 import * as React from 'react'
+import { CardGroup } from 'semantic-ui-react'
 
 import Card from '../Card'
 
 import './cards-list.css'
 
 export interface CardsListProps {
-    id: number
     cards: number[]
     emptyText: string
 }

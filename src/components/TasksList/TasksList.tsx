@@ -35,7 +35,7 @@ const TasksList: React.StatelessComponent<TasksListProps> = (props) => {
                 <Button icon="ellipsis horizontal" primary={true} circular={true} />          
             </SplitHeader>
 
-            <CardsList id={props.id} emptyText="No tasks yet!" cards={props.list.cards} />
+            <CardsList emptyText="No tasks yet!" cards={props.list.cards} />
 
             <footer>
                 <Button content="Add new task" fluid={true} primary={true} circular={true} />
