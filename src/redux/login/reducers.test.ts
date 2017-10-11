@@ -1,6 +1,6 @@
-import { TEST } from '../../testActions'
-import { LOGIN_REQUEST, LOGIN_RESPONSE_SUCCESS, LOGIN_RESPONSE_ERROR } from '../actions'
-import { reducer } from './index'
+import { TEST } from '../testActions'
+import { LOGIN_REQUEST, LOGIN_RESPONSE_SUCCESS, LOGIN_RESPONSE_ERROR } from './actions'
+import { reducer } from './reducers'
 
 describe('Login reducer', () => {
     it('should return the initial state', () => {
