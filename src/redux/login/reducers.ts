@@ -1,5 +1,5 @@
-import { LOGIN_REQUEST, LOGIN_RESPONSE_ERROR, LOGIN_RESPONSE_SUCCESS } from '../actions'
-import { RootAction } from '../../RootAction'
+import { LOGIN_REQUEST, LOGIN_RESPONSE_ERROR, LOGIN_RESPONSE_SUCCESS } from './actions'
+import { RootAction } from '../RootAction'
 
 export type State = {
     content: {}
