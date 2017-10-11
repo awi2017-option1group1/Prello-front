@@ -2,8 +2,8 @@ import thunk from 'redux-thunk'
 import * as nock from 'nock'
 import configureMockStore from 'redux-mock-store'
 
-import { getBaseUrl } from '../../../services/index'
-import { LOGIN_REQUEST, LOGIN_RESPONSE_ERROR, LOGIN_RESPONSE_SUCCESS, actionCreators } from './index'
+import { getBaseUrl } from '../../services/index'
+import { LOGIN_REQUEST, LOGIN_RESPONSE_ERROR, LOGIN_RESPONSE_SUCCESS, actionCreators } from './actions'
 
 describe('Login sync actions', () => {
     it('should create an action to login', () => {

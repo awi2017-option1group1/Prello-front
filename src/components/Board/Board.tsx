@@ -6,23 +6,24 @@ import { StateProps } from '../StateProps'
 import SplitHeader from '../common/SplitHeader'
 import Spinner from '../common/Spinner'
 
-import BoardModel from '../../models/Board'
+import { IBoard } from '../../redux/boards/types'
+import { IList } from '../../redux/lists/types'
 import TasksList from '../TasksList'
 import EditableTitle from '../common/EditableTitle'
 
 import './board.css'
 
 export interface BoardProps extends StateProps {
-    board: BoardModel
-
-    setTitle: (title: string) => void
+    board: IBoard
+    create: (id: number, title: string, isPrivate: boolean, lists: IList[]) => void
+    delete: (index: number) => void
+    setTitle: () => void
 }
 
 const Board: React.StatelessComponent<BoardProps> = (props) => {
     if (props.loading) {
         return <Spinner />
     }
-
     return (
         <section id="board">
             <SplitHeader>
@@ -30,7 +31,7 @@ const Board: React.StatelessComponent<BoardProps> = (props) => {
                 <Button content="Add column" icon="plus" labelPosition="left" primary={true} circular={true} />
             </SplitHeader>
             <section id="task-lists" className="task-lists">
-                {props.board.lists.map(id => <TasksList id={id} key={id} />)}
+                {props.board.lists.map(list => <TasksList list={list} key={list.id} />)} 
             </section>
         </section>
     )
