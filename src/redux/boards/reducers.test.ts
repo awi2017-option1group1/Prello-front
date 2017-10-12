@@ -1,6 +1,6 @@
-import { reducer } from './reducer'
+import { reducer } from './reducers'
 import { TEST } from '../testActions'
-import { CREATE_BOARD, REMOVE_BOARD } from './action'
+import { CREATE_BOARD, REMOVE_BOARD } from './actions'
 
 describe('Board reducer', () => {
 
@@ -21,19 +21,19 @@ describe('Board reducer', () => {
     it('should handle CREATE_BOARD', () => {
         expect(reducer(undefined, {
             type: CREATE_BOARD,
-            id: 1,
             title: 'test',
             isPrivate: false,
             lists: [],
             tags: [],
+            userRole: [],
         }
     )).toEqual(
         {
-            id: 1,
             title: 'test',
             isPrivate: false,
             lists: [],
             tags: [],
+            userRole: [],
         }
     )
     })

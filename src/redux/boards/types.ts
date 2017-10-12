@@ -1,7 +1,7 @@
 import { IList } from '../lists/types'
 import { ITag } from '../tags/types'
 
-type IUserRoleInBoard = {
+export type IUserRoleInBoard = {
     userId: number,
     role: string
 }

@@ -15,6 +15,7 @@ import './board.css'
 
 export interface BoardProps extends StateProps {
     board: IBoard
+
     create: (id: number, title: string, isPrivate: boolean, lists: IList[]) => void
     delete: (index: number) => void
     setTitle: () => void
