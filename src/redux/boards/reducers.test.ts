@@ -1,6 +1,6 @@
-import { reducer } from './reducer'
+import { reducer } from './reducers'
 import { TEST } from '../testActions'
-import { CREATE_BOARD, REMOVE_BOARD } from './action'
+import { CREATE_BOARD, REMOVE_BOARD } from './actions'
 
 describe('Board reducer', () => {
 
@@ -26,6 +26,7 @@ describe('Board reducer', () => {
             isPrivate: false,
             lists: [],
             tags: [],
+            userRole: [],
         }
     )).toEqual(
         {

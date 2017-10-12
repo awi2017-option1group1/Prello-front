@@ -1,26 +1,37 @@
-import { ADD_BOARD, REMOVE_SINGLE_BOARD } from './actions'
+import { CREATE_BOARD, REMOVE_BOARD } from './actions'
 import { RootAction } from '../RootAction'
-import { IBoard } from '../boards/types'
+import { IList } from '../lists/types'
+import { ITag } from '../tags/types'
 
-export type State = IBoard[]
+export type State = {
+    id: number,
+    title: string,
+    isPrivate: boolean,
+    lists: IList[],
+    tags: ITag[],
+}
 
-const defaultValue: State = [] 
-export const reducer = (state: State = defaultValue, action: RootAction) => {
+const defaultValue: State = {
+    id: -1,
+    title: '',
+    isPrivate: false,
+    lists: [],
+    tags: [],
+}
+export const reducer = (state: State = defaultValue, action: RootAction) => { 
         switch (action.type) {
-
-            case ADD_BOARD:
-                return [...state, {
+            case CREATE_BOARD:
+                return {
                     title: action.title,
                     isPrivate: action.isPrivate,
-                }]
+                    lists: action.lists,
+                    tags: action.tags,
+                }
 
-            case REMOVE_SINGLE_BOARD:
-                return [
-                    ...state.slice(0, action.index),
-                    ...state.slice(action.index + 1)
-                ]
+            case REMOVE_BOARD:
+                return null
 
             default:
                 return state
     }
-  }
+}

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import { RootState, Dispatch } from '../../redux/RootReducers'
+import { RootState, Dispatch } from '../../redux/RootReducer'
 import { actionCreators } from '../../redux/login/actions'
 import LoginForm from './LoginForm'
 

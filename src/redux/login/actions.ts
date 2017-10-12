@@ -1,4 +1,4 @@
-import { Dispatch } from '../RootReducers'
+import { Dispatch } from '../RootReducer'
 import { API } from '../../services'
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'

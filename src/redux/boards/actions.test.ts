@@ -6,8 +6,8 @@ import { getBaseUrl } from '../../services/index'
 
 import { CREATE_BOARD, CREATE_BOARD_SUCCESS, 
     BOARD_ERROR, BOARD_SUCCESS, 
-    REMOVE_BOARD, UPDATE_BOARD } from './action'
-import { actionCreators } from './action'
+    REMOVE_BOARD, UPDATE_BOARD } from './actions'
+import { actionCreators } from './actions'
 
 import { IBoard } from './types'
 

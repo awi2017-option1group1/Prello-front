@@ -3,108 +3,142 @@ import { API } from '../../services'
 
 import { IList } from '../lists/types'
 import { ITag } from '../tags/types'
-import { IBoard } from '../boards/types'
+import { IBoard, IUserRoleInBoard } from '../boards/types'
 
-export const BOARDS_SUCCESS = 'BOARDS_SUCCESS'
-export const BOARDS_ERROR = 'BOARDS_ERROR'
+export const CREATE_BOARD = 'CREATE_BOARD'
+export const CREATE_BOARD_SUCCESS = 'CREATE_BOARD_SUCCESS'
+export const BOARD_ERROR = 'BOARD_ERROR'
 
-export const ADD_BOARD = 'ADD_BOARD'
-export const ADD_BOARD_SUCCESS = 'ADD_BOARD_SUCCESS'
+export const REMOVE_BOARD = 'REMOVE_BOARD'
+export const BOARD_SUCCESS = 'BOARD_SUCCESS'
 
-export const REMOVE_SINGLE_BOARD = 'REMOVE_SINGLE_BOARD'
+export const UPDATE_BOARD = 'UPDATE_BOARD'
 
 export type Actions = {
-    BOARDS_SUCCESS: {
-        type: typeof BOARDS_SUCCESS,
+
+    BOARD_ERROR: {
+        type: typeof BOARD_ERROR,
+        error: string,
+    },
+    BOARD_SUCCESS: {
+        type: typeof BOARD_SUCCESS, 
         successMessage: string,
     },
-    BOARDS_ERROR: {
-        type: typeof BOARDS_ERROR,
-        errorMessage: string,
-    },
 
-    ADD_BOARD: {
-        type: typeof ADD_BOARD,
+    CREATE_BOARD: {
+        type: typeof CREATE_BOARD,
         title: string,
         isPrivate: boolean,
         lists: IList[],
         tags: ITag[],
+        userRole: IUserRoleInBoard[],
     },
-    ADD_BOARD_SUCCESS: {
-        type: typeof ADD_BOARD_SUCCESS,
+    CREATE_BOARD_SUCCESS: {
+        type: typeof CREATE_BOARD_SUCCESS,
         id: number,
         title: string,
         isPrivate: boolean,
         lists: IList[],
         tags: ITag[],
+        userRole: IUserRoleInBoard[],
     },
 
-    REMOVE_SINGLE_BOARD: {
-        type: typeof REMOVE_SINGLE_BOARD,
-        index: number,
+    REMOVE_BOARD: {
+        type: typeof REMOVE_BOARD,
     },
+
+    UPDATE_BOARD: {
+        type: typeof UPDATE_BOARD,
+        board: IBoard,
+    }
 }
 
 export const actionCreators = {
     // --------------------------------------- //
     //                    SYNC                 //
     // --------------------------------------- //
-    boardError: (errorMessage: string): Actions[typeof BOARDS_ERROR] => ({
-        type: BOARDS_ERROR,
-        errorMessage,
+    boardError: (error: string): Actions[typeof BOARD_ERROR] => ({
+        type: BOARD_ERROR,
+        error,
     }),
-    boardSuccess: (successMessage: string): Actions[typeof BOARDS_SUCCESS] => ({
-        type: BOARDS_SUCCESS,
+    boardSuccess: (successMessage: string): Actions[typeof BOARD_SUCCESS] => ({
+        type: BOARD_SUCCESS,
         successMessage,
     }),
 
-    addBoardRequest: (title: string, isPrivate: boolean, lists: IList[], tags: ITag[]): Actions[typeof ADD_BOARD] => ({
-        type: ADD_BOARD,
+    createBoardRequest: (   title: string, 
+                            isPrivate: boolean, 
+                            lists: IList[], 
+                            tags: ITag[], 
+                            userRole: IUserRoleInBoard[]): 
+    Actions[typeof CREATE_BOARD] => ({
+        type: CREATE_BOARD,
         title,
         isPrivate,
         lists,
         tags,
+        userRole,
     }),
-    addBoardSuccess: (id: number, title: string, isPrivate: boolean, lists: IList[], tags: ITag[]):
-    Actions[typeof ADD_BOARD_SUCCESS] => ({
-        type: ADD_BOARD_SUCCESS,
+    createBoardSuccess: (   id: number,
+                            title: string, 
+                            isPrivate: boolean, 
+                            lists: IList[], 
+                            tags: ITag[], 
+                            userRole: IUserRoleInBoard[]):
+    Actions[typeof CREATE_BOARD_SUCCESS] => ({
+        type: CREATE_BOARD_SUCCESS,
         id,
         title,
         isPrivate,
         lists,
         tags,
+        userRole,
     }),
 
-    removeBoardRequest: (index: number): Actions[typeof REMOVE_SINGLE_BOARD] => ({
-        type: REMOVE_SINGLE_BOARD,
-        index,
+    removeBoardRequest: (id: number): Actions[typeof REMOVE_BOARD] => ({
+        type: REMOVE_BOARD,
+    }),
+
+    updateBoardRequest: (board: IBoard): Actions[typeof UPDATE_BOARD] => ({
+        type: UPDATE_BOARD,
+        board,
     }),
     // --------------------------------------- //
     //                   ASYNC                 //
     // --------------------------------------- //
-    addBackendBoard: (board: IBoard) => {
+    createBackendBoard: (board: IBoard) => {
         return (dispatch: Dispatch) => {
-            dispatch(actionCreators.addBoardRequest(board.title, board.isPrivate, [], []))
-            return API.post('/boards', board).then( // This is supposed to add a board in the 
-                                                    // list of the users board, so a single post to that route 
-                                                    // may not be the solution
-                response => dispatch(actionCreators.addBoardSuccess(    response.id,
-                                                                        response.title, 
-                                                                        response.isPrivate, 
-                                                                        response.lists, 
-                                                                        response.tags)),
-                error => dispatch(actionCreators.boardError('Create error : ' + error.message)),
+            dispatch(actionCreators.createBoardRequest(board.title, board.isPrivate, [], [], []))
+            return API.post('/boards', board).then(
+                response => dispatch(actionCreators.createBoardSuccess( response.board.id,
+                                                                        response.board.title, 
+                                                                        response.board.isPrivate, 
+                                                                        response.board.lists, 
+                                                                        response.board.tags,
+                                                                        response.board.userRole)),
+                error => dispatch(actionCreators.boardError(error.message)),
             )
         }
     },
-    
+
     removeBackendBoard: (id: number) => {
         return (dispatch: Dispatch) => {
             dispatch(actionCreators.removeBoardRequest(id))
             return API.delete('/boards', id).then(
-                response => dispatch(actionCreators.boardSuccess('remove successful : ' + response.message)),
-                error => dispatch(actionCreators.boardError('Remove error : ' + error.message)),
+                response => dispatch(actionCreators.boardSuccess(response.message)),
+                error => dispatch(actionCreators.boardError(error.message)),
             )
         }
     },
+
+    updateBackendBoard: (board: IBoard) => {
+        return (dispatch: Dispatch) => {
+            dispatch(actionCreators.updateBoardRequest(board))
+            return API.put('/boards', board).then(
+                response => dispatch(actionCreators.boardSuccess(response.message)),
+                error => dispatch(actionCreators.boardError(error.message)),
+            )
+        }
+    }
+
 }
