@@ -43,5 +43,7 @@ describe('<Board />', () => {
 */
 
 describe('', () => {
-    expect(0).toBe(0)
+    it('temporary test', () => {
+        expect(0).toBe(0)
+    })
 })
