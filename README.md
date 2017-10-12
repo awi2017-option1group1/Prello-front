@@ -7,6 +7,10 @@ Prello's application front-end (a Trello-like application).
 
 - - - - - - - - -
 
+## Requirements
+
+To run the project, you need to have at least `node v8` and `npm v5`.
+
 ## Installation
 
 - Clone the github repository. 

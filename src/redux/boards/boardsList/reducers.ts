@@ -1,6 +1,6 @@
 import { ADD_BOARD, REMOVE_SINGLE_BOARD } from './actions'
-import { RootAction } from '../RootAction'
-import { IBoard } from '../boards/types'
+import { RootAction } from '../../RootAction'
+import { IBoard } from '../types'
 
 export type State = IBoard[]
 
