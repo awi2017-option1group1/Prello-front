@@ -2,15 +2,17 @@ import { LOGIN_REQUEST, LOGIN_RESPONSE_ERROR, LOGIN_RESPONSE_SUCCESS } from './a
 import { RootAction } from '../RootAction'
 
 export type State = {
-    content: {}
+    token: string | null
     error: string | null,
-    isProcessing: boolean
+    isProcessing: boolean,
+    isAuthenticated: false
 }
 
 const defaultValue: State = {
-    content: {},
+    token: null,
     error: null,
-    isProcessing: false
+    isProcessing: false,
+    isAuthenticated: false
 }
 
 export const reducer = (state: State = defaultValue, action: RootAction) => {
@@ -25,7 +27,8 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
             return {
                 ...state,
                 isProcessing: false,
-                content: action.content
+                isAuthenticated: true,
+                token: action.token
             }
             
         case LOGIN_RESPONSE_ERROR:

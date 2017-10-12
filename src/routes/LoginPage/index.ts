@@ -1,1 +1,3 @@
-export {default as LoginPage} from './LoginPage'
+import LoginPage from './LoginPage'
+
+export default LoginPage
