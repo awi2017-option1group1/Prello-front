@@ -21,7 +21,6 @@ describe('Board reducer', () => {
     it('should handle CREATE_BOARD', () => {
         expect(reducer(undefined, {
             type: CREATE_BOARD,
-            id: 1,
             title: 'test',
             isPrivate: false,
             lists: [],
@@ -30,11 +29,11 @@ describe('Board reducer', () => {
         }
     )).toEqual(
         {
-            id: 1,
             title: 'test',
             isPrivate: false,
             lists: [],
             tags: [],
+            userRole: [],
         }
     )
     })

@@ -26,6 +26,7 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
                     isPrivate: action.isPrivate,
                     lists: action.lists,
                     tags: action.tags,
+                    userRole: action.userRole,
                 }
 
             case REMOVE_BOARD:
