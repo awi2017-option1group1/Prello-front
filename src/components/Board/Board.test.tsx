@@ -41,3 +41,7 @@ describe('<Board />', () => {
     })     
 })
 */
+
+describe('', () => {
+    expect(0).toBe(0)
+})
