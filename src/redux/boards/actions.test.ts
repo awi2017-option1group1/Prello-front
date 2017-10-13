@@ -151,10 +151,17 @@ describe('Board async actions', () => {
         })
     }),
 
-    it('should return a BOARD_SUCCESS when the update is done', () => {
+    it('should return a new board when the update is done', () => {
         nock(getBaseUrl())
-        .put('/boards')
-        .reply(200, { message: 'Successfully updated' })
+        .put('/boards/1')
+        .reply(200, {board: {
+            id: 1,
+            title: 'test',
+            isPrivate: false,
+            lists: [],
+            tags: [],
+            userRole: [], 
+        }})
 
         const boardTest: IBoard = {
             id: 1, 
@@ -167,7 +174,15 @@ describe('Board async actions', () => {
         
         const expectedActions = [
             { type: UPDATE_BOARD, board: boardTest},
-            {type: BOARD_SUCCESS, successMessage: 'Successfully updated'}
+            {
+                type: CREATE_BOARD_SUCCESS,
+                id: 1,
+                title: 'test',
+                isPrivate: false,
+                lists: [],
+                tags: [],
+                userRole: [], 
+            }
         ]
         const store = mockStore({ boards: [
             {
