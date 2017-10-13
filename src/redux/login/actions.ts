@@ -1,5 +1,5 @@
-import { Dispatch } from '../../RootReducer'
-import { API } from '../../../services'
+import { Dispatch } from '../RootReducer'
+import { API } from '../../services'
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_RESPONSE_SUCCESS = 'LOGIN_RESPONSE_SUCCESS'

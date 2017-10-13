@@ -4,22 +4,24 @@ export const REMOVE_LIST = 'REMOVE_LIST'
 export type Actions = {
     ADD_LIST: {
         type: typeof ADD_LIST,
-        id: String,
-        title: String,
+        id: number,
+        title: string,
+        rank: string,
     },
     REMOVE_LIST: {
         type: typeof REMOVE_LIST,
-        index: String,
+        index: number,
     },
 }
 
 export const actionCreators = {
-    addList: (id: String, title: String): Actions[typeof ADD_LIST] => ({
+    addList: (id: number, title: string, rank: string): Actions[typeof ADD_LIST] => ({
         type: ADD_LIST,
         id,
         title,
+        rank,
     }),
-    remove: (index: String): Actions[typeof REMOVE_LIST] => ({
+    remove: (index: number): Actions[typeof REMOVE_LIST] => ({
         type: REMOVE_LIST,
         index,
     }),

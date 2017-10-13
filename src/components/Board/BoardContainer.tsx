@@ -1,64 +1,39 @@
-import * as React from 'react'
-import { setTimeout } from 'timers'
+import { connect } from 'react-redux'
 
-import { StateProps } from '../StateProps'
+import Board from './Board'
+import { actionCreators } from '../../redux/boards/actions'
+import { RootState, Dispatch } from '../../redux/RootReducer'
 
-import Board from './DnDContextBoard'
-import BoardModel from '../../models/Board'
+import { IList } from '../../redux/lists/types'
+import { ITag } from '../../redux/tags/types'
+import { IUserRoleInBoard } from '../../redux/boards/types'
 
-interface BoardContainerProps {
-    id: number
+const mapStateToProps = (state: RootState) => {
+    return { board: state.board }
 }
 
-interface BoardContainerState extends StateProps {
-    board: BoardModel | null
-}
-
-class BoardContainer extends React.Component<BoardContainerProps, BoardContainerState> {
-    constructor(props: BoardContainerProps) {
-        super(props)
-        this.state = {
-            loading: true,
-            board: null
+const mapDispatchToProps = (dispatch: Dispatch) => {
+    return {
+        create: (   id: number, 
+                    title: string, 
+                    isPrivate: boolean, 
+                    lists: IList[], 
+                    tags: ITag[], 
+                    userRole: IUserRoleInBoard[]) => {
+            dispatch(actionCreators.createBoardRequest(title, isPrivate, lists, tags, userRole))
+        },
+        delete: (index: number) => {
+            dispatch(actionCreators.removeBoardRequest(index))
+        },
+        setTitle: (title: string) => {
+            return // TODO for Alexis
         }
-
-        this.setTitle = this.setTitle.bind(this)
-    }
-
-    componentWillMount() {
-        // Fetch
-        setTimeout(
-            () => {
-                this.setState({
-                    loading: false,
-                    board: {
-                        title: 'Hello',
-                        lists: [1, 5, 8]
-                    }
-                })
-            }, 
-            130)
-    }
-
-    setTitle(title: string) {
-        this.setState({
-            board: {
-                ...this.state.board!,
-                title
-            }
-        })
-    }
-
-    render() {
-        return (
-            <Board 
-                error={this.state.error} 
-                loading={this.state.loading} 
-                board={this.state.board!} 
-                setTitle={this.setTitle} 
-            />
-        )
     }
 }
+
+const BoardContainer = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Board)
 
 export default BoardContainer

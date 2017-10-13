@@ -5,9 +5,10 @@ import { StateProps } from '../StateProps'
 
 import TasksList from './TasksList'
 import ListModel from '../../models/List'
+import { IList } from '../../redux/lists/types'
 
 interface TasksListContainerProps {
-    id: number
+    list: IList
 }
 
 interface TasksListContainerState extends StateProps {
@@ -51,7 +52,7 @@ class TasksListContainer extends React.Component<TasksListContainerProps, TasksL
             <TasksList 
                 error={this.state.error} 
                 loading={this.state.loading}
-                id={this.props.id} 
+                id={this.props.list.id} 
                 list={this.state.list!} 
                 setTitle={this.setTitle} 
             />
