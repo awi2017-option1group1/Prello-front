@@ -14,11 +14,12 @@ import registerServiceWorker from './registerServiceWorker'
 import './index.css'
 
 import store, { history } from './redux/store'
-import { actionCreators } from './redux/login/actions'
+import { actionCreators } from './redux/auth/actions'
 
 /* Pages Components Imports */
 import IndexPage from './routes/IndexPage'
 import LoginPage from './routes/LoginPage'
+import LogoutPage from './routes/LogoutPage'
 import BoardPage from './routes/BoardPage'
 import PageNotFound from './routes/PageNotFound'
 
@@ -37,6 +38,7 @@ ReactDOM.render(
                     <Route exact={true} path="/" component={IndexPage}/>
                     <Container>
                         <Route path="/login" component={LoginPage}/>
+                        <Route path="/logout" component={LogoutPage}/>
                         <Route path="/board" component={BoardPage}/>
                         <Route path="*" component={PageNotFound}/>
                     </Container>

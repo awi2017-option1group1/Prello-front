@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 
 import { RootState, Dispatch } from '../../redux/RootReducer'
-import { actionCreators } from '../../redux/login/actions'
+import { actionCreators } from '../../redux/auth/actions'
 import LoginForm from './LoginForm'
 
 const mapStateToProps = (state: RootState) => {

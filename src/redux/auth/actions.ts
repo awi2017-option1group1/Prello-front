@@ -7,6 +7,7 @@ import { AUTH } from '../../services/auth'
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_RESPONSE_SUCCESS = 'LOGIN_RESPONSE_SUCCESS'
 export const LOGIN_RESPONSE_ERROR = 'LOGIN_RESPONSE_ERROR'
+export const LOGOUT = 'LOGOUT'
 
 export type Actions = {
     LOGIN_REQUEST: {
@@ -19,10 +20,20 @@ export type Actions = {
     LOGIN_RESPONSE_ERROR: {
         type: typeof LOGIN_RESPONSE_ERROR,
         error: string
-    }
+    },
+    LOGOUT: {
+        type: typeof LOGOUT
+    },
 }
 
 export const actionCreators = {
+    logout: () => {
+        return (dispatch: Dispatch) => {
+            AUTH.removeUserToken()
+            dispatch(push('/'))
+        }
+    },
+
     loginRequest: (): Actions[typeof LOGIN_REQUEST] => ({
         type: LOGIN_REQUEST
     }),
