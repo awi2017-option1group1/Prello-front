@@ -2,7 +2,7 @@ import thunk from 'redux-thunk'
 import * as nock from 'nock'
 import configureMockStore from 'redux-mock-store'
 
-import { getBaseUrl } from '../../services/index'
+import { getBaseUrl } from '../../services/http'
 
 import { CREATE_BOARD, CREATE_BOARD_SUCCESS, 
     BOARD_ERROR, BOARD_SUCCESS, 

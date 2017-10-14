@@ -1,5 +1,5 @@
 import { Dispatch } from '../../RootReducer'
-import { API } from '../../../services'
+import { API } from '../../../services/http'
 
 import { IList } from '../../lists/types'
 import { ITag } from '../../tags/types'

@@ -2,7 +2,7 @@ import thunk from 'redux-thunk'
 import * as nock from 'nock'
 import configureMockStore from 'redux-mock-store'
 
-import { getBaseUrl } from '../../services/index'
+import { getBaseUrl } from '../../services/http'
 import { LOGIN_REQUEST, LOGIN_RESPONSE_ERROR, LOGIN_RESPONSE_SUCCESS, actionCreators } from './actions'
 
 describe('Login sync actions', () => {
@@ -16,9 +16,9 @@ describe('Login sync actions', () => {
     it('should create an action to notify a success login response', () => {
         const expectedAction = {
             type: LOGIN_RESPONSE_SUCCESS,
-            content: { user: 1 }
+            token: '...'
         }
-        expect(actionCreators.loginSuccess({ user: 1 })).toEqual(expectedAction)
+        expect(actionCreators.loginSuccess('...')).toEqual(expectedAction)
     })
 
     it('should create an action to notify an error login response', () => {
@@ -40,11 +40,12 @@ describe('Login async actions', () => {
     it('should create LOGIN_RESPONSE_SUCCESS when success login response is received', () => {
         nock(getBaseUrl())
             .post('/login')
-            .reply(200, { user: 1 })
+            .reply(200, { token: '...' })
 
         const expectedActions = [
             { type: LOGIN_REQUEST },
-            { type: LOGIN_RESPONSE_SUCCESS, content: { user: 1 } }
+            { type: LOGIN_RESPONSE_SUCCESS, token: '...' },
+            { type: '@@router/CALL_HISTORY_METHOD', payload: { method: 'push', args: ['/'] } }
         ]
         const store = mockStore({ login: {} })
 
