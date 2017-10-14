@@ -4,7 +4,14 @@ import { Button } from 'semantic-ui-react'
 const GitHubButton = () => {
   return (
     <div>
-        <Button color="teal" fluid={true} size="large">Connect with GitHub</Button>
+        <Button 
+          color="teal" 
+          fluid={true} 
+          size="large" 
+          content="Connect with GitHub" 
+          icon="github" 
+          labelPosition="left" 
+        />
     </div>
   )
 }

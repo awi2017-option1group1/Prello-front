@@ -3,12 +3,11 @@ import * as ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { Route, Switch } from 'react-router'
 import { ConnectedRouter } from 'react-router-redux'
-import { Container } from 'semantic-ui-react'
 
-/*Pages Components Imports */
 import Layout from './components/Layout'
 
 import { AUTH } from './services/auth'
+import { requireNotAuth, requireAuth } from './components/Auth'
 
 // import registerServiceWorker from './registerServiceWorker'
 import './index.css'
@@ -18,17 +17,23 @@ import { actionCreators } from './redux/auth/actions'
 
 /* Pages Components Imports */
 import IndexPage from './routes/IndexPage'
-import LoginPage from './routes/LoginPage'
-import LogoutPage from './routes/LogoutPage'
+import RegisterPage from './routes/RegisterPage'
+import RegisterSuccessPage from './routes/RegisterSuccessPage'
 import BoardPage from './routes/BoardPage'
 import PageNotFound from './routes/PageNotFound'
 
 /* Authenticate user */
-if (AUTH.isUserAuthenticated()) {
-    store.dispatch(
-        actionCreators.loginSuccess(AUTH.getUserToken()!)
-    )
-}
+AUTH.get('/me')
+.then(
+    response => {
+        store.dispatch(
+            actionCreators.loginSuccess(response.me)
+        )
+    }
+)
+.catch(error => store.dispatch(
+    actionCreators.loginFail()
+))
 
 ReactDOM.render(
     <Provider store={store}>
@@ -36,12 +41,13 @@ ReactDOM.render(
             <Layout>
                 <Switch>
                     <Route exact={true} path="/" component={IndexPage}/>
-                    <Container>
-                        <Route path="/login" component={LoginPage}/>
-                        <Route path="/logout" component={LogoutPage}/>
-                        <Route path="/board" component={BoardPage}/>
-                        <Route path="*" component={PageNotFound}/>
-                    </Container>
+
+                    <Route path="/register/success" component={requireNotAuth(RegisterSuccessPage)}/>
+                    <Route path="/register" component={requireNotAuth(RegisterPage)}/>
+                    
+                    <Route path="/board" component={requireAuth(BoardPage)}/>
+                    
+                    <Route component={PageNotFound}/>
                 </Switch>
             </Layout>
         </ConnectedRouter>

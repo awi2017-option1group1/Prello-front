@@ -1,7 +1,9 @@
 import { combineReducers, Dispatch as ReduxDispatch } from 'redux'
 import { routerReducer as router, RouterState } from 'react-router-redux'
+
 import { reducer as lists, State as ListsState } from './lists/reducers'
-import { reducer as login, State as LoginState } from './auth/reducers'
+import { reducer as auth, State as AuthState } from './auth/reducers'
+import { reducer as register, State as RegisterState } from './register/reducers'
 import { reducer as boards, State as BoardsState } from './boards/boardsList/reducers'
 import { reducer as board, State as BoardState } from './boards/reducers'
 
@@ -12,7 +14,8 @@ export interface RootState extends StoreEnhancerState {
     boards: BoardsState,
     board: BoardState,
     todos: ListsState,
-    login: LoginState
+    auth: AuthState,
+    register: RegisterState
 }
 
 export type Dispatch = ReduxDispatch<RootState>
@@ -22,5 +25,6 @@ export const rootReducer = combineReducers<RootState>({
     lists,
     boards,
     board,
-    login
+    auth,
+    register
 })

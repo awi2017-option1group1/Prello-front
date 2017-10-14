@@ -11,3 +11,7 @@ main .ui.container {
 footer {
   margin-top: 25px;
 }
+
+.ui.inverted.segment.bg-segment {
+  padding: 25px 0;
+}
