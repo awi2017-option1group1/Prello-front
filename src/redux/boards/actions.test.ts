@@ -42,6 +42,16 @@ describe('Board sync actions', () => {
     it('should return a success create board action', () => {
         const expectedAction = {
             type: CREATE_BOARD_SUCCESS,
+            board: {
+                id: 1,
+                title: '',
+                isPrivate: false,
+                lists: [],
+                tags: [],
+                userRole: [],
+            }
+        }
+        const board: IBoard = {
             id: 1,
             title: '',
             isPrivate: false,
@@ -49,7 +59,7 @@ describe('Board sync actions', () => {
             tags: [],
             userRole: [],
         }
-        expect(actionCreators.createBoardSuccess(1, '', false, [], [], [])).toEqual(expectedAction)
+        expect(actionCreators.createBoardSuccess(board)).toEqual(expectedAction)
     }),
 
     it('should return a remove board action', () => {
@@ -106,12 +116,14 @@ describe('Board async actions', () => {
             },
             { 
                 type: CREATE_BOARD_SUCCESS,
-                id: 1,
-                title: '',
-                isPrivate: false,
-                lists: [],
-                tags: [],
-                userRole: [],
+                board: {
+                    id: 1,
+                    title: '',
+                    isPrivate: false,
+                    lists: [],
+                    tags: [],
+                    userRole: [],
+                }
             }
         ]
         const store = mockStore({ boards: {} })
@@ -176,12 +188,14 @@ describe('Board async actions', () => {
             { type: UPDATE_BOARD, board: boardTest},
             {
                 type: CREATE_BOARD_SUCCESS,
-                id: 1,
-                title: 'test',
-                isPrivate: false,
-                lists: [],
-                tags: [],
-                userRole: [], 
+                board: {
+                    id: 1,
+                    title: 'test',
+                    isPrivate: false,
+                    lists: [],
+                    tags: [],
+                    userRole: [], 
+                }
             }
         ]
         const store = mockStore({ boards: [

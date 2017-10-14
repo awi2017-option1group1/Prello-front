@@ -48,12 +48,7 @@ export type Actions = {
     },
     CREATE_BOARD_SUCCESS: {
         type: typeof CREATE_BOARD_SUCCESS,
-        id: number,
-        title: string,
-        isPrivate: boolean,
-        lists: IList[],
-        tags: ITag[],
-        userRole: IUserRoleInBoard[],
+        board: IBoard,
     },
 
     REMOVE_BOARD: {
@@ -92,20 +87,10 @@ export const actionCreators = {
         tags,
         userRole,
     }),
-    createBoardSuccess: (   id: number,
-                            title: string, 
-                            isPrivate: boolean, 
-                            lists: IList[], 
-                            tags: ITag[], 
-                            userRole: IUserRoleInBoard[]):
+    createBoardSuccess: (board: IBoard):
     Actions[typeof CREATE_BOARD_SUCCESS] => ({
         type: CREATE_BOARD_SUCCESS,
-        id,
-        title,
-        isPrivate,
-        lists,
-        tags,
-        userRole,
+        board,
     }),
 
     removeBoardRequest: (id: number): Actions[typeof REMOVE_BOARD] => ({
@@ -123,12 +108,7 @@ export const actionCreators = {
         return (dispatch: Dispatch) => {
             dispatch(actionCreators.createBoardRequest(board.title, board.isPrivate, [], [], []))
             return API.post('/boards', board).then(
-                response => dispatch(actionCreators.createBoardSuccess( response.board.id,
-                                                                        response.board.title, 
-                                                                        response.board.isPrivate, 
-                                                                        response.board.lists, 
-                                                                        response.board.tags,
-                                                                        response.board.userRole)),
+                response => dispatch(actionCreators.createBoardSuccess(response.board)),
                 error => dispatch(actionCreators.boardError(error.message)),
             )
         }
@@ -148,12 +128,7 @@ export const actionCreators = {
         return (dispatch: Dispatch) => {
             dispatch(actionCreators.updateBoardRequest(board))
             return API.put(`/boards/${board.id}`, board).then(
-                response => dispatch(actionCreators.createBoardSuccess( response.board.id,
-                                                                        response.board.title, 
-                                                                        response.board.isPrivate, 
-                                                                        response.board.lists, 
-                                                                        response.board.tags,
-                                                                        response.board.userRole)),
+                response => dispatch(actionCreators.createBoardSuccess(response.board)),
                 error => dispatch(actionCreators.boardError(error.message)),
             )
         }
