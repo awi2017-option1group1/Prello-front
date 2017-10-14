@@ -5,17 +5,19 @@ import { reducer } from './reducers'
 describe('Login reducer', () => {
     it('should return the initial state', () => {
         expect(reducer(undefined, { type: TEST })).toEqual({
-            content: {},
+            token: null,
             error: null,
-            isProcessing: false
+            isProcessing: false,
+            isAuthenticated: false
         })
     })
 
     it('should handle LOGIN_REQUEST', () => {
         expect(reducer(undefined, { type: LOGIN_REQUEST })).toEqual({
-            content: {},
+            token: null,
             error: null,
-            isProcessing: true
+            isProcessing: true,
+            isAuthenticated: false
         })
     })
 
@@ -25,11 +27,12 @@ describe('Login reducer', () => {
                 undefined, 
                 { 
                     type: LOGIN_RESPONSE_SUCCESS, 
-                    content: { user: 1 } 
+                    token: '...' 
                 }
             )
         ).toEqual({
-            content: { user: 1 },
+            token: '...',
+            isAuthenticated: true,
             error: null,
             isProcessing: false
         })
@@ -37,17 +40,19 @@ describe('Login reducer', () => {
         expect(
             reducer(
                 {
-                    content: {},
+                    token: null,
+                    isAuthenticated: false,
                     error: null,
                     isProcessing: true
                 }, 
                 { 
                     type: LOGIN_RESPONSE_SUCCESS, 
-                    content: { user: 2 } 
+                    token: '...' 
                 }
             )
         ).toEqual({
-            content: { user: 2 },
+            token: '...',
+            isAuthenticated: true,
             error: null,
             isProcessing: false
         })
@@ -63,15 +68,17 @@ describe('Login reducer', () => {
                 }
             )
         ).toEqual({
-            content: {},
+            token: null,
             error: 'Error',
-            isProcessing: false
+            isProcessing: false,
+            isAuthenticated: false
         })
 
         expect(
             reducer(
                 {
-                    content: {},
+                    token: null,
+                    isAuthenticated: false,
                     error: null,
                     isProcessing: true
                 }, 
@@ -81,9 +88,10 @@ describe('Login reducer', () => {
                 }
             )
         ).toEqual({
-            content: {},
+            token: null,
             error: 'Error 2',
-            isProcessing: false
+            isProcessing: false,
+            isAuthenticated: false
         })
     })
 })
