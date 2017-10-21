@@ -1,7 +1,7 @@
 import { RouterAction, LocationChangeAction } from 'react-router-redux'
 
 import { Actions as ListActions } from './lists/actions'
-import { Actions as LoginActions } from './login/actions'
+import { Actions as LoginActions } from './auth/actions'
 import { Actions as BoardsActions } from './boards/boardsList/actions'
 import { Actions as BoardActions } from './boards/actions'
 import { Actions as TestActions } from './testActions'
