@@ -1,5 +1,5 @@
 #!/bin/bash
-git remote add heroku https://git.heroku.com/prello.git
+git remote add heroku https://git.heroku.com/prello-front.git
 git config --global user.email "porquepix@hotmail.fr"
 git config --global user.name "Alexis Andrieu"
 
