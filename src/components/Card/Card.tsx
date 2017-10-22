@@ -12,7 +12,7 @@ import CardModel from '../../models/Card'
 import './card.css'
 
 export interface CardProps extends StateProps {
-    id: number
+    id: number 
     card: CardModel
 }
 
