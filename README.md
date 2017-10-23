@@ -22,6 +22,9 @@ To run the project, you need to have at least `node v8` and `npm v5`.
 
 ## Execution
 
+- Source the `.env.dev` file
+
+    `source .env.dev`
 - To run the application in development mode (need the back-end up and running) 
 
     `npm run start:dev`

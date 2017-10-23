@@ -10,7 +10,7 @@ import Layout from './components/Layout'
 
 import { AUTH } from './services/auth'
 
-import registerServiceWorker from './registerServiceWorker'
+// import registerServiceWorker from './registerServiceWorker'
 import './index.css'
 
 import store, { history } from './redux/store'
@@ -48,4 +48,4 @@ ReactDOM.render(
     </Provider>, 
     document.getElementById('root')
 )
-registerServiceWorker()
+// registerServiceWorker()
