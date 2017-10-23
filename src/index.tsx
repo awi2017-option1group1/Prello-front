@@ -22,6 +22,7 @@ import LoginPage from './routes/LoginPage'
 import LogoutPage from './routes/LogoutPage'
 import BoardPage from './routes/BoardPage'
 import PageNotFound from './routes/PageNotFound'
+import TestPageMathieu from './routes/TestPageMathieu'
 
 /* Authenticate user */
 if (AUTH.isUserAuthenticated()) {
@@ -40,6 +41,7 @@ ReactDOM.render(
                         <Route path="/login" component={LoginPage}/>
                         <Route path="/logout" component={LogoutPage}/>
                         <Route path="/board" component={BoardPage}/>
+                        <Route path="/m" component={TestPageMathieu}/>
                         <Route path="*" component={PageNotFound}/>
                     </Container>
                 </Switch>

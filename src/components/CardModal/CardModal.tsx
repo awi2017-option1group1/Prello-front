@@ -1,11 +1,12 @@
 import * as React from 'react'
 import { StateProps } from '../StateProps'
 import Spinner from '../common/Spinner'
-import { Card as SmCard, Button, Modal, Input, Icon, Grid, Segment, Accordion, Checkbox,
-                Comment, Header, Menu, Form, Label } from 'semantic-ui-react'
 import { Component } from 'react'
+
 import { AssigneesSegment } from './../AssigneesSegment'
 import { AttachmentsModal } from './../AttachmentsModal'
+import { Card as SmCard, Button, Modal, Input, Icon, Grid, Segment, Accordion, Checkbox,
+    Comment, Header, Menu, Form, Label } from 'semantic-ui-react'
 
 export interface ModalProps extends StateProps {
     id: number

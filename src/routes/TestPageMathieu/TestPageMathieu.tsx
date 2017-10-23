@@ -1,32 +1,36 @@
 import * as React from 'react'
 import CardModal from './../../components/CardModal'
-import { Card, Feed } from 'semantic-ui-react'
+import { Card as SmCard , Feed } from 'semantic-ui-react'
+
+import Card  from './../../components/Card'
 
 class TestPageMathieu extends React.Component {
     
     render() {
+
       return (
         <div>
-            <Card>
-              <Card.Content>
-                <Card.Header>
+            <SmCard>
+              <SmCard.Content>
+                <SmCard.Header>
                   Card for modal tests
-                </Card.Header>
-              </Card.Content>
-              <Card.Content>
+                </SmCard.Header>
+              </SmCard.Content>
+              <SmCard.Content>
                 <Feed>
                   <Feed.Event>
                     <Feed.Content>
                       <Feed.Date content="1 day ago" />
                       <Feed.Summary>
                         You added <a>Jenny Hess</a> to your <a>coworker</a> group.
-                        <CardModal id={1} visible={true}/>
+                        <CardModal id={1} visible={true} />
                       </Feed.Summary>
                     </Feed.Content>
                   </Feed.Event>
                 </Feed>
-              </Card.Content>
-            </Card>
+              </SmCard.Content>
+            </SmCard>
+            <Card id={1}/>
         </div>
       )
     }
