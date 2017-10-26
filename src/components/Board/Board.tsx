@@ -32,7 +32,7 @@ const Board: React.StatelessComponent<BoardProps> = (props) => {
                 <Button content="Add column" icon="plus" labelPosition="left" primary={true} circular={true} />
             </SplitHeader>
             <section id="task-lists" className="task-lists">
-                {props.board.lists.map(list => <TasksList list={list} key={list.id} />)} 
+                {props.board.lists.map(list => <TasksList list={list} key={list.id} />)}
             </section>
         </section>
     )

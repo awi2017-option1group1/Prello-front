@@ -1,4 +1,4 @@
-import { CREATE_BOARD, REMOVE_BOARD } from './actions'
+import { CREATE_BOARD, REMOVE_BOARD, FETCH_BOARD_SUCCESS } from './actions'
 import { RootAction } from '../RootAction'
 import { IList } from '../lists/types'
 import { ITag } from '../tags/types'
@@ -18,7 +18,7 @@ const defaultValue: State = {
     lists: [],
     tags: [],
 }
-export const reducer = (state: State = defaultValue, action: RootAction) => { 
+export const reducer = (state: State = defaultValue, action: RootAction) => {
         switch (action.type) {
             case CREATE_BOARD:
                 return {
@@ -27,6 +27,13 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
                     lists: action.lists,
                     tags: action.tags,
                     userRole: action.userRole,
+                }
+
+            case FETCH_BOARD_SUCCESS:
+                return {
+                    board: action.board,
+                    lists: state.lists
+
                 }
 
             case REMOVE_BOARD:

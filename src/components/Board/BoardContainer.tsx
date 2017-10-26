@@ -1,24 +1,29 @@
+import * as React from 'react'
+import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 
-import Board from './Board'
+import Board, { BoardProps } from './Board'
 import { actionCreators } from '../../redux/boards/actions'
 import { RootState, Dispatch } from '../../redux/RootReducer'
+import store from '../../redux/store'
 
 import { IList } from '../../redux/lists/types'
 import { ITag } from '../../redux/tags/types'
 import { IUserRoleInBoard } from '../../redux/boards/types'
 
 const mapStateToProps = (state: RootState) => {
-    return { board: state.board }
+    return {
+        board: state.board
+    }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
-        create: (   id: number, 
-                    title: string, 
-                    isPrivate: boolean, 
-                    lists: IList[], 
-                    tags: ITag[], 
+        create: (   id: number,
+                    title: string,
+                    isPrivate: boolean,
+                    lists: IList[],
+                    tags: ITag[],
                     userRole: IUserRoleInBoard[]) => {
             dispatch(actionCreators.createBoardRequest(title, isPrivate, lists, tags, userRole))
         },
@@ -31,9 +36,19 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     }
 }
 
-const BoardContainer = connect(
+class BoardContainer extends React.Component<BoardProps> {
+    componentWillMount() {
+        store.dispatch(actionCreators.fetchBoard(this.props.match!.params.id))
+    }
+
+    render() {
+        return <Board {...this.props} />
+    }
+}
+
+const boardContainer = withRouter(connect(
     mapStateToProps,
     mapDispatchToProps
-)(Board)
+)(BoardContainer))
 
-export default BoardContainer
+export default boardContainer
