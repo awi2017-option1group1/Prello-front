@@ -50,6 +50,10 @@ jobs:
       - run:
           name: Unit tests
           command: npm run test
+          environment:
+            HOST: "http://localhost"
+            API_SUFFIX: "api"
+            AUTH_SUFFIX: "auth"
 
   tests_linting:
     <<: *container_config
@@ -94,11 +98,3 @@ workflows:
       - tests_linting:
           requires:
             - build            
-      - deploy:
-          filters:
-            branches:
-              only: master
-          requires:
-            - tests
-            - tests_linting   
- 
