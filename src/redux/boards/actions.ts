@@ -10,15 +10,12 @@ export const FETCH_BOARD_ERROR = 'FETCH_BOARD_ERROR'
 // export const CREATE_BOARD = 'CREATE_BOARD'
 // export const CREATE_BOARD_SUCCESS = 'CREATE_BOARD_SUCCESS'
 // export const CREATE_BOARD_ERROR = 'CREATE_BOARD_ERROR'
-
 // export const REMOVE_BOARD = 'REMOVE_BOARD'
 // export const REMOVE_BOARD_SUCCESS = 'REMOVE_BOARD_SUCCESS'
 // export const REMOVE_BOARD_ERROR = 'REMOVE_BOARD_ERROR'
-
 // export const UPDATE_BOARD = 'UPDATE_BOARD'
 // export const UPDATE_BOARD_SUCCESS = 'UPDATE_BOARD_SUCCESS'
 // export const UPDATE_BOARD_ERROR = 'UPDATE_BOARD_ERROR'
-
 export type Actions = {
 
     FETCH_BOARD: {
@@ -46,11 +43,9 @@ export type Actions = {
     //     type: typeof CREATE_BOARD_SUCCESS,
     //     board: IBoard,
     // },
-
     // REMOVE_BOARD: {
     //     type: typeof REMOVE_BOARD,
     // },
-
     // UPDATE_BOARD: {
     //     type: typeof UPDATE_BOARD,
     //     board: IBoard,
@@ -98,11 +93,9 @@ export const actionCreators = {
     //     type: CREATE_BOARD_SUCCESS,
     //     board,
     // }),
-
     // removeBoardRequest: (id: number): Actions[typeof REMOVE_BOARD] => ({
     //     type: REMOVE_BOARD,
     // }),
-
     // updateBoardRequest: (board: IBoard): Actions[typeof UPDATE_BOARD] => ({
     //     type: UPDATE_BOARD,
     //     board,
@@ -119,7 +112,6 @@ export const actionCreators = {
     //         )
     //     }
     // },
-
     // removeBackendBoard: (id: number) => {
     //     return (dispatch: Dispatch) => {
     //         dispatch(actionCreators.removeBoardRequest(id))
@@ -129,7 +121,6 @@ export const actionCreators = {
     //         )
     //     }
     // },
-
     // updateBackendBoard: (board: IBoard) => {
     //     return (dispatch: Dispatch) => {
     //         dispatch(actionCreators.updateBoardRequest(board))
@@ -139,5 +130,4 @@ export const actionCreators = {
     //         )
     //     }
     // }
-
 }
