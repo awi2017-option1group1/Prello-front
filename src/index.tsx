@@ -39,13 +39,13 @@ ReactDOM.render(
                     <Container>
                         <Route path="/login" component={LoginPage}/>
                         <Route path="/logout" component={LogoutPage}/>
-                        <Route path="/board" component={BoardPage}/>
+                        <Route path="/board/:id" component={BoardPage}/>
                         <Route path="*" component={PageNotFound}/>
                     </Container>
                 </Switch>
             </Layout>
         </ConnectedRouter>
-    </Provider>, 
+    </Provider>,
     document.getElementById('root')
 )
 registerServiceWorker()
