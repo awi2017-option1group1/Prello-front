@@ -41,6 +41,7 @@ ReactDOM.render(
             <Layout>
                 <Switch>
                     <Route exact={true} path="/" component={IndexPage}/>
+<<<<<<< 020be93cd86e825b9f590fd5426e1552751b3a7b
 
                     <Route path="/register/success" component={requireNotAuth(RegisterSuccessPage)}/>
                     <Route path="/register" component={requireNotAuth(RegisterPage)}/>
@@ -48,10 +49,18 @@ ReactDOM.render(
                     <Route path="/board" component={requireAuth(BoardPage)}/>
                     
                     <Route component={PageNotFound}/>
+=======
+                    <Container>
+                        <Route path="/login" component={LoginPage}/>
+                        <Route path="/logout" component={LogoutPage}/>
+                        <Route path="/board/:id" component={BoardPage}/>
+                        <Route path="*" component={PageNotFound}/>
+                    </Container>
+>>>>>>> fix(routes): fixed board id on route
                 </Switch>
             </Layout>
         </ConnectedRouter>
-    </Provider>, 
+    </Provider>,
     document.getElementById('root')
 )
 // registerServiceWorker()
