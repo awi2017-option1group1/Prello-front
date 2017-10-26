@@ -41,7 +41,7 @@ ReactDOM.render(
             <Layout>
                 <Switch>
                     <Route exact={true} path="/" component={IndexPage}/>
-
+                    
                     <Route path="/register/success" component={requireNotAuth(RegisterSuccessPage)}/>
                     <Route path="/register" component={requireNotAuth(RegisterPage)}/>
                     
@@ -51,7 +51,7 @@ ReactDOM.render(
                 </Switch>
             </Layout>
         </ConnectedRouter>
-    </Provider>, 
+    </Provider>,
     document.getElementById('root')
 )
 // registerServiceWorker()
