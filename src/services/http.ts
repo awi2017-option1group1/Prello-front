@@ -1,5 +1,7 @@
 import * as rp from 'request-promise'
 
+import { config } from '../config'
+
 import { AUTH } from './auth'
 
 class Api {
@@ -72,11 +74,7 @@ class Api {
 }
 
 export const getBaseUrl = () => {
-    if (process.env.NODE_ENV === 'production') {
-        return 'https://prello-api.herokuapp.com'
-    } else {
-        return 'http://localhost:5000'
-    }
+    return `${config.server.host}/${config.server.apiSuffix}`
 }
 
 export const API = new Api(getBaseUrl())
