@@ -16,7 +16,8 @@
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
     "semantic-ui-react": "^0.74.2",
-    "serve": "^6.2.0"
+    "serve": "^6.2.0",
+    "valuelink": "^1.5.4"
   },
   "scripts": {
     "start:dev": "react-scripts-ts start",

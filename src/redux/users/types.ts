@@ -12,11 +12,17 @@ export type IUser = {
     id: number,
     firstName: string,
     lastName: string,
-    speudo: string,
+    pseudo: string,
     biography: Text,
     notificationEnabled: boolean,
     email: string,
     password: string,
     boardRole: IBoardRole[],
     teamRole: ITeamRole[]
+}
+
+export type ILoggedUser = {
+    uid: number, 
+    email: string,
+    username: string
 }
