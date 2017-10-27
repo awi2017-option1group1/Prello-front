@@ -6,6 +6,7 @@ import { Actions as RegisterActions } from './register/actions'
 import { Actions as BoardsActions } from './boards/boardsList/actions'
 import { Actions as BoardActions } from './boards/actions'
 import { Actions as TestActions } from './testActions'
+import { Actions as CardActions } from './cards/actions'
 
 type ReactRouterAction = RouterAction | LocationChangeAction
 
@@ -17,3 +18,4 @@ export type RootAction =
   | BoardsActions[keyof BoardsActions]
   | BoardActions[keyof BoardActions]
   | TestActions[keyof TestActions]
+  | CardActions[keyof CardActions]

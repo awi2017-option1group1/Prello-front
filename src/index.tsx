@@ -21,6 +21,7 @@ import RegisterPage from './routes/RegisterPage'
 import RegisterSuccessPage from './routes/RegisterSuccessPage'
 import BoardPage from './routes/BoardPage'
 import PageNotFound from './routes/PageNotFound'
+import TestPageMathieu from './routes/TestPageMathieu'
 
 /* Authenticate user */
 AUTH.get('/me')
