@@ -2,7 +2,7 @@ import * as React from 'react'
 import CardModal from './../../components/CardModal'
 import { Card as SmCard , Feed } from 'semantic-ui-react'
 
-import Card  from './../../components/Card'
+// import Card  from './../../components/Card'
 
 class TestPageMathieu extends React.Component {
     
@@ -30,7 +30,7 @@ class TestPageMathieu extends React.Component {
                 </Feed>
               </SmCard.Content>
             </SmCard>
-            <Card id={1}/>
+            
         </div>
       )
     }
