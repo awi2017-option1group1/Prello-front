@@ -1,7 +1,3 @@
-import { push } from 'react-router-redux'
-
-import { Dispatch } from '../RootReducer'
-
 import { ILoggedUser } from '../users/types'
 
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
