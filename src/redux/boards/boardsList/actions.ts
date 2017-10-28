@@ -84,7 +84,7 @@ export const actionCreators = {
     // --------------------------------------- //
     addBackendBoard: (board: IBoard) => {
         return (dispatch: Dispatch) => {
-            dispatch(actionCreators.addBoardRequest(board.title, board.isPrivate, [], []))
+            dispatch(actionCreators.addBoardRequest(board.name, board.isPrivate, [], []))
             return API.post('/boards', board).then( // This is supposed to add a board in the 
                                                     // list of the users board, so a single post to that route 
                                                     // may not be the solution

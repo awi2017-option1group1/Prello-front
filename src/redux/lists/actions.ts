@@ -1,28 +1,45 @@
-export const ADD_LIST = 'ADD_LIST'
-export const REMOVE_LIST = 'REMOVE_LIST'
+import { Dispatch } from '../RootReducer'
+import { API } from '../../services/http'
+
+import { IList } from './types'
+
+export const FETCH_BOARD_LISTS = 'FETCH_BOARD_LISTS'
+export const FETCH_BOARD_LISTS_SUCCESS = 'FETCH_BOARD_LISTS_SUCCESS'
+export const FETCH_BOARD_LISTS_ERROR = 'FETCH_BOARD_LISTS_ERROR'
 
 export type Actions = {
-    ADD_LIST: {
-        type: typeof ADD_LIST,
-        id: number,
-        title: string,
-        rank: string,
+    FETCH_BOARD_LISTS: {
+        type: typeof FETCH_BOARD_LISTS
     },
-    REMOVE_LIST: {
-        type: typeof REMOVE_LIST,
-        index: number,
+    FETCH_BOARD_LISTS_ERROR: {
+        type: typeof FETCH_BOARD_LISTS_ERROR,
+        error: string
+    },
+    FETCH_BOARD_LISTS_SUCCESS: {
+        type: typeof FETCH_BOARD_LISTS_SUCCESS,
+        lists: IList[]
     },
 }
 
 export const actionCreators = {
-    addList: (id: number, title: string, rank: string): Actions[typeof ADD_LIST] => ({
-        type: ADD_LIST,
-        id,
-        title,
-        rank,
+    fetchBoardListsRequest: (): Actions[typeof FETCH_BOARD_LISTS] => ({
+        type: FETCH_BOARD_LISTS
     }),
-    remove: (index: number): Actions[typeof REMOVE_LIST] => ({
-        type: REMOVE_LIST,
-        index,
+    fetchBoardListsRequestError: (error: string): Actions[typeof FETCH_BOARD_LISTS_ERROR] => ({
+        type: FETCH_BOARD_LISTS_ERROR,
+        error,
     }),
+    fetchBoardListsRequestSuccess: (lists: IList[]): Actions[typeof FETCH_BOARD_LISTS_SUCCESS] => ({
+        type: FETCH_BOARD_LISTS_SUCCESS,
+        lists,
+    }),
+    fetchBoardLists: (boardId: number) => {
+        return (dispatch: Dispatch) => {
+            dispatch(actionCreators.fetchBoardListsRequest())
+            return API.get(`/boards/${boardId}/lists`).then(
+                lists => dispatch(actionCreators.fetchBoardListsRequestSuccess(lists)),
+                error => dispatch(actionCreators.fetchBoardListsRequestError(error.error))
+            )
+        }
+    }
 }

@@ -6,14 +6,14 @@ import { RootState, Dispatch } from '../../redux/RootReducer'
 
 export function requireAuth(Component: React.ReactNode) {
     const mapStateToProps = (state: RootState) => ({
-        condition: state.auth.isAuthenticated,
+        condition: state.auth.isAuthenticated !== null ? state.auth.isAuthenticated : null,
         component: Component,
         location: state.router.location!.pathname
     })
     
     const mapDispatchToProps = (dispatch: Dispatch) => ({
         redirect: (currentLocation: string) => {
-            window.location.replace(`/auth/login?next=${currentLocation}`)
+            window.location.replace(`/auth/login?redirect=${currentLocation}`)
         }
     })
     
@@ -25,7 +25,7 @@ export function requireAuth(Component: React.ReactNode) {
 
 export function requireNotAuth(Component: React.ReactNode) {
     const mapStateToProps = (state: RootState) => ({
-        condition: !state.auth.isAuthenticated,
+        condition: state.auth.isAuthenticated !== null ? !state.auth.isAuthenticated : null,
         component: Component,
         location: state.router.location!.pathname
     })

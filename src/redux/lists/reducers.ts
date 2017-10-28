@@ -1,27 +1,46 @@
-import { ADD_LIST, REMOVE_LIST } from './actions'
 import { RootAction } from '../RootAction'
+import { FETCH_BOARD_LISTS, FETCH_BOARD_LISTS_ERROR, FETCH_BOARD_LISTS_SUCCESS } from './actions'
+
 import { IList } from '../lists/types'
 
-export type State = IList[]
+export type State = {
+    error: string | null,
+    isProcessing: boolean,
+    lists: IList[]
+}
 
-const defaultValue: State = []
+const defaultValue: State = {
+    error: null,
+    isProcessing: false,
+    lists: []
+}
 
 export const reducer = (state: State = defaultValue, action: RootAction) => {
-        switch (action.type) {
+    switch (action.type) {
+        case FETCH_BOARD_LISTS:
+            return {
+                ...state,
+                error: null,
+                isProcessing: true,
+                lists: []
+            }
+        
+        case FETCH_BOARD_LISTS_SUCCESS: 
+            return {
+                ...state,
+                error: null,
+                isProcessing: false,
+                lists: action.lists
+            }    
 
-            case ADD_LIST:
-                return [...state, {
-                    id: action.id,
-                    title: action.title,
-                }]
-
-            case REMOVE_LIST:
-                return [
-                    ...state.slice(0, action.index),
-                    ...state.slice(action.index + 1)
-                ]
-
-            default:
-                return state
+        case FETCH_BOARD_LISTS_ERROR:
+            return {
+                ...state,
+                error: action.error,
+                isProcessing: false
+            }
+        
+        default:
+            return state
     }
-  }
+}
