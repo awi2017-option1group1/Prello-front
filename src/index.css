@@ -6,10 +6,12 @@ body {
 
 main .ui.container {
   margin-top: 25px;
+  padding: 0 15px;
 }
 
 footer {
   margin-top: 25px;
+  padding: 0 15px;
 }
 
 .ui.inverted.segment.bg-segment {
