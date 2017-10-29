@@ -17,6 +17,7 @@ export interface BoardProps extends StateProps {
     board: IBoard
 
     setTitle: (title: string) => void
+    addList: () => void
 }
 
 class Board extends React.Component<BoardProps> {
@@ -37,7 +38,14 @@ class Board extends React.Component<BoardProps> {
             <section id="board">
                 <SplitHeader>
                     <EditableTitle type="h1" content={this.props.board.name} onSubmit={this.props.setTitle} />
-                    <Button content="Add column" icon="plus" labelPosition="left" primary={true} circular={true} />
+                    <Button 
+                        content="Add column" 
+                        icon="plus" 
+                        labelPosition="left" 
+                        primary={true} 
+                        circular={true} 
+                        onClick={this.props.addList} 
+                    />
                 </SplitHeader>
                 <TasksLists boardId={this.props.board.id} />
             </section>

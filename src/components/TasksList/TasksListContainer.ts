@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 
 import { RootState, Dispatch } from '../../redux/RootReducer'
+import { actionCreators } from '../../redux/lists/actions'
 import { IList } from '../../redux/lists/types'
 
 import TasksList from './TasksList'
@@ -10,11 +11,12 @@ interface TasksListsContainerProps {
 }
 
 interface PropsFromState {
-    // TODO
+    list: IList
 }
 
 interface PropsFromDispatch {
     setTitle: (title: string) => void
+    delete: () => void
 }
 
 const mapStateToProps = (state: RootState, ownProps: TasksListsContainerProps) => {
@@ -23,10 +25,14 @@ const mapStateToProps = (state: RootState, ownProps: TasksListsContainerProps) =
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch, ownProps: TasksListsContainerProps) => {
     return {
         setTitle: (title: string) => {
-            return
+            dispatch(actionCreators.updateBoardList(ownProps.list, { name: title }))
+        },
+
+        delete: () => {
+            dispatch(actionCreators.deleteBoardList(ownProps.list))
         }
     }
 }

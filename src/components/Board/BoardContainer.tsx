@@ -2,7 +2,8 @@ import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 
 import { RootState, Dispatch } from '../../redux/RootReducer'
-import { actionCreators } from '../../redux/boards/actions'
+import { actionCreators as boardsActionsCreators } from '../../redux/boards/actions'
+import { actionCreators as listsActionCreators } from '../../redux/lists/actions'
 import { IBoard } from '../../redux/boards/types'
 
 import Board from './DnDContextBoard'
@@ -24,6 +25,7 @@ interface PropsFromState {
 interface PropsFromDispatch {
     loadData?: () => void
     setTitle: (title: string) => void
+    addList: () => void
 }
 
 const mapStateToProps = (state: RootState) => {
@@ -36,10 +38,14 @@ const mapStateToProps = (state: RootState) => {
 
 const mapDispatchToProps = (dispatch: Dispatch, ownProps: BoardContainerProps) => {
     return {
-        loadData: () => { dispatch(actionCreators.fetchBoard(Number(ownProps.match.params.id))) },
+        loadData: () => { dispatch(boardsActionsCreators.fetchBoard(Number(ownProps.match.params.id))) },
 
         setTitle: (title: string) => {
             return // TODO for Alexis
+        },
+
+        addList: () => {
+            dispatch(listsActionCreators.createBoardList(Number(ownProps.match.params.id)))
         }
     }
 }
