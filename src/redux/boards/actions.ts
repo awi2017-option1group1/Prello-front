@@ -7,6 +7,10 @@ export const FETCH_BOARD = 'FETCH_BOARD'
 export const FETCH_BOARD_SUCCESS = 'FETCH_BOARD_SUCCESS'
 export const FETCH_BOARD_ERROR = 'FETCH_BOARD_ERROR'
 
+export const UPDATE_BOARD = 'UPDATE_BOARD'
+export const UPDATE_BOARD_SUCCESS = 'UPDATE_BOARD_SUCCESS'
+export const UPDATE_BOARD_ERROR = 'UPDATE_BOARD_ERROR'
+
 // export const CREATE_BOARD = 'CREATE_BOARD'
 // export const CREATE_BOARD_SUCCESS = 'CREATE_BOARD_SUCCESS'
 // export const CREATE_BOARD_ERROR = 'CREATE_BOARD_ERROR'
@@ -14,10 +18,6 @@ export const FETCH_BOARD_ERROR = 'FETCH_BOARD_ERROR'
 // export const REMOVE_BOARD = 'REMOVE_BOARD'
 // export const REMOVE_BOARD_SUCCESS = 'REMOVE_BOARD_SUCCESS'
 // export const REMOVE_BOARD_ERROR = 'REMOVE_BOARD_ERROR'
-
-// export const UPDATE_BOARD = 'UPDATE_BOARD'
-// export const UPDATE_BOARD_SUCCESS = 'UPDATE_BOARD_SUCCESS'
-// export const UPDATE_BOARD_ERROR = 'UPDATE_BOARD_ERROR'
 
 export type Actions = {
 
@@ -34,6 +34,17 @@ export type Actions = {
         board: IBoard
     },
 
+    UPDATE_BOARD: {
+        type: typeof UPDATE_BOARD,
+        boardAttributes: {name?: string}
+    },
+    UPDATE_BOARD_ERROR: {
+        type: typeof UPDATE_BOARD_ERROR,
+        error: string,
+    },
+    UPDATE_BOARD_SUCCESS: {
+        type: typeof UPDATE_BOARD_SUCCESS
+    },
     // CREATE_BOARD: {
     //     type: typeof CREATE_BOARD,
     //     title: string,
@@ -50,11 +61,6 @@ export type Actions = {
     // REMOVE_BOARD: {
     //     type: typeof REMOVE_BOARD,
     // },
-
-    // UPDATE_BOARD: {
-    //     type: typeof UPDATE_BOARD,
-    //     board: IBoard,
-    // }
 }
 
 export const actionCreators = {
@@ -78,13 +84,34 @@ export const actionCreators = {
                 error => dispatch(actionCreators.fetchBoardRequestError(error.error.error))
             )
         }
+    },
+
+    updateBoardRequest: (boardId: number, boardAttributes: {name?: string}): Actions[typeof UPDATE_BOARD] => ({
+        type: UPDATE_BOARD,
+        boardAttributes
+    }),
+    updateBoardRequestError: (error: string): Actions[typeof UPDATE_BOARD_ERROR] => ({
+        type: UPDATE_BOARD_ERROR,
+        error,
+    }),
+    updateBoardRequestSuccess: (): Actions[typeof UPDATE_BOARD_SUCCESS] => ({
+        type: UPDATE_BOARD_SUCCESS
+    }),
+    updateBoard: (boardId: number, boardAttributes: {name?: string}) => {
+        return (dispatch: Dispatch) => {
+            dispatch(actionCreators.updateBoardRequest(boardId, boardAttributes))
+            return API.put(`/boards/${boardId}`, boardAttributes).then(
+                success => dispatch(actionCreators.updateBoardRequestSuccess()),
+                error => dispatch(actionCreators.updateBoardRequestError(error.error.error))
+            )
+        }
     }
 
-    // createBoardRequest: (   title: string, 
-    //                         isPrivate: boolean, 
-    //                         lists: IList[], 
-    //                         tags: ITag[], 
-    //                         userRole: IUserRoleInBoard[]): 
+    // createBoardRequest: (   title: string,
+    //                         isPrivate: boolean,
+    //                         lists: IList[],
+    //                         tags: ITag[],
+    //                         userRole: IUserRoleInBoard[]):
     // Actions[typeof CREATE_BOARD] => ({
     //     type: CREATE_BOARD,
     //     title,
