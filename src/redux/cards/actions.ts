@@ -2,11 +2,6 @@ import { Dispatch } from '../RootReducer'
 import { API } from '../../services/http'
 
 import { ICard } from '../cards/types'
-/* import { ITag } from '../tags/types'
-import { IAttachment } from '../attachments/types'
-import { IComment } from '../comments/types'
-import { ITasksList } from '../taskLists/types'
-import { IUser } from '../users/types' */
 
 export const CARD_SUCCESS = 'CARD_SUCCESS'
 export const CARD_ERROR = 'CARD_ERROR'
@@ -16,15 +11,20 @@ export const FETCH_CARD_SUCCESS = 'FETCH_CARD_SUCCESS'
 
 export const CREATE_CARD = 'CREATE_CARD'
 export const CREATE_CARD_SUCCESS = 'CREATE_CARD_SUCCESS'
+export const CREATE_CARD_ERROR = 'CREATE_CARD_ERROR'
 
 export const REMOVE_CARD = 'REMOVE_CARD'
+export const REMOVE_CARD_ERROR = 'REMOVE_CARD_ERROR'
+export const REMOVE_CARD_SUCCESS = 'REMOVE_CARD_SUCCESS'
 
 export const UPDATE_CARD = 'UPDATE_CARD'
+export const UPDATE_CARD_ERROR = 'UPDATE_CARD_ERROR'
+export const UPDATE_CARD_SUCCESS = 'UPDATE_CARD_SUCCESS'
 
 
 export type Actions = {
 
-    CARD_ERROR: {
+    CARD_ERROR: {    
         type: typeof CARD_ERROR,
         error: string,
     },
@@ -32,43 +32,49 @@ export type Actions = {
         type: typeof CARD_SUCCESS,
         successMessage: string,
     },
-
-    FETCH_CARD: {
+    FETCH_CARD: {  
         type: typeof FETCH_CARD,
-        id: string
     },
-    FETCH_CARD_SUCCESS: {
+    FETCH_CARD_SUCCESS: {    
         type: typeof FETCH_CARD_SUCCESS,
         card: ICard,
     },
 
-    CREATE_CARD: {
+    CREATE_CARD: {   
         type: typeof CREATE_CARD,
-        card: ICard,
-        /* name: string,
-        desc: string, 
-        due: string,
-        dueComplete: string,
-        pos: number,
-        tags: ITag[],
-        members: IUser[],
-        tasksList: ITasksList[],
-        comments: IComment[],
-        attachments: IAttachment[],*/
     },
-    CREATE_CARD_SUCCESS: {
+    CREATE_CARD_SUCCESS: {   
         type: typeof CREATE_CARD_SUCCESS,
         card: ICard,
     },
+    CREATE_CARD_ERROR: {     
+        type: typeof CREATE_CARD_ERROR,
+        error: string
+},
 
-    REMOVE_CARD: {
+    REMOVE_CARD: {   
         type: typeof REMOVE_CARD,
     },
+    REMOVE_CARD_ERROR: {     
+        type: typeof REMOVE_CARD_ERROR,
+        error: string
+    },
+    REMOVE_CARD_SUCCESS: {   
+        type: typeof REMOVE_CARD_SUCCESS,
+        card: ICard
+    },
 
-    UPDATE_CARD: {
+    UPDATE_CARD: {   
         type: typeof UPDATE_CARD,
-        card: ICard,
-    }
+    },
+    UPDATE_CARD_ERROR: {
+        type: typeof UPDATE_CARD_ERROR,
+        error: string
+    },
+    UPDATE_CARD_SUCCESS: {
+        type: typeof UPDATE_CARD_SUCCESS,
+        card: ICard
+},
 }
 
 export const actionCreators = {
@@ -76,7 +82,7 @@ export const actionCreators = {
     //                    SYNC                 //
     // --------------------------------------- //
 
-    cardError: (error: string): Actions[typeof CARD_ERROR] => ({
+    cardError: (error: string): Actions[typeof CARD_ERROR] => ({      
         type: CARD_ERROR,
         error,
     }),
@@ -85,96 +91,92 @@ export const actionCreators = {
         successMessage,
     }),
 
-    fetchCardRequest: (id: string): Actions[typeof FETCH_CARD] => ({
+    fetchCardRequest: (): Actions[typeof FETCH_CARD] => ({     
         type: FETCH_CARD,
-        id,
     }),
-    fetchCardSuccess: (card: ICard):
+    fetchCardSuccess: (card: ICard):       
     Actions[typeof FETCH_CARD_SUCCESS] => ({
         type: FETCH_CARD_SUCCESS,
         card,
     }),
-    createCardRequest: (card: ICard) :
+
+    createCardRequest: () :  
     Actions[typeof CREATE_CARD] => ({
         type: CREATE_CARD,
-        card
     }),
-    /* createCardRequest: (   name: string,
-                            desc: string, 
-                            due: string,
-                            dueComplete: string,
-                            pos: number,
-                            tags: ITag[],
-                            members: IUser[],
-                            tasksList: ITasksList[],
-                            comments: IComment[],
-                            attachments: IAttachment[]) :
-    Actions[typeof CREATE_CARD] => ({
-            type: CREATE_CARD,
-            name,
-            desc,
-            due,
-            dueComplete,
-            pos,
-            tags,
-            members,
-            tasksList,
-            comments,
-            attachments,
-    }),*/
-    createCardSuccess: (card: ICard):
+    createCardSuccess: (card: ICard):    
     Actions[typeof CREATE_CARD_SUCCESS] => ({
         type: CREATE_CARD_SUCCESS,
         card,
     }),
-    removeCardRequest: (id: number): Actions[typeof REMOVE_CARD] => ({
-        type: REMOVE_CARD,
+    createCardError: (error: string):    
+    Actions[typeof CREATE_CARD_ERROR] => ({
+        type: CREATE_CARD_ERROR,
+        error,
     }),
 
-    updateCardRequest: (card: ICard): Actions[typeof UPDATE_CARD] => ({
+    removeCardRequest: (): Actions[typeof REMOVE_CARD] => ({
+        type: REMOVE_CARD,
+    }),
+    removeCardRequestError: (error: string): Actions[typeof REMOVE_CARD_ERROR] => ({
+        type: REMOVE_CARD_ERROR,
+        error
+    }),
+    removeCardRequestSucess: (card: ICard): Actions[typeof REMOVE_CARD_SUCCESS] => ({
+        type: REMOVE_CARD_SUCCESS,
+        card
+    }),
+
+    updateCardRequest: (): Actions[typeof UPDATE_CARD] => ({
         type: UPDATE_CARD,
-        card,
+    }),
+    updateCardRequestError: (error: string): Actions[typeof UPDATE_CARD_ERROR] => ({
+        type: UPDATE_CARD_ERROR,
+        error
+    }),
+    updateCardRequestSuccess: (card: ICard): Actions[typeof UPDATE_CARD_SUCCESS] => ({
+        type: UPDATE_CARD_SUCCESS,
+        card
     }),
 
     // --------------------------------------- //
     //                   ASYNC                 //
     // --------------------------------------- //
-    createBackendCard: (card: ICard) => {
+    createBackendCard: (card: ICard) => {    
         return (dispatch: Dispatch) => {
-            // dispatch(actionCreators.createCardRequest(card.name, "", "", "", card.list.cards.length + 1, [], [], [], [], []))
-            dispatch(actionCreators.createCardRequest(card))
-            return API.post(`/lists/${card.list.id}/cards`, card).then(
-                response => dispatch(actionCreators.createCardSuccess(response.card)),
-                error => dispatch(actionCreators.cardError(error.message)),
+            dispatch(actionCreators.createCardRequest())
+            return API.post(`/lists/${card.list.id}/cards`).then(
+                card => dispatch(actionCreators.createCardSuccess(card)),
+                error => dispatch(actionCreators.createCardError(error.message)),
             )
         }
     },
 
-    removeBackendCard: (id: number) => {
+    removeBackendCard: (card: ICard) => {
         return (dispatch: Dispatch) => {
-            dispatch(actionCreators.removeCardRequest(id))
-            return API.delete('/cards/', id).then(
-                response => dispatch(actionCreators.cardSuccess(response.message)),
-                error => dispatch(actionCreators.cardError(error.message)),
+            dispatch(actionCreators.removeCardRequest())
+            return API.delete('/cards/', card.id).then(
+                card => dispatch(actionCreators.removeCardRequestSucess(card)),
+                error => dispatch(actionCreators.removeCardRequestError(error.message)),
             )
         }
     },
 
-    updateBackendCard: (card: ICard) => {
+    updateBackendCard: (card: ICard, newValues: Partial<ICard>) => {
         return (dispatch: Dispatch) => {
-            dispatch(actionCreators.updateCardRequest(card))
-            return API.put(`/cards/${card.id}`, card).then(
-                response => dispatch(actionCreators.createCardSuccess(response.card)),
-                error => dispatch(actionCreators.cardError(error.message)),
+            dispatch(actionCreators.updateCardRequest())
+            return API.put(`/cards/${card.id}`, newValues).then(
+                card => dispatch(actionCreators.createCardSuccess(card)),
+                error => dispatch(actionCreators.createCardError(error.message)),
             )
         }
     },
 
-    fetchCard: (cardId: string) => {
+    fetchCard: (cardId: string) => {     
         return (dispatch: Dispatch) => {
-            dispatch(actionCreators.fetchCardRequest(cardId))
+            dispatch(actionCreators.fetchCardRequest())
             return API.get(`/cards/${cardId}`).then(
-                response => dispatch(actionCreators.fetchCardSuccess(response)),
+                card => dispatch(actionCreators.fetchCardSuccess(card)),
                 error => dispatch(actionCreators.cardError(error.message)),
             )
         }

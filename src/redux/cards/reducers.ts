@@ -1,67 +1,93 @@
-import { CREATE_CARD, REMOVE_CARD, FETCH_CARD_SUCCESS } from './actions'
+import { 
+    FETCH_CARD, 
+    FETCH_CARD_SUCCESS, 
+    CARD_ERROR, 
+    CREATE_CARD_SUCCESS ,
+    CREATE_CARD_ERROR,
+    REMOVE_CARD_ERROR,
+    REMOVE_CARD_SUCCESS,
+    UPDATE_CARD_ERROR,
+    UPDATE_CARD_SUCCESS
+} from './actions'
+
 import { RootAction } from '../RootAction'
 import { ICard } from '../cards/types'
 
-/* import { ITag } from '../tags/types'
-import { IAttachment } from '../attachments/types'
-import { IComment } from '../comments/types'
-import { ITasksList } from '../taskLists/types'
-import { IUser } from '../users/types' */
-
 export type State = {
-    id: number,
-    card: ICard | null
-    /* 
-    name: string,
-    desc: string, 
-    due: string,
-    dueComplete: string,
-    pos: number,
-    tags: ITag[],
-    members: IUser[],
-    tasksList: ITasksList[],
-    comments: IComment[],
-    attachments: IAttachment[],*/
+    card: ICard | null,
+    error: string | null,
+    isProcessing: boolean,
 }
 
 const defaultValue: State = {
-    id: -1,
-    card: null
-    /* name: '',
-    desc: '',
-    due: '',
-    dueComplete: '',
-    pos: -1,
-    members: [],
-    tags: [],
-    tasksList: [],
-    comments: [],
-    attachments: [],*/
+    card: null,
+    error: null,
+    isProcessing: false
 }
 export const reducer = (state: State = defaultValue, action: RootAction) => {
         switch (action.type) {
-            case CREATE_CARD:
-                return {
-                    card: action.card
-                    /* name: action.name,
-                    desc: action.desc, 
-                    due: action.due,
-                    dueComplete: action.dueComplete,
-                    pos: action.pos,
-                    tags: action.tags,
-                    members: action.members,
-                    tasksList: action.tasksList,
-                    comments: action.comments,
-                    attachments: action.attachments, */
-                }
 
-            case FETCH_CARD_SUCCESS:
+            case CARD_ERROR:
                 return {
-                    card: action.card
-                }
+                    ...state,
+                    error: action.error,
+                    isProcessing: false
+            }
+            
+            case FETCH_CARD:
+                return {
+                    ...state,
+                    card: null,
+                    error: null,
+                    isProcessing: true
+            }
 
-            case REMOVE_CARD:
-                return null
+            case FETCH_CARD_SUCCESS: 
+                return {
+                    ...state,
+                    card: action.card,
+                    error: null,
+                    isProcessing: false
+            }
+
+            case CREATE_CARD_SUCCESS:
+                return {
+                    ...state,
+                    card: action.card,
+                    error: null
+            }
+        
+            case CREATE_CARD_ERROR:
+                return {
+                    ...state,
+                    error: action.error
+            }
+
+            case UPDATE_CARD_SUCCESS:
+                return {
+                    ...state,
+                    card: action.card,
+                    error: null
+            }
+
+            case UPDATE_CARD_ERROR:
+                return {
+                    ...state,
+                    error: action.error
+            }
+
+            case REMOVE_CARD_SUCCESS:
+                return {
+                    ...state,
+                    card: null,
+                    error: null
+            }
+
+            case REMOVE_CARD_ERROR:
+                return {
+                    ...state,
+                    error: action.error
+            }
 
             default:
                 return state
