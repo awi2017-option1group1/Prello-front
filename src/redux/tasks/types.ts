@@ -5,5 +5,5 @@ export type ITask = {
     name: string, 
     pos: number,
     state: boolean,
-    tasksList : ITasksList
+    tasksList: ITasksList
 }

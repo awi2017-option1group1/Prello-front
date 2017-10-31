@@ -11,7 +11,6 @@ import {
 } from './actions'
 import { actionCreators } from './actions'
 
-
 describe('Card sync actions', () => {
 
     it('should return a error action', () => {

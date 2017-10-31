@@ -21,7 +21,6 @@ export const UPDATE_CARD = 'UPDATE_CARD'
 export const UPDATE_CARD_ERROR = 'UPDATE_CARD_ERROR'
 export const UPDATE_CARD_SUCCESS = 'UPDATE_CARD_SUCCESS'
 
-
 export type Actions = {
 
     CARD_ERROR: {    
@@ -100,7 +99,7 @@ export const actionCreators = {
         card,
     }),
 
-    createCardRequest: () :  
+    createCardRequest: ():  
     Actions[typeof CREATE_CARD] => ({
         type: CREATE_CARD,
     }),
@@ -146,7 +145,7 @@ export const actionCreators = {
         return (dispatch: Dispatch) => {
             dispatch(actionCreators.createCardRequest())
             return API.post(`/lists/${card.list.id}/cards`).then(
-                card => dispatch(actionCreators.createCardSuccess(card)),
+                response => dispatch(actionCreators.createCardSuccess(response.card)),
                 error => dispatch(actionCreators.createCardError(error.message)),
             )
         }
@@ -156,7 +155,7 @@ export const actionCreators = {
         return (dispatch: Dispatch) => {
             dispatch(actionCreators.removeCardRequest())
             return API.delete('/cards/', card.id).then(
-                card => dispatch(actionCreators.removeCardRequestSucess(card)),
+                response => dispatch(actionCreators.removeCardRequestSucess(response.card)),
                 error => dispatch(actionCreators.removeCardRequestError(error.message)),
             )
         }
@@ -166,7 +165,7 @@ export const actionCreators = {
         return (dispatch: Dispatch) => {
             dispatch(actionCreators.updateCardRequest())
             return API.put(`/cards/${card.id}`, newValues).then(
-                card => dispatch(actionCreators.createCardSuccess(card)),
+                response => dispatch(actionCreators.createCardSuccess(response.card)),
                 error => dispatch(actionCreators.createCardError(error.message)),
             )
         }
@@ -176,7 +175,7 @@ export const actionCreators = {
         return (dispatch: Dispatch) => {
             dispatch(actionCreators.fetchCardRequest())
             return API.get(`/cards/${cardId}`).then(
-                card => dispatch(actionCreators.fetchCardSuccess(card)),
+                response => dispatch(actionCreators.fetchCardSuccess(response.card)),
                 error => dispatch(actionCreators.cardError(error.message)),
             )
         }
