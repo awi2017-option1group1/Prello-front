@@ -4,6 +4,8 @@ import './editable-title.css'
 
 interface EditableTitleProps {
     content: string
+    cropTitle?: number
+    inputValue?: string
     type: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 
     onSubmit: (newValue: string) => void
@@ -18,13 +20,14 @@ class EditableTitle extends React.Component<EditableTitleProps, EditableTitleSta
     constructor(props: EditableTitleProps) {
         super(props)
         this.state = {
-            value: props.content,
+            value: (props.inputValue) ? props.inputValue : props.content,
             editing: false
         }
 
         this.handleClick = this.handleClick.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleKeyDown = this.handleKeyDown.bind(this)
         this.handleKeyPress = this.handleKeyPress.bind(this)
     }
 
@@ -53,6 +56,24 @@ class EditableTitle extends React.Component<EditableTitleProps, EditableTitleSta
         }
     }
 
+    handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
+        if (event.key === 'Escape') {
+            this.setState({
+                editing: false,
+                value: this.props.content
+            })            
+        }
+    }
+
+    renderTitle() {
+        if (this.props.cropTitle) {
+            if (this.props.content.length > this.props.cropTitle) {
+                return this.props.content.substring(0, this.props.cropTitle) + '...'
+            }
+        } 
+        return this.props.content
+    }
+
     render() {
         if (this.state.editing) {
             return (
@@ -62,6 +83,7 @@ class EditableTitle extends React.Component<EditableTitleProps, EditableTitleSta
                         value={this.state.value} 
                         onChange={this.handleChange} 
                         onBlur={this.handleSubmit}
+                        onKeyDown={this.handleKeyDown}
                         onKeyPress={this.handleKeyPress}
                         onMouseDown={e => e.stopPropagation()}
                     />
@@ -71,7 +93,7 @@ class EditableTitle extends React.Component<EditableTitleProps, EditableTitleSta
             const HeaderTag = `${this.props.type}`
             return (
                 <HeaderTag className="editable-title" onClick={this.handleClick}>
-                    {this.state.value}
+                    {this.renderTitle()}
                 </HeaderTag>
             )
         }

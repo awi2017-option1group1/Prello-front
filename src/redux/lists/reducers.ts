@@ -114,14 +114,10 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
             }
 
         case DELETE_BOARD_LIST_SUCCESS:
-            const index = state.lists.indexOf(action.list)
             return {
                 ...state,
                 error: null,
-                lists: [
-                    ...state.lists.slice(0, index),
-                    ...state.lists.slice(index + 1)
-                ]
+                lists: state.lists.filter(l => l.id !== action.list.id)
             }
 
         case DELETE_BOARD_LIST_ERROR:

@@ -30,8 +30,13 @@ const TasksList: React.StatelessComponent<TasksListProps> = (props) => {
 
     return (
         <Segment className="tasks-list">
-            <SplitHeader>
-                <EditableTitle type="h2" content={props.list.name} onSubmit={props.setTitle} />
+            <SplitHeader widthMainCol={12} widthOtherCol={4}>
+                <EditableTitle 
+                    type="h2" 
+                    content={props.list.name}
+                    cropTitle={12}
+                    onSubmit={props.setTitle} 
+                />
                 <Button icon="trash" primary={true} circular={true} onClick={props.delete} />          
             </SplitHeader>
 

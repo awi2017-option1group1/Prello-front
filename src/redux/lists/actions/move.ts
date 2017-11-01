@@ -45,7 +45,11 @@ export const actionCreators = {
             // Only update the lists that have new index
             Promise.all(
                 newLists.map((list, index) => {
-                    return API.put(`/lists/${list.id}`, { pos: index })
+                    if (list.pos !== index) {
+                        return API.put(`/lists/${list.id}`, { pos: index })
+                    } else {
+                        return Promise.resolve(list)
+                    }
                 })
             ).then(
                 updatedLists => dispatch(actionCreators.moveBoardListRequestSuccess(updatedLists)),

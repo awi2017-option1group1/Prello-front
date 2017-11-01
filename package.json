@@ -17,6 +17,7 @@
     "request-promise": "^4.2.2",
     "semantic-ui-react": "^0.74.2",
     "serve": "^6.2.0",
+    "socket.io-client": "^2.0.4",
     "valuelink": "^1.5.4"
   },
   "scripts": {
@@ -43,6 +44,7 @@
     "@types/request": "^2.0.4",
     "@types/request-promise": "^4.1.38",
     "@types/sinon": "^2.3.5",
+    "@types/socket.io-client": "^1.4.31",
     "enzyme": "^3.1.0",
     "enzyme-adapter-react-16": "^1.0.1",
     "nock": "^9.0.22",

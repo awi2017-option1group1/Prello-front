@@ -22,6 +22,9 @@ import RegisterSuccessPage from './routes/RegisterSuccessPage'
 import BoardPage from './routes/BoardPage'
 import PageNotFound from './routes/PageNotFound'
 
+import { websockets } from './services/websockets'
+import { RealTimeRedux } from './redux/realtime'
+
 /* Authenticate user */
 AUTH.get('/me')
 .then(
@@ -29,6 +32,19 @@ AUTH.get('/me')
         store.dispatch(
             actionCreators.loginSuccess(response.me)
         )
+
+        /* Connect to the websocket server */
+        websockets.initialize()
+        websockets.on('connected', () => {
+            websockets.on('authorized', () => {
+                websockets.emit('request-connection', { object: 'board', id: 3 })
+
+                RealTimeRedux(websockets)
+            })
+        
+            websockets.on('unauthorized', () => null)
+        })
+
     }
 )
 .catch(error => store.dispatch(
