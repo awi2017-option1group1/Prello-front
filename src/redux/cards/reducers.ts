@@ -1,14 +1,8 @@
-import { 
-    FETCH_CARD, 
-    FETCH_CARD_SUCCESS, 
-    CARD_ERROR, 
-    CREATE_CARD_SUCCESS ,
-    CREATE_CARD_ERROR,
-    REMOVE_CARD_ERROR,
-    REMOVE_CARD_SUCCESS,
-    UPDATE_CARD_ERROR,
-    UPDATE_CARD_SUCCESS
-} from './actions'
+
+import { FETCH_CARD, CARD_ERROR, FETCH_CARD_SUCCESS } from './actions/fetch'
+import { CREATE_CARD_SUCCESS, CREATE_CARD_ERROR } from './actions/create'
+import { UPDATE_CARD_SUCCESS, UPDATE_CARD_ERROR } from './actions/update'
+import { REMOVE_CARD_SUCCESS, REMOVE_CARD_ERROR } from './actions/delete'
 
 import { RootAction } from '../RootAction'
 import { ICard } from '../cards/types'

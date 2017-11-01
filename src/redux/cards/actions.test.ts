@@ -1,19 +1,11 @@
-/*
-import thunk from 'redux-thunk'
-import * as nock from 'nock'
-import configureMockStore from 'redux-mock-store'
-*/
-
-// import { getBaseUrl } from '../../services/http'
-
 import { 
     CARD_ERROR
-} from './actions'
+} from './actions/fetch'
 import { actionCreators } from './actions'
 
 describe('Card sync actions', () => {
 
-    it('should return a error action', () => {
+    it('should return an error action', () => {
         const expectedAction = {
             type: CARD_ERROR,
             error: 'did not created',

@@ -9,7 +9,6 @@ import Layout from './components/Layout'
 import { AUTH } from './services/auth'
 import { requireNotAuth, requireAuth } from './components/Auth'
 
-// import registerServiceWorker from './registerServiceWorker'
 import './index.css'
 
 import store, { history } from './redux/store'
@@ -21,7 +20,6 @@ import RegisterPage from './routes/RegisterPage'
 import RegisterSuccessPage from './routes/RegisterSuccessPage'
 import BoardPage from './routes/BoardPage'
 import PageNotFound from './routes/PageNotFound'
-import TestPageMathieu from './routes/TestPageMathieu'
 
 /* Authenticate user */
 AUTH.get('/me')
@@ -55,4 +53,3 @@ ReactDOM.render(
     </Provider>,
     document.getElementById('root')
 )
-// registerServiceWorker()
