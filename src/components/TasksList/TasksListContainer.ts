@@ -4,7 +4,7 @@ import { RootState, Dispatch } from '../../redux/RootReducer'
 import { actionCreators } from '../../redux/lists/actions'
 import { IList } from '../../redux/lists/types'
 
-import TasksList from './TasksList'
+import TasksList from './DraggableTasksList'
 
 interface TasksListsContainerProps {
     list: IList

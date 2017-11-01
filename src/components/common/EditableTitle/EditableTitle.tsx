@@ -63,6 +63,7 @@ class EditableTitle extends React.Component<EditableTitleProps, EditableTitleSta
                         onChange={this.handleChange} 
                         onBlur={this.handleSubmit}
                         onKeyPress={this.handleKeyPress}
+                        onMouseDown={e => e.stopPropagation()}
                     />
                 </div>
             )
