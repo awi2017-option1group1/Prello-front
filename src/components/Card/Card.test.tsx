@@ -15,6 +15,7 @@ const cardType: ICard = {
     pos: 1,
     tags: [],
     members: [],
+    list: null,
     tasksList: [],
     comments: [],
     attachments: [],
