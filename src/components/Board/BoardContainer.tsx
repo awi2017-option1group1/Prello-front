@@ -1,5 +1,6 @@
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
+import { DropResult } from 'react-beautiful-dnd'
 
 import { RootState, Dispatch } from '../../redux/RootReducer'
 import { actionCreators as boardsActionsCreators } from '../../redux/boards/actions'
@@ -26,6 +27,7 @@ interface PropsFromDispatch {
     loadData?: () => void
     setTitle: (title: string) => void
     addList: () => void
+    onDragEnd: (result: DropResult) => void
 }
 
 const mapStateToProps = (state: RootState) => {
@@ -46,6 +48,23 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: BoardContainerProps) =
 
         addList: () => {
             dispatch(listsActionCreators.createBoardList(Number(ownProps.match.params.id)))
+        },
+
+        onDragEnd: (result: DropResult) => {
+            if (!result.destination) {
+                return
+            }
+
+            switch (result.type) {
+                case 'TASKS_LIST':
+                    dispatch(
+                        listsActionCreators.moveBoardList(result.source.index, result.destination!.index)
+                    )
+                    break
+
+                default:
+                    break
+            }
         }
     }
 }

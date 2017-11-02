@@ -32,7 +32,7 @@ const TasksList: React.StatelessComponent<TasksListProps> = (props) => {
         <Segment className="tasks-list">
             <SplitHeader>
                 <EditableTitle type="h2" content={props.list.name} onSubmit={props.setTitle} />
-                <Button icon="ellipsis horizontal" primary={true} circular={true} onClick={props.delete} />          
+                <Button icon="trash" primary={true} circular={true} onClick={props.delete} />          
             </SplitHeader>
 
             <CardsList emptyText="No tasks yet!" cards={[]} />

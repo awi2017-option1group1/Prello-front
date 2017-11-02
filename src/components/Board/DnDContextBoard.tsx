@@ -1,11 +1,15 @@
 import * as React from 'react'
-import { DragDropContext } from 'react-beautiful-dnd'
+import { DragDropContext, DropResult } from 'react-beautiful-dnd'
 
 import Board, { BoardProps } from './Board'
 
-const DnDContextBoard = (props: BoardProps) => {
+interface DnDProps {
+    onDragEnd: (result: DropResult) => void
+}
+
+const DnDContextBoard = (props: BoardProps & DnDProps) => {
     return (
-        <DragDropContext onDragEnd={() => null}>
+        <DragDropContext onDragEnd={props.onDragEnd}>
             <Board {...props} />
         </DragDropContext>
     )
