@@ -1,0 +1,8 @@
+.comments-list.comments-list-no-content {
+    margin: 10px 8px;
+}
+
+.ui.comments.comments-list {
+    margin-top: 0;
+    margin-bottom: 0;
+}
