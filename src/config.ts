@@ -11,7 +11,7 @@ export interface Config {
     server: ServerConfig
 }
 
-// Add default value because the env variables 
+// Add default value because the env variables
 // are not set with the hot-reload activated
 export const config: Config = {
     env: process.env.NODE_ENV || 'development',

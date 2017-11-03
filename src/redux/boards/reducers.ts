@@ -1,6 +1,6 @@
 import { RootAction } from '../RootAction'
-import { FETCH_BOARD, FETCH_BOARD_ERROR, FETCH_BOARD_SUCCESS,
-         UPDATE_BOARD, UPDATE_BOARD_ERROR, UPDATE_BOARD_SUCCESS } from './actions'
+import { FETCH_BOARD, FETCH_BOARD_ERROR, FETCH_BOARD_SUCCESS } from './actions/fetch'
+import { UPDATE_BOARD, UPDATE_BOARD_SUCCESS, UPDATE_BOARD_ERROR } from './actions/update'
 
 import { IBoard } from './types'
 
@@ -27,10 +27,6 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
                 ...state,
                 error: null,
                 isProcessing: true,
-                board: {
-                    ...defaultValue.board,
-                    id: action.boardId
-                }
             }
 
         case FETCH_BOARD_SUCCESS:
@@ -52,18 +48,14 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
             return {
                 ...state,
                 error: null,
-                isProcessing: true,
-                board: {
-                    ...defaultValue.board,
-                    name: action.boardAttributes.name
-                }
             }
 
         case UPDATE_BOARD_SUCCESS:
             return {
                 ...state,
                 error: null,
-                isProcessing: false
+                isProcessing: false,
+                board: action.board
             }
 
         case UPDATE_BOARD_ERROR:
