@@ -43,7 +43,7 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: BoardContainerProps) =
         loadData: () => { dispatch(boardsActionsCreators.fetchBoard(Number(ownProps.match.params.id))) },
 
         setTitle: (title: string) => {
-            dispatch(boardsActionsCreators.updateBoard({name: title}))
+            dispatch(boardsActionsCreators.updateBoardTitle(Number(ownProps.match.params.id), {name: title}))
         },
 
         addList: () => {
