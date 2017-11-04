@@ -19,16 +19,19 @@ const Comment: React.StatelessComponent<CommentProps> = (props) => {
 
         <SmComment>
             <CommentContent>  
-                <CommentAuthor> {props.comment.user} </CommentAuthor>
+                <CommentAuthor>
+                    {props.comment.user.firstName + props.comment.user.lastName}
+                </CommentAuthor>
                 <CommentMetadata>
                     <CommentText>
                         {
-                            props.comment.date                        
+                            props.comment.date         
+                            // TODO: calculate difference between now and the creation date               
                         }
                     </CommentText>
                 </CommentMetadata>
                 <CommentText>
-                    {}
+                    {props.comment.content}
                 </CommentText>
             </CommentContent>
         </SmComment>

@@ -5,6 +5,8 @@ import { Actions as LoginActions } from './auth/actions'
 import { Actions as BoardsActions } from './boards/boardsList/actions'
 import { Actions as BoardActions } from './boards/actions'
 import { Actions as TestActions } from './testActions'
+import { Actions as CommentActions } from './comments/actions'
+import { Actions as CommentsActions } from './comments/commentsList/actions'
 
 type ReactRouterAction = RouterAction | LocationChangeAction
 
@@ -15,3 +17,5 @@ export type RootAction =
   | BoardsActions[keyof BoardsActions]
   | BoardActions[keyof BoardActions]
   | TestActions[keyof TestActions]
+  | CommentActions[keyof CommentActions]
+  | CommentsActions[keyof CommentsActions]

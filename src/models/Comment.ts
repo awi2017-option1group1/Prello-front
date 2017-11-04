@@ -1,4 +1,5 @@
-export default interface Comment {
+/*export default interface Comment {
     content: string
     date: Date
-}
+    user: IUser
+}*/

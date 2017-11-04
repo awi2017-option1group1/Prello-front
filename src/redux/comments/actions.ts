@@ -55,7 +55,8 @@ export const actionCreators = {
 
     createCommentRequest: ( content: string, 
                             createdDate: Date, 
-                            userId: number
+                            userId: number,
+                            cardId: number
     ): Actions[typeof CREATE_COMMENT] => ({
         type: CREATE_COMMENT,
         content,
@@ -75,9 +76,9 @@ export const actionCreators = {
     // --------------------------------------- //
     //                   ASYNC                 //
     // --------------------------------------- //
-    createBackendComment: (comment: IComment) => {
+    createBackendComment: (comment: IComment, cardId: number) => {
         return (dispatch: Dispatch) => {
-            dispatch(actionCreators.createCommentRequest(comment.content, comment.createdDate, comment.user.id))
+            dispatch(actionCreators.createCommentRequest(comment.content, comment.createdDate, comment.user.id, cardId))
             return API.post('/comments', comment).then(
                 response => dispatch(actionCreators.createCommentSuccess(response.comment)),
                 error => dispatch(actionCreators.commentError(error.message)),
