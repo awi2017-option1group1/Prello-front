@@ -3,22 +3,14 @@ import { shallow } from 'enzyme'
 import { CardContent } from 'semantic-ui-react'
 
 import Card from './Card'
-import ICard from './../../models/Card'
 // import Spinner from '../common/Spinner'
 // import AssigneesAvatar from '../AssigneesAvatar'
 
-const cardType: ICard = {
-    name: 'Test',
-    desc: 'Test descr', 
-    due: null,
-    dueComplete: null,
-    pos: 1,
-    tags: [],
-    members: [],
-    list: null,
-    tasksList: [],
-    comments: [],
-    attachments: [],
+const cardType = {
+    title: 'Test',
+    labels: [],
+    percent: 40,
+    assignees: ['toto']
 }
 
 describe('<Card />', () => 
@@ -33,13 +25,17 @@ describe('<Card />', () =>
         console.log("CARD CONTENT = " + card.find(CardContent.name))
         expect(card.find(CardContent).length).toBe(1)
     })
+)
     
     /*
+describe('<Card />', () => {
     it('should display a Spinner while loading', () => {
         const card = shallow(
             <Card 
+                loading={true}
                 id={1}
-                card={cardType}
+                error={undefined}
+                card={cardType} 
             />
         )
         expect(card.find(Spinner).length).toBe(1)
@@ -64,6 +60,7 @@ describe('<Card />', () =>
         expect(card.find(AssigneesAvatar).props().assignees).toEqual(['toto'])   
     }) */
 
+
     /*
     it('should display a Card without progress bar', () => {
         const card = shallow(
@@ -79,5 +76,5 @@ describe('<Card />', () =>
         expect(card.find(CardDescription).children().text()).toBe('Test')   
         expect(card.find(Progress).length).toBe(0)
         expect(card.find(AssigneesAvatar).props().assignees).toEqual([])   
-    })   */     
-})
+    })        
+}) */
