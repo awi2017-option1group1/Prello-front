@@ -55,7 +55,7 @@ export const actionCreators = {
     fetchAttachment: (attachment: IAttachment) => {     
         return (dispatch: Dispatch) => {
             dispatch(actionCreators.fetchAttachmentRequest())
-            return API.get(`/cards/${attachment.card.id}`).then(
+            return API.get(`/cards/${attachment.cardId}`).then(
                 response => dispatch(actionCreators.fetchAttachmentSuccess(response.attachment)),
                 error => dispatch(actionCreators.attachmentError(error.message)),
             )

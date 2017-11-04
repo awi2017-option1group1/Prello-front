@@ -10,14 +10,17 @@ export const CREATE_ATTACHMENT_ERROR = 'CREATE_ATTACHMENT_ERROR'
 export type Actions = {
     CREATE_ATTACHMENT: {   
         type: typeof CREATE_ATTACHMENT,
+        isProcessing: boolean
     },
     CREATE_ATTACHMENT_SUCCESS: {   
         type: typeof CREATE_ATTACHMENT_SUCCESS,
         attachment: IAttachment,
+        isProcessing: boolean
     },
     CREATE_ATTACHMENT_ERROR: {     
         type: typeof CREATE_ATTACHMENT_ERROR,
-        error: string
+        error: string,
+        isProcessing: boolean
     }
 }
 
@@ -28,16 +31,19 @@ export const actionCreators = {
     createAttachmentRequest: ():  
     Actions[typeof CREATE_ATTACHMENT] => ({
         type: CREATE_ATTACHMENT,
+        isProcessing: true
     }),
     createAttachmentSuccess: (attachment: IAttachment):    
     Actions[typeof CREATE_ATTACHMENT_SUCCESS] => ({
         type: CREATE_ATTACHMENT_SUCCESS,
         attachment,
+        isProcessing: false
     }),
     createAttachmentError: (error: string):    
     Actions[typeof CREATE_ATTACHMENT_ERROR] => ({
         type: CREATE_ATTACHMENT_ERROR,
         error,
+        isProcessing: false
     }),
 
     // --------------------------------------- //
@@ -46,7 +52,7 @@ export const actionCreators = {
     createBackendAttachments: (attachment: IAttachment) => {    
         return (dispatch: Dispatch) => {
             dispatch(actionCreators.createAttachmentRequest())
-            return API.post(`/cards/${attachment.card.id}/attachments`, attachment).then(
+            return API.post(`/cards/${attachment.cardId}/attachments`, attachment).then(
                 response => dispatch(actionCreators.createAttachmentSuccess(response.attachment)),
                 error => dispatch(actionCreators.createAttachmentError(error.message)),
             )

@@ -46,26 +46,30 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
             return {
                 ...state,
                 attachment: action.attachment,
-                error: null
+                error: null,
+                isProcessing: false
         }
     
         case CREATE_ATTACHMENT_ERROR:
             return {
                 ...state,
-                error: action.error
+                error: action.error,
+                isProcessing: false
         }
 
         case REMOVE_ATTACHMENT_SUCCESS:
             return {
                 ...state,
                 attachment: null,
-                error: null
+                error: null,
+                isProcessing: false
         }
 
         case REMOVE_ATTACHMENT_ERROR:
             return {
                 ...state,
-                error: action.error
+                error: action.error,
+                isProcessing: false
         }
 
         default:
