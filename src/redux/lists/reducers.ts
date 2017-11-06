@@ -23,5 +23,30 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
 
             default:
                 return state
+            }
+
+}
+
+export const actionCreators = {
+    fetchBoardRequest: (): Actions[typeof FETCH_BOARD] => ({
+        type: FETCH_BOARD
+    }),
+    fetchBoardRequestError: (error: string): Actions[typeof FETCH_BOARD_ERROR] => ({
+        type: FETCH_BOARD_ERROR,
+        error
+    }),
+    fetchBoardRequestSuccess: (board: IBoard): Actions[typeof FETCH_BOARD_SUCCESS] => ({
+        type: FETCH_BOARD_SUCCESS,
+        board
+    }),
+    fetchBoard: (boardId: number) => {
+        return (dispatch: Dispatch) => {
+            dispatch(actionCreators.fetchBoardRequest())
+            return API.get(`/boards/${boardId}`).then(
+                board => dispatch(actionCreators.fetchBoardRequestSuccess(board)),
+                error => dispatch(actionCreators.fetchBoardRequestError(error.error.error))
+            )
+        }
     }
-  }
+    
+}

@@ -12,7 +12,7 @@ export type IUser = {
     id: number,
     firstName: string,
     lastName: string,
-    speudo: string,
+    pseudo: string,
     biography: Text,
     notificationEnabled: boolean,
     email: string,
