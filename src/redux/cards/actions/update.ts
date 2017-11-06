@@ -46,7 +46,7 @@ export const actionCreators = {
         return (dispatch: Dispatch) => {
             dispatch(actionCreators.updateCardRequest())
             return API.put(`/cards/${card.id}`, newValues).then(
-                card => dispatch(actionCreators.updateCardRequestSuccess(card)),
+                response => dispatch(actionCreators.updateCardRequestSuccess(response.card)),
                 error => dispatch(actionCreators.updateCardRequestError(error.message)),
             )
         }

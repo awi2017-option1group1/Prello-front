@@ -48,7 +48,7 @@ export const actionCreators = {
         return (dispatch: Dispatch) => {
             dispatch(actionCreators.createCardRequest())
             return API.post(`/lists/${card.listId}/cards`).then(
-                card => dispatch(actionCreators.createCardSuccess(card)),
+                response => dispatch(actionCreators.createCardSuccess(response.card)),
                 error => dispatch(actionCreators.createCardError(error.message)),
             )
         }

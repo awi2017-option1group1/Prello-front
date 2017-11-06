@@ -46,7 +46,7 @@ export const actionCreators = {
         return (dispatch: Dispatch) => {
             dispatch(actionCreators.removeCardRequest())
             return API.delete('/cards/', card.id).then(
-                card => dispatch(actionCreators.removeCardRequestSucess(card)),
+                response => dispatch(actionCreators.removeCardRequestSucess(response.card)),
                 error => dispatch(actionCreators.removeCardRequestError(error.message)),
             )
         }
