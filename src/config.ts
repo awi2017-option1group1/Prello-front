@@ -12,12 +12,12 @@ export interface Config {
 }
 
 export const config: Config = {
-    env: process.env.NODE_ENV,
+    env: 'development',
 
     server: {
-        host: process.env.HOST,
-        port: process.env.PORT,
-        apiSuffix: process.env.API_SUFFIX,
-        authSuffix: process.env.AUTH_SUFFIX
+        host: 'http://localhost',
+        port: 3000,
+        apiSuffix: 'api',
+        authSuffix: 'auth'
     }
 }
