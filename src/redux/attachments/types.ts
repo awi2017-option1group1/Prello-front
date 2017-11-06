@@ -1,4 +1,3 @@
-import { ICard } from '../cards/types'
 
 export type IAttachment = {
     id: number,
@@ -6,5 +5,5 @@ export type IAttachment = {
     pos: number,
     name: string,
     date: Date,
-    card: ICard
+    cardId: number
 }

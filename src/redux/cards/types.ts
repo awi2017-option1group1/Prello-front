@@ -3,7 +3,6 @@ import { IComment } from '../comments/types'
 import { ITasksList } from '../taskLists/types'
 import { ITag } from '../tags/types'
 import { IUser } from '../users/types'
-import { IList } from '../lists/types'
 
 export type ICard = {
     id: number,
@@ -13,9 +12,9 @@ export type ICard = {
     dueComplete: Date,
     pos: number,
     tags: ITag[],
-    members: IUser,
-    tasksList: ITasksList,
-    comments: IComment,
-    attachments: IAttachment,
-    list: IList
+    members: IUser[],
+    tasksList: ITasksList[],
+    comments: IComment[],
+    attachments: IAttachment[],
+    listId: number
 }

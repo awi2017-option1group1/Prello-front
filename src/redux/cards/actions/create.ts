@@ -47,8 +47,8 @@ export const actionCreators = {
     createBackendCard: (card: ICard) => {    
         return (dispatch: Dispatch) => {
             dispatch(actionCreators.createCardRequest())
-            return API.post(`/lists/${card.list.id}/cards`).then(
-                response => dispatch(actionCreators.createCardSuccess(response.card)),
+            return API.post(`/lists/${card.listId}/cards`).then(
+                card => dispatch(actionCreators.createCardSuccess(card)),
                 error => dispatch(actionCreators.createCardError(error.message)),
             )
         }

@@ -56,7 +56,7 @@ export const actionCreators = {
         return (dispatch: Dispatch) => {
             dispatch(actionCreators.fetchCardRequest())
             return API.get(`/cards/${cardId}`).then(
-                response => dispatch(actionCreators.fetchCardSuccess(response.card)),
+                card => dispatch(actionCreators.fetchCardSuccess(card)),
                 error => dispatch(actionCreators.cardError(error.message)),
             )
         }
