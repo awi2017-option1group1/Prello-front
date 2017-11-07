@@ -19,19 +19,19 @@ import { reducer as assignees, State as AssigneesState } from './cards/AssignedU
 interface StoreEnhancerState { }
 
 export interface RootState extends StoreEnhancerState {
-    router: RouterState,
-    board: BoardState,
-    lists: ListsState,
-    auth: AuthState,
-    boardsList: BoardsListState,
-    checkList: CheckListState,
-    checkItem: CheckItemState,
-    user: UserState,
-    register: RegisterState,
-    cards: CardsState,
-    card: CardState,
-    ui: UiState,
-    cardsLabel: CardsLabelState,
+    router: RouterState
+    board: BoardState
+    lists: ListsState
+    auth: AuthState
+    boardsList: BoardsListState
+    checkList: CheckListState
+    checkItem: CheckItemState
+    user: UserState
+    register: RegisterState
+    cards: CardsState
+    card: CardState
+    ui: UiState
+    cardsLabel: CardsLabelState
     boardLabel: BoardLabelState
     assignees: AssigneesState
 }
