@@ -20,6 +20,7 @@ import IndexPage from './routes/IndexPage'
 import RegisterPage from './routes/RegisterPage'
 import RegisterSuccessPage from './routes/RegisterSuccessPage'
 import BoardPage from './routes/BoardPage'
+import BoardsListPage from './routes/BoardsPage'
 import PageNotFound from './routes/PageNotFound'
 
 /* Authenticate user */
@@ -44,14 +45,14 @@ ReactDOM.render(
 
                     <Route path="/register/success" component={requireNotAuth(RegisterSuccessPage)}/>
                     <Route path="/register" component={requireNotAuth(RegisterPage)}/>
-                    
+                    <Route path="/overview" component={requireAuth(BoardsListPage)}/>
                     <Route path="/boards/:id" component={requireAuth(BoardPage)}/>
-                    
+
                     <Route component={PageNotFound}/>
                 </Switch>
             </Layout>
         </ConnectedRouter>
-    </Provider>, 
+    </Provider>,
     document.getElementById('root')
 )
 // registerServiceWorker()

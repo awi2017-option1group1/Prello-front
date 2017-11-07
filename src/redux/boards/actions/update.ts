@@ -10,7 +10,7 @@ export const UPDATE_BOARD_ERROR = 'UPDATE_BOARD_ERROR'
 
 export type Actions = {
     UPDATE_BOARD: {
-        type: typeof UPDATE_BOARD
+        type: typeof UPDATE_BOARD,
     },
     UPDATE_BOARD_ERROR: {
         type: typeof UPDATE_BOARD_ERROR,
