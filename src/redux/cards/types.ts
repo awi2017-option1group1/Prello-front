@@ -1,6 +1,6 @@
 import { IAttachment } from '../attachments/types'
 import { IComment } from '../comments/types'
-import { ITasksList } from '../taskLists/types'
+import { ICheckList } from '../checkLists/types'
 import { ITag } from '../tags/types'
 
 export type ICard = {
@@ -9,6 +9,6 @@ export type ICard = {
     dueTime: Date,
     attachments: IAttachment[],
     comments: IComment[],
-    tasksLists: ITasksList[],
+    checkLists: ICheckList[],
     tags: ITag[]
 }

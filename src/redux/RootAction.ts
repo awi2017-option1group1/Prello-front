@@ -5,6 +5,8 @@ import { Actions as AuthActions } from './auth/actions'
 import { Actions as RegisterActions } from './register/actions'
 import { Actions as BoardsActions } from './boards/boardsList/actions'
 import { Actions as BoardActions } from './boards/actions'
+import { Actions as CheckItemActions } from './checkItems/actions'
+import { Actions as CheckListActions } from './checkLists/actions'
 import { Actions as TestActions } from './testActions'
 
 type ReactRouterAction = RouterAction | LocationChangeAction
@@ -16,4 +18,6 @@ export type RootAction =
   | RegisterActions[keyof RegisterActions]
   | BoardsActions[keyof BoardsActions]
   | BoardActions[keyof BoardActions]
+  | CheckItemActions[keyof CheckItemActions]
+  | CheckListActions[keyof CheckListActions]
   | TestActions[keyof TestActions]
