@@ -1,7 +1,7 @@
 import { Segment, Button } from 'semantic-ui-react'
 import * as React from 'react'
 
-import { IList } from '../../redux/lists/types'
+import { IList } from '../../redux/lists/types' 
 
 import { StateProps } from '../StateProps'
 

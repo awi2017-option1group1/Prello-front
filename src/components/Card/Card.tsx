@@ -7,7 +7,7 @@ import Spinner from '../common/Spinner'
 import AssigneesAvatar from '../AssigneesAvatar'
 import LabelsList from '../common/LabelsList'
 
-import CardModel from '../../models/Card'
+import CardModel from '../../models/Card' 
 
 import './card.css'
 
