@@ -1,38 +1,71 @@
-import { CREATE_BOARD, REMOVE_BOARD } from './actions'
 import { RootAction } from '../RootAction'
-import { IList } from '../lists/types'
-import { ITag } from '../tags/types'
+import { FETCH_BOARD, FETCH_BOARD_ERROR, FETCH_BOARD_SUCCESS } from './actions/fetch'
+import { UPDATE_BOARD, UPDATE_BOARD_SUCCESS, UPDATE_BOARD_ERROR } from './actions/update'
+
+import { IBoard } from './types'
 
 export type State = {
-    id: number,
-    title: string,
-    isPrivate: boolean,
-    lists: IList[],
-    tags: ITag[],
+    error: string | null,
+    isProcessing: boolean,
+    board: IBoard
 }
 
 const defaultValue: State = {
-    id: -1,
-    title: '',
-    isPrivate: false,
-    lists: [],
-    tags: [],
+    error: null,
+    isProcessing: false,
+    board: {
+        id: -1,
+        name: '',
+        isPrivate: false
+    }
 }
-export const reducer = (state: State = defaultValue, action: RootAction) => { 
-        switch (action.type) {
-            case CREATE_BOARD:
-                return {
-                    title: action.title,
-                    isPrivate: action.isPrivate,
-                    lists: action.lists,
-                    tags: action.tags,
-                    userRole: action.userRole,
-                }
 
-            case REMOVE_BOARD:
-                return null
+export const reducer = (state: State = defaultValue, action: RootAction) => {
+    switch (action.type) {
+        case FETCH_BOARD:
+            return {
+                ...state,
+                error: null,
+                isProcessing: true,
+            }
 
-            default:
-                return state
+        case FETCH_BOARD_SUCCESS:
+            return {
+                ...state,
+                error: null,
+                isProcessing: false,
+                board: action.board
+            }
+
+        case FETCH_BOARD_ERROR:
+            return {
+                ...state,
+                error: action.error,
+                isProcessing: false
+            }
+
+        case UPDATE_BOARD:
+            return {
+                ...state,
+                error: null,
+            }
+
+        case UPDATE_BOARD_SUCCESS:
+            return {
+                ...state,
+                error: null,
+                isProcessing: false,
+                board: action.board
+            }
+
+        case UPDATE_BOARD_ERROR:
+            return {
+                ...state,
+                error: action.error,
+                isProcessing: false
+            }
+
+        default:
+            return state
     }
 }

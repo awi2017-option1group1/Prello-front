@@ -1,41 +1,31 @@
-import { LOGIN_REQUEST, LOGIN_RESPONSE_ERROR, LOGIN_RESPONSE_SUCCESS } from './actions'
+import { LOGIN_SUCCESS, LOGIN_FAIL } from './actions'
 import { RootAction } from '../RootAction'
 
+import { ILoggedUser } from '../users/types'
+
 export type State = {
-    token: string | null
-    error: string | null,
-    isProcessing: boolean,
-    isAuthenticated: false
+    user: ILoggedUser | null
+    isAuthenticated: boolean | null
 }
 
 const defaultValue: State = {
-    token: null,
-    error: null,
-    isProcessing: false,
-    isAuthenticated: false
+    user: null,
+    isAuthenticated: null
 }
 
 export const reducer = (state: State = defaultValue, action: RootAction) => {
     switch (action.type) {
-        case LOGIN_REQUEST:
+        case LOGIN_SUCCESS:
             return {
                 ...state,
-                isProcessing: true
+                isAuthenticated: true,
+                user: action.user
             }
 
-        case LOGIN_RESPONSE_SUCCESS:
+        case LOGIN_FAIL:
             return {
                 ...state,
-                isProcessing: false,
-                isAuthenticated: true,
-                token: action.token
-            }
-            
-        case LOGIN_RESPONSE_ERROR:
-            return {
-                ...state,
-                isProcessing: false,
-                error: action.error
+                isAuthenticated: false
             }
 
         default:

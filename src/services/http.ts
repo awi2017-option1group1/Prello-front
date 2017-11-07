@@ -2,9 +2,7 @@ import * as rp from 'request-promise'
 
 import { config } from '../config'
 
-import { AUTH } from './auth'
-
-class Api {
+export class Api {
 
     private static DEFAULT_OPTIONS = {
         json: true
@@ -50,25 +48,13 @@ class Api {
     }
 
     private buildOptions(options: {} = {}, data: {} = {}): {} {
-        const optionsObj = {
+        return {
             ...Api.DEFAULT_OPTIONS,
             body: {
                 ...data
             },
             ...options
         }
-
-        if (AUTH.isUserAuthenticated()) {
-            return {
-                ...optionsObj,
-                auth: {
-                    bearer: AUTH.getUserToken()
-                }
-            }
-        } else {
-            return optionsObj
-        }
-
     }
 
 }

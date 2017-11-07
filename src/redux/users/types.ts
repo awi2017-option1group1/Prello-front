@@ -20,3 +20,9 @@ export type IUser = {
     boardRole: IBoardRole[],
     teamRole: ITeamRole[]
 }
+
+export type ILoggedUser = {
+    uid: number, 
+    email: string,
+    username: string
+}

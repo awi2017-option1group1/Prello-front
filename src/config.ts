@@ -11,13 +11,15 @@ export interface Config {
     server: ServerConfig
 }
 
+// Add default value because the env variables
+// are not set with the hot-reload activated
 export const config: Config = {
-    env: 'development',
+    env: process.env.NODE_ENV || 'development',
 
     server: {
-        host: 'http://localhost',
-        port: 3000,
-        apiSuffix: 'api',
-        authSuffix: 'auth'
+        host: process.env.SERVER_HOST || 'http://localhost',
+        port: process.env.PORT || 3000,
+        apiSuffix: process.env.API_SUFFIX || 'api',
+        authSuffix: process.env.AUTH_SUFFIX || 'auth'
     }
 }

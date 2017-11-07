@@ -1,0 +1,7 @@
+.draggable-tasks-list {
+    display: inline-block;
+    vertical-align: top;
+    width: 300px;
+    padding: 0;
+    margin: 3em 15px 3em 0;
+}

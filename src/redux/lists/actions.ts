@@ -1,28 +1,20 @@
-export const ADD_LIST = 'ADD_LIST'
-export const REMOVE_LIST = 'REMOVE_LIST'
+import { Actions as FetchActions, actionCreators as fetchActionCreators } from './actions/fetch'
+import { Actions as CreateActions, actionCreators as createActionCreators } from './actions/create'
+import { Actions as UpdateActions, actionCreators as updateActionCreators } from './actions/update'
+import { Actions as MoveActions, actionCreators as moveActionCreators } from './actions/move'
+import { Actions as DeleteActions, actionCreators as deleteActionCreators } from './actions/delete'
 
-export type Actions = {
-    ADD_LIST: {
-        type: typeof ADD_LIST,
-        id: number,
-        title: string,
-        rank: string,
-    },
-    REMOVE_LIST: {
-        type: typeof REMOVE_LIST,
-        index: number,
-    },
-}
+export type Actions = 
+    FetchActions
+    & CreateActions
+    & UpdateActions
+    & MoveActions
+    & DeleteActions
 
 export const actionCreators = {
-    addList: (id: number, title: string, rank: string): Actions[typeof ADD_LIST] => ({
-        type: ADD_LIST,
-        id,
-        title,
-        rank,
-    }),
-    remove: (index: number): Actions[typeof REMOVE_LIST] => ({
-        type: REMOVE_LIST,
-        index,
-    }),
+    ...fetchActionCreators,
+    ...createActionCreators,
+    ...updateActionCreators,
+    ...moveActionCreators,
+    ...deleteActionCreators
 }

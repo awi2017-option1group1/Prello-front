@@ -1,39 +1,79 @@
+import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
+import { DropResult } from 'react-beautiful-dnd'
 
-import Board from './Board'
-import { actionCreators } from '../../redux/boards/actions'
 import { RootState, Dispatch } from '../../redux/RootReducer'
+import { actionCreators as boardsActionsCreators } from '../../redux/boards/actions'
+import { actionCreators as listsActionCreators } from '../../redux/lists/actions'
+import { IBoard } from '../../redux/boards/types'
 
-import { IList } from '../../redux/lists/types'
-import { ITag } from '../../redux/tags/types'
-import { IUserRoleInBoard } from '../../redux/boards/types'
+import Board from './DnDContextBoard'
 
-const mapStateToProps = (state: RootState) => {
-    return { board: state.board }
-}
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-    return {
-        create: (   id: number, 
-                    title: string, 
-                    isPrivate: boolean, 
-                    lists: IList[], 
-                    tags: ITag[], 
-                    userRole: IUserRoleInBoard[]) => {
-            dispatch(actionCreators.createBoardRequest(title, isPrivate, lists, tags, userRole))
-        },
-        delete: (index: number) => {
-            dispatch(actionCreators.removeBoardRequest(index))
-        },
-        setTitle: (title: string) => {
-            return // TODO for Alexis
+interface BoardContainerProps {
+    match: {
+        params: {
+            id: string
         }
     }
 }
 
-const BoardContainer = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Board)
+interface PropsFromState {
+    board: IBoard
+    error?: string | null
+    loading?: boolean
+}
+
+interface PropsFromDispatch {
+    loadData?: () => void
+    setTitle: (title: string) => void
+    addList: () => void
+    onDragEnd: (result: DropResult) => void
+}
+
+const mapStateToProps = (state: RootState) => {
+    return {
+        board: state.board.board,
+        error: state.board.error,
+        loading: state.board.isProcessing
+    }
+}
+
+const mapDispatchToProps = (dispatch: Dispatch, ownProps: BoardContainerProps) => {
+    return {
+        loadData: () => { dispatch(boardsActionsCreators.fetchBoard(Number(ownProps.match.params.id))) },
+
+        setTitle: (title: string) => {
+            dispatch(boardsActionsCreators.updateBoardTitle(Number(ownProps.match.params.id), {name: title}))
+        },
+
+        addList: () => {
+            dispatch(listsActionCreators.createBoardList(Number(ownProps.match.params.id)))
+        },
+
+        onDragEnd: (result: DropResult) => {
+            if (!result.destination) {
+                return
+            }
+
+            switch (result.type) {
+                case 'TASKS_LIST':
+                    dispatch(
+                        listsActionCreators.moveBoardList(result.source.index, result.destination!.index)
+                    )
+                    break
+
+                default:
+                    break
+            }
+        }
+    }
+}
+
+const BoardContainer = withRouter(
+    connect<PropsFromState, PropsFromDispatch, {}>(
+        mapStateToProps,
+        mapDispatchToProps
+    )(Board)
+)
 
 export default BoardContainer
