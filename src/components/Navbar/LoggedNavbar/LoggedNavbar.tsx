@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { NavLink, Link } from 'react-router-dom'
-import { Menu, MenuItem, MenuMenu, Icon, Image, Label, Popup, PopupContent, 
+import { Menu, MenuItem, MenuMenu, Icon, Image, Label, Popup, PopupContent,
     ItemGroup, Item, ItemImage, ItemContent, ItemHeader, ItemMeta } from 'semantic-ui-react'
 
 import { ILoggedUser } from '../../../redux/users/types'
@@ -26,7 +26,7 @@ const LoggedNavbar: React.StatelessComponent<LoggedNavbarProps> = (props) => (
             <Icon name="home" />
             Home
         </NavLink>
-        <NavLink to="/board" className="item" activeClassName="active">
+        <NavLink to="/overview" className="item" activeClassName="active">
             <Icon name="block layout" />
             Boards
         </NavLink>
@@ -47,10 +47,10 @@ const LoggedNavbar: React.StatelessComponent<LoggedNavbarProps> = (props) => (
                 <PopupContent>
                     <ItemGroup>
                     <Item>
-                        <ItemImage 
-                            avatar={true} 
+                        <ItemImage
+                            avatar={true}
                             size="mini"
-                            src="https://semantic-ui.com/images/wireframe/square-image.png" 
+                            src="https://semantic-ui.com/images/wireframe/square-image.png"
                         />
                         <ItemContent>
                             <ItemHeader className="header">{props.user.username}</ItemHeader>
@@ -83,7 +83,7 @@ const LoggedNavbar: React.StatelessComponent<LoggedNavbarProps> = (props) => (
                 </PopupContent>
             </Popup>
         </MenuMenu>
-    </Menu>    
+    </Menu>
 )
 
 export default LoggedNavbar

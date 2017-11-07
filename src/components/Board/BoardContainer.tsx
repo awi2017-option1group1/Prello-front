@@ -34,7 +34,7 @@ const mapStateToProps = (state: RootState) => {
     return {
         board: state.board.board,
         error: state.board.error,
-        loading: state.board.isProcessing
+        loading: state.board.isProcessing,
     }
 }
 
@@ -56,7 +56,7 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: BoardContainerProps) =
             }
 
             switch (result.type) {
-                case 'TASKS_LIST':
+                case 'BOARDS_LIST':
                     dispatch(
                         listsActionCreators.moveBoardList(result.source.index, result.destination!.index)
                     )
