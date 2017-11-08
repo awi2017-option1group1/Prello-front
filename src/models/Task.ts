@@ -1,6 +1,7 @@
+import TasksList from './TasksList'
 
-export default interface Attachment {
+export default interface Task {
     name: string,
     state: boolean,
-    taskListId: number
+    taskList: TasksList
 }
