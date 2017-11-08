@@ -60,7 +60,6 @@
 //         expect(card.find(AssigneesAvatar).props().assignees).toEqual(['toto'])   
 //     }) */
 
-
 //     /*
 //     it('should display a Card without progress bar', () => {
 //         const card = shallow(
