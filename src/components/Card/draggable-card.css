@@ -6,7 +6,11 @@
     box-sizing: border-box;
 }
 
-.draggable-card.dragged {
+.draggable-card {
+    width: 100%;
+}
+
+.draggable-card .dragged {
     cursor: grabbing;
     cursor: -webkit-grabbing; 
     cursor: -moz-grabbing;

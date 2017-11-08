@@ -1,3 +1,3 @@
-import CardsList from './DroppableCardsList'
+import CardsList from './CardsListContainer'
 
 export default CardsList

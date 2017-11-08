@@ -6,14 +6,14 @@ import Card, { CardProps } from './Card'
 import './draggable-card.css'
 
 const DraggableCard: React.StatelessComponent<CardProps> = (props) => (
-    <Draggable draggableId={`draggable-${props.id}`} type="CARD">
+    <Draggable draggableId={`draggable-card-${props.card.id}`} type="CARD">
         {(provided, snapshot) => (
-            <div>
+            <div className="draggable-card">
                 <div 
                     ref={provided.innerRef} 
                     {...provided.dragHandleProps} 
                     style={provided.draggableStyle} 
-                    className={`draggable-card ${snapshot.isDragging ? 'dragged' : ''}`}
+                    className={`${snapshot.isDragging ? 'dragged' : ''}`}
                 >
                     <Card {...props} />
                 </div>

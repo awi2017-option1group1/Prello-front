@@ -3,6 +3,6 @@ export type ICard = {
     name: string,
     desc: string, 
     due: Date,
-    dueComplete: Date,
+    dueComplete: boolean,
     pos: number
 }

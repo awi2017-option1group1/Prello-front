@@ -1,7 +1,8 @@
 import { connect } from 'react-redux'
 
 import { RootState, Dispatch } from '../../redux/RootReducer'
-import { actionCreators } from '../../redux/lists/actions'
+import { actionCreators as boardsActionCreators } from '../../redux/boards/actions'
+import { actionCreators as listsActionCreators } from '../../redux/lists/actions'
 import { IList } from '../../redux/lists/types'
 
 import TasksList from './DraggableTasksList'
@@ -12,27 +13,34 @@ interface TasksListsContainerProps {
 
 interface PropsFromState {
     list: IList
+    size: number
 }
 
 interface PropsFromDispatch {
+    openCreateCardModal: () => void
     setTitle: (title: string) => void
     delete: () => void
 }
 
 const mapStateToProps = (state: RootState, ownProps: TasksListsContainerProps) => {
     return {
-        list: ownProps.list
+        list: ownProps.list,
+        size: state.cards[ ownProps.list.id].cards.length
     }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch, ownProps: TasksListsContainerProps) => {
     return {
+        openCreateCardModal: () => {
+            dispatch(boardsActionCreators.openCreateCardModal(ownProps.list))
+        },
+
         setTitle: (title: string) => {
-            dispatch(actionCreators.updateBoardList(ownProps.list, { name: title }))
+            dispatch(listsActionCreators.updateBoardList(ownProps.list, { name: title }))
         },
 
         delete: () => {
-            dispatch(actionCreators.deleteBoardList(ownProps.list))
+            dispatch(listsActionCreators.deleteBoardList(ownProps.list))
         }
     }
 }

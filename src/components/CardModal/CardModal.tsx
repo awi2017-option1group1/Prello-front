@@ -1,18 +1,22 @@
 import * as React from 'react'
-import { StateProps } from '../StateProps'
-import Spinner from '../common/Spinner'
 import { Card as SmCard, Button, Modal, Input, Icon, Grid, Segment, Accordion, Checkbox,
-                Comment, Header, Menu, Form, Label } from 'semantic-ui-react'
-import { Component } from 'react'
+    Comment, Header, Menu, Form, Label } from 'semantic-ui-react'
+
+import { StateProps } from '../StateProps'
+import { ICard } from '../../redux/cards/types'
+
+import Spinner from '../common/Spinner'
+import EditableTitle from '../common/EditableTitle'
 import { AssigneesSegment } from './../AssigneesSegment'
 import { AttachmentsModal } from './../AttachmentsModal'
 
 export interface ModalProps extends StateProps {
-    id: number
-    visible: boolean 
+    card: ICard
+
+    onClose: () => void
 }
 
-class TaskListAccordion extends Component {
+class TaskListAccordion extends React.Component {
     state = { activeIndex: -1 }
 
     handleClick = (e: React.SyntheticEvent<HTMLDivElement>, titleProps: {index: number}) => {
@@ -43,7 +47,6 @@ class TaskListAccordion extends Component {
 }
 
 const CardModal: React.StatelessComponent<ModalProps> = (props) => {
-
     if (props.loading) {
         return (
             <SmCard>
@@ -54,14 +57,14 @@ const CardModal: React.StatelessComponent<ModalProps> = (props) => {
 
     return (
         <Modal
-            trigger={<Button>Show Modal</Button>}
+            open={true}
             closeIcon={true}
             size="large"
+            onClose={props.onClose}
         >
-            <Modal.Header>
-                <h3>Card Name</h3>
-                <h5>In list : ListName</h5>
-            </Modal.Header>
+            <Header>
+                <EditableTitle type="h2" content={props.card.name} onSubmit={() => null} />
+            </Header> 
             <Modal.Content
                 image={true}
                 scrolling={true}
@@ -124,16 +127,38 @@ const CardModal: React.StatelessComponent<ModalProps> = (props) => {
                             <Label color="purple" horizontal={true}>Candy</Label>
                         </Segment>
                     </Menu.Item>
-                    <h3>Add</h3>
-                    <p><Button compact={true} fluid={true} circular={true}> Due Date </Button></p>
-                    <p><Button compact={true} fluid={true} circular={true}> New Task List </Button></p>
-                    <p><AttachmentsModal /></p>
-
                     <h3>Actions</h3>
-                    <p><Button compact={true} fluid={true} circular={true}> Move Card </Button></p>
-                    <p><Button compact={true} fluid={true} circular={true}> Copy </Button></p>
-                    <p><Button compact={true} fluid={true} circular={true}> Subscribe </Button></p>
-                    <p><Button compact={true} fluid={true} circular={true}> Archive </Button></p>
+                    <p>
+                        <Button 
+                            content="Set due date" 
+                            icon="calendar" 
+                            labelPosition="left" 
+                            primary={true} 
+                            circular={true} 
+                            fluid={true}
+                        />
+                    </p>
+                    <p>
+                        <Button 
+                            content="Add checklist" 
+                            icon="checkmark box" 
+                            labelPosition="left" 
+                            primary={true} 
+                            circular={true} 
+                            fluid={true}
+                        />
+                    </p>
+                    <p>
+                        <Button 
+                            content="Move card" 
+                            icon="move" 
+                            labelPosition="left" 
+                            primary={true} 
+                            circular={true} 
+                            fluid={true}
+                        />
+                    </p>
+                    <p><AttachmentsModal /></p>
                 </Grid.Column>
                 </Grid>
             </Modal.Description>

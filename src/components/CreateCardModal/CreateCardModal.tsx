@@ -3,6 +3,7 @@ import { Button, Modal, ModalContent, ModalActions, Header, Icon, Form, FormFiel
 
 export interface CreateCardModalProps {
     isOpen: boolean
+    listName: string
 
     save: (name: string) => void
     cancel: () => void
@@ -21,13 +22,20 @@ class CreateCardModel extends React.Component<CreateCardModalProps, CreateCardMo
         }
     }
 
+    componentWillReceiveProps() {
+        this.setState({
+            name: ''
+        })
+    }
+
     render() {
         return (
             <Modal 
                 open={this.props.isOpen}
                 closeIcon={true}
+                onClose={this.props.cancel}
             >
-                <Header icon="list layout" content="Add a new task" />
+                <Header icon="list layout" content={`Add a new task in '${this.props.listName}'`} />
                 <ModalContent>
                     <Form>
                         <FormField>

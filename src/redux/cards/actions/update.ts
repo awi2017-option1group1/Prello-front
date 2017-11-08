@@ -22,10 +22,6 @@ export type Actions = {
 }
 
 export const actionCreators = {
-    // --------------------------------------- //
-    //                    SYNC                 //
-    // --------------------------------------- //
-
     updateCardRequest: (): Actions[typeof UPDATE_CARD] => ({
         type: UPDATE_CARD,
     }),
@@ -37,16 +33,11 @@ export const actionCreators = {
         type: UPDATE_CARD_SUCCESS,
         card
     }),
-
-    // --------------------------------------- //
-    //                   ASYNC                 //
-    // --------------------------------------- //
-
-    updateBackendCard: (card: ICard, newValues: Partial<ICard>) => {
+    updateCard: (currentCard: ICard, newValues: Partial<ICard>) => {
         return (dispatch: Dispatch) => {
             dispatch(actionCreators.updateCardRequest())
-            return API.put(`/cards/${card.id}`, newValues).then(
-                response => dispatch(actionCreators.updateCardRequestSuccess(response.card)),
+            return API.put(`/cards/${currentCard.id}`, newValues).then(
+                card => dispatch(actionCreators.updateCardRequestSuccess(card)),
                 error => dispatch(actionCreators.updateCardRequestError(error.message)),
             )
         }
