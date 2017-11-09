@@ -10,19 +10,18 @@ type ITeamRole = {
 
 export type IUser = {
     id: number,
-    firstName: string,
-    lastName: string,
-    pseudo: string,
-    biography: Text,
+    fullName?: string,
+    username: string,
+    bio?: Text,
     notificationEnabled: boolean,
     email: string,
     password: string,
-    boardRole: IBoardRole[],
-    teamRole: ITeamRole[]
+    boardRole?: IBoardRole[],
+    teamRole?: ITeamRole[]
 }
 
 export type ILoggedUser = {
-    uid: number, 
+    uid: number,
     email: string,
     username: string
 }

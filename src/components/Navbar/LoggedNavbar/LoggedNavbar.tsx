@@ -60,12 +60,8 @@ const LoggedNavbar: React.StatelessComponent<LoggedNavbarProps> = (props) => (
                     </ItemGroup>
                     <Menu vertical={true}>
                         <Link to="/profile" className="item">
-                            <Icon name="unhide" />
-                            Profile
-                        </Link>
-                        <Link to="/profile/update" className="item">
                             <Icon name="user" />
-                            Update my profile
+                            Profile
                         </Link>
                         <Link to="/profile#notifications" className="item">
                             <Icon name="alarm" />

@@ -8,19 +8,21 @@ import { reducer as board, State as BoardState } from './boards/reducers'
 import { reducer as boardsList, State as BoardsListState } from './boardsList/reducers'
 import { reducer as checkList, State as CheckListState } from './checkLists/reducers'
 import { reducer as checkItem, State as CheckItemState } from './checkItems/reducers'
+import { reducer as user, State as UserState } from './users/reducers'
 import { reducer as cards, State as CardsState } from './cards/cardsLists/reducers'
 import { reducer as card, State as CardState } from './cards/reducers'
 
 interface StoreEnhancerState { }
 
 export interface RootState extends StoreEnhancerState {
-    router: RouterState
-    board: BoardState
-    lists: ListsState
-    auth: AuthState
-    boardsList: BoardsListState
-    checkList: CheckListState
-    checkItem: CheckItemState
+    router: RouterState,
+    board: BoardState,
+    lists: ListsState,
+    auth: AuthState,
+    boardsList: BoardsListState,
+    checkList: CheckListState,
+    checkItem: CheckItemState,
+    user: UserState,
     register: RegisterState,
     cards: CardsState,
     card: CardState
@@ -38,5 +40,6 @@ export const rootReducer = combineReducers<RootState>({
     register,
     boardsList,
     checkList,
-    checkItem
+    checkItem,
+    user
 })

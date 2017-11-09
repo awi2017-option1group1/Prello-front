@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Button, Card } from 'semantic-ui-react'
-
+import { Link } from 'react-router-dom'
 import { IBoard } from '../../redux/boards/types'
 
 import { StateProps } from '../StateProps'
@@ -44,11 +44,12 @@ class BoardsList extends React.Component<BoardsListProps> {
                 <Card.Group itemsPerRow={3}>
                     {this.props.boards.map(board =>
                         <Card
+                            as={Link}
                             color={randColor()}
                             key={board.id}
                             header={board.name}
-                            link={true}
-                            href={'/boards/' + board.id}
+                            link={false}
+                            to={'/boards/' + board.id}
                         />)}
                 </Card.Group>
                 </section>

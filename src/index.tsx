@@ -21,6 +21,7 @@ import RegisterSuccessPage from './routes/RegisterSuccessPage'
 import BoardPage from './routes/BoardPage'
 import BoardsListPage from './routes/BoardsPage'
 import PageNotFound from './routes/PageNotFound'
+import ProfilePage from './routes/ProfilePage'
 
 /* Authenticate user */
 AUTH.get('/me')
@@ -46,6 +47,7 @@ ReactDOM.render(
                     <Route path="/register" component={requireNotAuth(RegisterPage)}/>
                     <Route path="/overview" component={requireAuth(BoardsListPage)}/>
                     <Route path="/boards/:id" component={requireAuth(BoardPage)}/>
+                    <Route path="/profile" component={requireAuth(ProfilePage)}/>
 
                     <Route component={PageNotFound}/>
                 </Switch>
