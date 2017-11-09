@@ -1,4 +1,4 @@
-import * as React from 'react'
+/*import * as React from 'react'
 import { CommentGroup } from 'semantic-ui-react'
 
 import Comment from '../Comment/'
@@ -17,4 +17,4 @@ const CommentsList: React.StatelessComponent<CommentsListProps> = (props) => (
     </CommentGroup>
 )
 
-export default CommentsList
+export default CommentsList*/

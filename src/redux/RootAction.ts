@@ -9,7 +9,7 @@ import { Actions as CheckItemActions } from './checkItems/actions'
 import { Actions as CheckListActions } from './checkLists/actions'
 import { Actions as TestActions } from './testActions'
 import { Actions as CommentActions } from './comments/actions'
-import { Actions as CommentsActions } from './comments/commentsList/actions'
+// import { Actions as CommentsActions } from './comments/commentsList/actions'
 
 type ReactRouterAction = RouterAction | LocationChangeAction
 
@@ -24,4 +24,4 @@ export type RootAction =
   | CheckListActions[keyof CheckListActions]
   | TestActions[keyof TestActions]
   | CommentActions[keyof CommentActions]
-  | CommentsActions[keyof CommentsActions]
+  // | CommentsActions[keyof CommentsActions]
