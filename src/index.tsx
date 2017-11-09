@@ -9,7 +9,6 @@ import Layout from './components/Layout'
 import { AUTH } from './services/auth'
 import { requireNotAuth, requireAuth } from './components/Auth'
 
-// import registerServiceWorker from './registerServiceWorker'
 import './index.css'
 
 import store, { history } from './redux/store'
@@ -42,7 +41,7 @@ ReactDOM.render(
             <Layout>
                 <Switch>
                     <Route exact={true} path="/" component={IndexPage}/>
-
+                    
                     <Route path="/register/success" component={requireNotAuth(RegisterSuccessPage)}/>
                     <Route path="/register" component={requireNotAuth(RegisterPage)}/>
                     <Route path="/overview" component={requireAuth(BoardsListPage)}/>
@@ -55,4 +54,3 @@ ReactDOM.render(
     </Provider>,
     document.getElementById('root')
 )
-// registerServiceWorker()

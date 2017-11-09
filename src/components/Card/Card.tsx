@@ -1,46 +1,34 @@
 import * as React from 'react'
 import { Progress, Card as SmCard, CardContent, CardDescription, CardMeta } from 'semantic-ui-react'
 
-import { StateProps } from '../StateProps'
-
-import Spinner from '../common/Spinner'
 import AssigneesAvatar from '../AssigneesAvatar'
 import LabelsList from '../common/LabelsList'
 
-import CardModel from '../../models/Card' 
+import { ICard } from '../../redux/cards/types'
 
 import './card.css'
 
-export interface CardProps extends StateProps {
-    id: number 
-    card: CardModel
+export interface CardProps {
+    card: ICard
+
+    onClick: () => void
 }
 
-const Card: React.StatelessComponent<CardProps> = (props) => {
-    if (props.loading) {
-        return (
-            <SmCard>
-                <Spinner />
-            </SmCard>
-        )
-    }
-
-    return (
-        <SmCard>
-            <CardContent>
-                <AssigneesAvatar assignees={props.card.assignees} />
-                <CardMeta>
-                    <LabelsList labels={props.card.labels} maxToDisplay={2} />
-                </CardMeta>
-                <CardDescription>
-                    {props.card.title}
-                </CardDescription>
-            </CardContent>
-            {props.card.percent !== 0 &&
-                <Progress percent={props.card.percent} indicating={true} attached="bottom" />
-            }
-        </SmCard>
-    )
-}
+const Card: React.StatelessComponent<CardProps> = (props) => (
+    <SmCard onClick={props.onClick}>
+        <CardContent>
+            <AssigneesAvatar assignees={[]} />
+            <CardMeta>
+                <LabelsList labels={[]} maxToDisplay={2} />
+            </CardMeta>
+            <CardDescription>
+                {props.card.name}
+            </CardDescription>
+        </CardContent>
+        {0 !== 0 &&
+            <Progress percent={0} indicating={true} attached="bottom" />
+        }
+    </SmCard>
+)
 
 export default Card

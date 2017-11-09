@@ -6,7 +6,7 @@ import TasksList, { TasksListProps } from './TasksList'
 import './draggable-tasks-list.css'
 
 const DraggableTasksList: React.StatelessComponent<TasksListProps> = (props) => (
-    <Draggable draggableId={`draggable-${props.list.id}`} type="TASKS_LIST">
+    <Draggable draggableId={`draggable-list-${props.list.id}`} type="TASKS_LIST">
         {(provided, snapshot) => (
             <div className="draggable-tasks-list">
                 <div 

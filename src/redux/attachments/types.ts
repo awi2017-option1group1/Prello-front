@@ -1,5 +1,9 @@
+
 export type IAttachment = {
     id: number,
-    type: string, 
-    URL: string
+    URL: string,
+    pos: number,
+    name: string,
+    date: Date,
+    cardId: number
 }

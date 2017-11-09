@@ -8,6 +8,7 @@ import { Actions as BoardActions } from './boards/actions'
 import { Actions as CheckItemActions } from './checkItems/actions'
 import { Actions as CheckListActions } from './checkLists/actions'
 import { Actions as TestActions } from './testActions'
+import { Actions as CardActions } from './cards/actions'
 
 type ReactRouterAction = RouterAction | LocationChangeAction
 
@@ -21,3 +22,4 @@ export type RootAction =
   | CheckItemActions[keyof CheckItemActions]
   | CheckListActions[keyof CheckListActions]
   | TestActions[keyof TestActions]
+  | CardActions[keyof CardActions]

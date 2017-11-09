@@ -12,3 +12,8 @@
 .ui.segment.tasks-list footer {
     margin-top: 10px;
 }
+
+.ui.label.ribbon.task-counter {
+    margin-top: -30px;
+    margin-bottom: 5px;
+}

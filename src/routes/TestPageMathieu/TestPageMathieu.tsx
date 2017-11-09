@@ -1,5 +1,4 @@
 import * as React from 'react'
-import CardModal from './../../components/CardModal'
 import { Card, Feed } from 'semantic-ui-react'
 
 class TestPageMathieu extends React.Component {
@@ -19,7 +18,6 @@ class TestPageMathieu extends React.Component {
                   <Feed.Date content="1 day ago" />
                   <Feed.Summary>
                     You added <a>Jenny Hess</a> to your <a>coworker</a> group.
-                    <CardModal id={1} visible={true}/>
                   </Feed.Summary>
                 </Feed.Content>
               </Feed.Event>
