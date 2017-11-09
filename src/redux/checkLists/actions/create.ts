@@ -8,14 +8,14 @@ export const CREATE_CHECKLIST_SUCCESS = 'CREATE_CHECKLIST_SUCCESS'
 export const CREATE_CHECKLIST_ERROR = 'CREATE_CHECKLIST_ERROR'
 
 export type Actions = {
-    CREATE_CHECKLIST: {   
+    CREATE_CHECKLIST: {
         type: typeof CREATE_CHECKLIST,
     },
-    CREATE_CHECKLIST_SUCCESS: {   
+    CREATE_CHECKLIST_SUCCESS: {
         type: typeof CREATE_CHECKLIST_SUCCESS,
         checkList: ICheckList,
     },
-    CREATE_CHECKLIST_ERROR: {     
+    CREATE_CHECKLIST_ERROR: {
         type: typeof CREATE_CHECKLIST_ERROR,
         error: string
     }
@@ -25,16 +25,16 @@ export const actionCreators = {
     // --------------------------------------- //
     //                    SYNC                 //
     // --------------------------------------- //
-    createCheckListRequest: ():  
+    createCheckListRequest: ():
     Actions[typeof CREATE_CHECKLIST] => ({
         type: CREATE_CHECKLIST,
     }),
-    createCheckListSuccess: (checkList: ICheckList):    
+    createCheckListSuccess: (checkList: ICheckList):
     Actions[typeof CREATE_CHECKLIST_SUCCESS] => ({
         type: CREATE_CHECKLIST_SUCCESS,
         checkList,
     }),
-    createCheckListError: (error: string):    
+    createCheckListError: (error: string):
     Actions[typeof CREATE_CHECKLIST_ERROR] => ({
         type: CREATE_CHECKLIST_ERROR,
         error,
@@ -43,11 +43,11 @@ export const actionCreators = {
     // --------------------------------------- //
     //                   ASYNC                 //
     // --------------------------------------- //
-    createBackendCheckLists: (checkList: ICheckList) => {    
+    createBackendCheckItem: (cardId: number) => {
         return (dispatch: Dispatch) => {
             dispatch(actionCreators.createCheckListRequest())
-            return API.post(`/cards/${checkList.cardId}/checklists`, checkList).then(
-                response => dispatch(actionCreators.createCheckListSuccess(response.checkList)),
+            return API.post(`/cards/${cardId}/checklists`).then(
+                newCheckList => dispatch(actionCreators.createCheckListSuccess(newCheckList)),
                 error => dispatch(actionCreators.createCheckListError(error.message)),
             )
         }

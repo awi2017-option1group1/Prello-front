@@ -56,7 +56,7 @@ export const actionCreators = {
         return (dispatch: Dispatch) => {
             dispatch(actionCreators.fetchCheckListRequest())
             return API.get(`/checklists/${checkListId}`).then(
-                response => dispatch(actionCreators.fetchCheckListSuccess(response.checkList)),
+                checkList => dispatch(actionCreators.fetchCheckListSuccess(checkList)),
                 error => dispatch(actionCreators.checkListError(error.message)),
             )
         }

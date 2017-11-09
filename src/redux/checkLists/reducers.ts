@@ -7,13 +7,21 @@ import { RootAction } from '../RootAction'
 import { ICheckList } from '../checkLists/types'
 
 export type State = {
-    checkList: ICheckList | null,
+    checkList: ICheckList,
     error: string | null,
     isProcessing: boolean,
 }
 
+const checkListDefault: ICheckList = {
+    id: 1,
+    name: 'Default Check List',
+    pos: 1,
+    cardId: 1,
+    checkItems: []
+}
+
 const defaultValue: State = {
-    checkList: null,
+    checkList: checkListDefault,
     error: null,
     isProcessing: false
 }
@@ -26,7 +34,7 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
                 error: action.error,
                 isProcessing: false
         }
-        
+
         case FETCH_CHECKLIST:
             return {
                 ...state,
@@ -35,7 +43,7 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
                 isProcessing: true
         }
 
-        case FETCH_CHECKLIST_SUCCESS: 
+        case FETCH_CHECKLIST_SUCCESS:
             return {
                 ...state,
                 checkList: action.checkList,
@@ -49,7 +57,7 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
                 checkList: action.checkList,
                 error: null
         }
-    
+
         case CREATE_CHECKLIST_ERROR:
             return {
                 ...state,
