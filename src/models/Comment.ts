@@ -1,5 +1,6 @@
-export default interface Comment {
+export default interface IComment {
     content: string
     date: Date
-    user: IUser
+    userId: number,
+    userName: string
 }

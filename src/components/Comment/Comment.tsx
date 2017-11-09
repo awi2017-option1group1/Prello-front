@@ -1,41 +1,75 @@
 import * as React from 'react'
-import { Comment as SmComment, CommentContent, CommentAuthor, CommentMetadata,
-    CommentText } from 'semantic-ui-react'
+import { Comment as SmComment, Segment } from 'semantic-ui-react'
 
 import { StateProps } from '../StateProps'
 
-import CommentModel from '../../models/Comment'
+import { IComment } from '../../redux/comments/types'
+import { ILoggedUser } from '../../redux/users/types'
+
+import Spinner from '../common/Spinner'
 
 import './comment.css'
 
 export interface CommentProps extends StateProps {
-    id: number
-    comment: CommentModel
+    comment: IComment
+    loggedUser?: ILoggedUser
+
+    delete: () => void
 }
   
-const Comment: React.StatelessComponent<CommentProps> = (props) => {
+const CommentComponent: React.StatelessComponent<CommentProps> = (props) => {
+    if (props.loading) {
+        return (
+            <Segment className="comment">
+                <Spinner />
+            </Segment>
+        )
+    }
+
+    // A user can only delete its OWN comment(s)
+    const deleteIcom = (props.loggedUser!.uid === props.comment.userId) ? (
+        <SmComment.Action onClick={props.delete}>Delete</SmComment.Action>
+    ) : ''
+
+    function timeSince(date: Date): string {
+        var seconds = Math.floor((new Date().getTime() - date.getTime()) / 1000)
+        var interval = Math.floor(seconds / 31536000)
+        if (interval > 1) {
+          return interval + ' years'
+        }
+        interval = Math.floor(seconds / 2592000)
+        if (interval > 1) {
+          return interval + ' months'
+        }
+        interval = Math.floor(seconds / 86400)
+        if (interval > 1) {
+          return interval + ' days'
+        }
+        interval = Math.floor(seconds / 3600)
+        if (interval > 1) {
+          return interval + ' hours'
+        }
+        interval = Math.floor(seconds / 60)
+        if (interval > 1) {
+          return interval + ' minutes'
+        }
+        return Math.floor(seconds) + ' seconds'
+    }
 
     return (
-
         <SmComment>
-            <CommentContent>  
-                <CommentAuthor>
-                    {props.comment.user.firstName + props.comment.user.lastName}
-                </CommentAuthor>
-                <CommentMetadata>
-                    <CommentText>
-                        {
-                            props.comment.date         
-                            // TODO: calculate difference between now and the creation date               
-                        }
-                    </CommentText>
-                </CommentMetadata>
-                <CommentText>
-                    {props.comment.content}
-                </CommentText>
-            </CommentContent>
+            <SmComment.Content>
+                <SmComment.Author> {props.comment.userName} </SmComment.Author>
+                <SmComment.Metadata>
+                    <div> {timeSince(props.comment.createdDate) + ' ' + 'ago'} </div>
+                </SmComment.Metadata>
+                <SmComment.Text> {props.comment.content} </SmComment.Text>
+                <SmComment.Actions>
+                    {deleteIcom}
+                </SmComment.Actions>
+            </SmComment.Content>
         </SmComment>
     )
 }
 
-export default Comment
+export default CommentComponent
