@@ -1,5 +1,10 @@
 import { RootAction } from '../RootAction'
-import { FETCH_USER, FETCH_USER_ERROR, FETCH_USER_SUCCESS } from './actions/fetch'
+import {    FETCH_USER, 
+            FETCH_USER_ERROR, 
+            FETCH_USER_SUCCESS, 
+            CONFIRM_EMAIL, 
+            CONFIRM_EMAIL_ERROR, 
+            CONFIRM_EMAIL_SUCCESS } from './actions/fetch'
 import { UPDATE_USER_SUCCESS, UPDATE_USER_ERROR } from './actions/update'
 
 import { IUser } from './types'
@@ -57,6 +62,28 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
             return {
                 ...state,
                 error: action.error
+            }
+        
+        case CONFIRM_EMAIL:
+            return {
+                ...state,
+                error: null,
+                isProcessing: true,
+            }
+        
+        case CONFIRM_EMAIL_ERROR: 
+            return {
+                ...state,
+                error: action.error,
+                isProcessing: false,
+            }
+        
+        case CONFIRM_EMAIL_SUCCESS: 
+            return {
+                ...state, 
+                error: null,
+                isProcessing: false,
+                user: action.user,
             }
 
         default:
