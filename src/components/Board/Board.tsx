@@ -101,11 +101,11 @@ class Board extends React.Component<BoardProps> {
                     </div>
                 </SplitHeader>
                 <TasksLists boardId={this.props.board.id} />
-                <CreateCardModal 
-                    isOpen={this.props.listToAppendCard != null} 
+                <CreateCardModal
+                    isOpen={this.props.listToAppendCard != null}
                     listName={this.props.listToAppendCard ? this.props.listToAppendCard!.name : ''}
-                    save={this.props.saveCard} 
-                    cancel={this.props.closeCreateCard} 
+                    save={this.props.saveCard}
+                    cancel={this.props.closeCreateCard}
                 />
                 {this.props.openedCard !== null && 
                     <CardModal 

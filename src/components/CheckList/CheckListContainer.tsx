@@ -22,7 +22,6 @@ interface PropsFromState {
 interface PropsFromDispatch {
     loadData?: () => void
     setTitle: (title: string) => void
-    addCheckItem: () => void
 }
 
 const mapStateToProps = (state: RootState) => {

@@ -12,7 +12,6 @@ import PageNotFound from '../../routes/PageNotFound'
 export interface CheckListProps extends StateProps {
     checkList: ICheckList
     setTitle: (title: string) => void
-    addCheckItem: () => void
 }
 
 class CheckList extends React.Component<CheckListProps> {
@@ -44,7 +43,6 @@ class CheckList extends React.Component<CheckListProps> {
             <section id="checkList">
                 <Accordion styled={true} fluid={true} />
                 <Accordion.Title
-                            // content={this.props.checkList.name}
                             active={activeCheckList === 0}
                             index={0}
                             onClick={this.handleClick}
