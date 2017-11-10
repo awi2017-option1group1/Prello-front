@@ -1,6 +1,6 @@
 import { FETCH_BOARD_LISTS_SUCCESS } from '../../lists/actions/fetch'
 import { CREATE_BOARD_LIST_SUCCESS } from '../../lists/actions/create'
-import { CREATE_CARD_SUCCESS } from '../actions/create'
+import { CREATE_CARD, CREATE_CARD_SUCCESS } from '../actions/create'
 import { MOVE_CARD, MOVE_CARD_SUCCESS } from '../actions/move'
 import { FETCH_CARDS_LIST, FETCH_CARDS_LIST_ERROR, FETCH_CARDS_LIST_SUCCESS } from '../actions/fetchAll'
 
@@ -58,12 +58,23 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
             }
             return newStateCreateList
 
+        case CREATE_CARD:
+            return {
+                ...state,
+                [action.listId]: {
+                    ...state[action.listId],
+                    cards: state[action.listId].cards.concat(action.card as ICard)
+                }
+            }
+
         case CREATE_CARD_SUCCESS:
             return {
                 ...state,
                 [action.listId]: {
                     ...state[action.listId],
-                    cards: state[action.listId].cards.concat(action.card)
+                    cards: state[action.listId].cards
+                        .filter(c => c.id !== null && c.id !== undefined)
+                        .concat(action.card)
                 }
             }
 

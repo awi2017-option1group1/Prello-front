@@ -5,12 +5,13 @@ export interface CreateCardModalProps {
     isOpen: boolean
     listName: string
 
-    save: (name: string) => void
+    save: (name: string, desc: string) => void
     cancel: () => void
 }
 
 export interface CreateCardModalState {
     name: string
+    desc: string
 }
 
 class CreateCardModel extends React.Component<CreateCardModalProps, CreateCardModalState> {
@@ -18,13 +19,15 @@ class CreateCardModel extends React.Component<CreateCardModalProps, CreateCardMo
     constructor(props: CreateCardModalProps) {
         super(props)
         this.state = {
-            name: ''
+            name: '',
+            desc: ''
         }
     }
 
     componentWillReceiveProps() {
         this.setState({
-            name: ''
+            name: '',
+            desc: ''
         })
     }
 
@@ -39,20 +42,31 @@ class CreateCardModel extends React.Component<CreateCardModalProps, CreateCardMo
                 <ModalContent>
                     <Form>
                         <FormField>
-                            <label>Task name</label>
+                            <label>Name</label>
                             <input 
                                 placeholder="Task name" 
                                 value={this.state.name} 
                                 onChange={(e) => this.setState({ name: e.target.value })} 
                             />
                         </FormField>
+                        <Form.TextArea 
+                            label="Description" 
+                            placeholder="Tell us more about the card..." 
+                            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => 
+                                this.setState({ desc: e.target.value }
+                            )}
+                        />
                     </Form>
                 </ModalContent>
                 <ModalActions>
                     <Button color="red" circular={true} onClick={this.props.cancel}>
                         <Icon name="cancel" /> Cancel
                     </Button>
-                    <Button color="green" circular={true} onClick={() => this.props.save(this.state.name)}>
+                    <Button 
+                        color="green" 
+                        circular={true} 
+                        onClick={() => this.props.save(this.state.name, this.state.desc)}
+                    >
                         <Icon name="checkmark" /> Save
                     </Button>
                 </ModalActions>

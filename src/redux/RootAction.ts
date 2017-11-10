@@ -10,6 +10,7 @@ import { Actions as CheckListActions } from './checkLists/actions'
 import { Actions as TestActions } from './testActions'
 import { Actions as UserActions } from './users/actions'
 import { Actions as CardActions } from './cards/actions'
+import { Actions as UiActions } from './ui/actions'
 
 type ReactRouterAction = RouterAction | LocationChangeAction
 
@@ -25,3 +26,4 @@ export type RootAction =
   | TestActions[keyof TestActions]
   | UserActions[keyof UserActions]
   | CardActions[keyof CardActions]
+  | UiActions[keyof UiActions]
