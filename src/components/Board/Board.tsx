@@ -64,7 +64,7 @@ class Board extends React.Component<BoardProps> {
                     cancel={this.props.closeCreateCard} 
                 />
                 {this.props.openedCard !== null && 
-                    <CardModal onClose={this.props.closeCard} card={this.props.openedCard} />
+                    <CardModal onClose={this.props.closeCard} card={this.props.openedCard} deleteCard={() => null} />
                 }
             </section>
         )

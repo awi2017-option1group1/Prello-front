@@ -8,12 +8,12 @@ import { ICard } from '../../redux/cards/types'
 import Spinner from '../common/Spinner'
 import EditableTitle from '../common/EditableTitle'
 import { AssigneesSegment } from './../AssigneesSegment'
-import { AttachmentsModal } from './../AttachmentsModal'
 
 export interface ModalProps extends StateProps {
     card: ICard
 
     onClose: () => void
+    deleteCard: () => void
 }
 
 class TaskListAccordion extends React.Component {
@@ -74,17 +74,9 @@ const CardModal: React.StatelessComponent<ModalProps> = (props) => {
                 <Grid.Column width={11}>
                     <Segment>
                         <h3>Description</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Quisque pulvinar libero ut enim pretium, a ultrices eros ultricies.
-                        Fusce viverra elementum lectus laoreet pellentesque.
-                        In ut neque bibendum, elementum sapien malesuada, viverra nisi.</p>
+                        <p>{props.card.desc ? props.card.desc : 'No description yet!'}</p>
                     </Segment>
-                    <Input
-                            fluid={true}
-                            attached="bottom"
-                            placeholder="Click here to add a description"
-                    />
-                    <br />
+
                     <TaskListAccordion />
 
                     <Comment.Group>
@@ -157,8 +149,17 @@ const CardModal: React.StatelessComponent<ModalProps> = (props) => {
                             circular={true} 
                             fluid={true}
                         />
+                    </p>                    
+                    <p>
+                        <Button 
+                            content="Delete card" 
+                            icon="trash" 
+                            labelPosition="left" 
+                            color="red"
+                            circular={true} 
+                            fluid={true}
+                        />
                     </p>
-                    <p><AttachmentsModal /></p>
                 </Grid.Column>
                 </Grid>
             </Modal.Description>
