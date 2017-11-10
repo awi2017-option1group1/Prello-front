@@ -4,13 +4,10 @@ import { connect } from 'react-redux'
 import { RootState, Dispatch } from '../../redux/RootReducer'
 import { actionCreators as checkListsActionsCreators } from '../../redux/checkList/actions'
 import { ICheckList } from '../../redux/checkLists/types'
+import { ICard } from '../../redux/cards/types'
 
 interface CheckListContainerProps {
-    match: {
-        params: {
-            id: string
-        }
-    }
+    card: ICard
 }
 
 interface PropsFromState {
@@ -25,7 +22,6 @@ interface PropsFromDispatch {
 }
 
 const mapStateToProps = (state: RootState) => {
-    // console.log("STATE MAP PROPS : " + state.checkList.checkList)
     return {
         checkList: state.checkList.checkList,
         error: state.checkList.error,
@@ -36,10 +32,10 @@ const mapStateToProps = (state: RootState) => {
 const mapDispatchToProps = (dispatch: Dispatch, ownProps: CheckListContainerProps) => {
     return {
         // loadData: () => { dispatch(checkListsActionsCreators.fetchCheckList(Number(ownProps.match.params.id))) },
-        loadData: () => { dispatch(checkListsActionsCreators.fetchCheckList(Number(3))) },
+        loadData: () => { dispatch(checkListsActionsCreators.fetchCheckList(Number(4))) },
 
         setTitle: (title: string) => {
-            dispatch(checkListsActionsCreators.updateCheckListTitle(Number(3), {name: title}))
+            dispatch(checkListsActionsCreators.updateCheckListTitle(Number(4), {name: title}))
         },
 
         addCheckList: () => {

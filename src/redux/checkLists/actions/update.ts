@@ -53,7 +53,7 @@ export const actionCreators = {
         return (dispatch: Dispatch) => {
             dispatch(actionCreators.updateCheckListRequest())
             return API.put(`/checklists/${id}`, params).then(
-                checkListResponse => dispatch(actionCreators.updateCheckListRequestSuccess(checkListResponse)),
+                checkList => dispatch(actionCreators.updateCheckListRequestSuccess(checkList)),
                 error => dispatch(actionCreators.updateCheckListRequestError(error.error.error))
             )
         }
