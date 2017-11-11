@@ -9,6 +9,7 @@ import { reducer as boardsList, State as BoardsListState } from './boardsList/re
 import { reducer as checkList, State as CheckListState } from './checkLists/reducers'
 import { reducer as checkItem, State as CheckItemState } from './checkItems/reducers'
 import { reducer as user, State as UserState } from './users/reducers'
+import { reducer as checkItems, State as CheckItemListState } from './checkItemsList/reducers'
 import { reducer as cards, State as CardsState } from './cards/cardsLists/reducers'
 import { reducer as card, State as CardState } from './cards/reducers'
 import { reducer as ui, State as UiState } from './ui/reducers'
@@ -27,8 +28,9 @@ export interface RootState extends StoreEnhancerState {
     checkList: CheckListState
     checkItem: CheckItemState
     user: UserState
-    register: RegisterState
-    cards: CardsState
+    checkItems: CheckItemListState
+    register: RegisterState,
+    cards: CardsState,
     card: CardState
     ui: UiState
     cardsLabel: CardsLabelState
@@ -53,5 +55,6 @@ export const rootReducer = combineReducers<RootState>({
     ui,
     cardsLabel,
     boardLabel,
-    assignees
+    assignees,
+    checkItems
 })

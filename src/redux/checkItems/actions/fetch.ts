@@ -60,5 +60,5 @@ export const actionCreators = {
                 error => dispatch(actionCreators.checkItemError(error.message)),
             )
         }
-    }
+    },
 }

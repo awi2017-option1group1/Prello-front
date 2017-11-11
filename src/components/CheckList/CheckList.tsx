@@ -9,7 +9,7 @@ import EditableTitle from '../common/EditableTitle'
 import Spinner from '../common/Spinner'
 import PageNotFound from '../../routes/PageNotFound'
 
-import { CheckItem } from './../CheckItem'
+import CheckItems from './../CheckItems'
 
 export interface CheckListProps extends StateProps {
     checkList: ICheckList
@@ -56,7 +56,7 @@ class CheckList extends React.Component<CheckListProps> {
                     />
                 </Accordion.Title>
                 <Accordion.Content active={activeCheckList === 0}>
-                    <CheckItem />
+                    <CheckItems checkListId={this.props.checkList.id} />
                     <Input fluid={true} placeholder="New Task" />
                 </Accordion.Content>
             </section>
