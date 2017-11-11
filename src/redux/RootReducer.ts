@@ -12,6 +12,8 @@ import { reducer as user, State as UserState } from './users/reducers'
 import { reducer as cards, State as CardsState } from './cards/cardsLists/reducers'
 import { reducer as card, State as CardState } from './cards/reducers'
 import { reducer as ui, State as UiState } from './ui/reducers'
+import { reducer as cardsLabel, State as CardsLabelState } from './tags/cardsTags/reducers'
+import { reducer as boardLabel, State as BoardLabelState } from './tags/boardTags/reducers'
 
 interface StoreEnhancerState { }
 
@@ -27,7 +29,9 @@ export interface RootState extends StoreEnhancerState {
     register: RegisterState,
     cards: CardsState,
     card: CardState,
-    ui: UiState
+    ui: UiState,
+    cardsLabel: CardsLabelState,
+    boardLabel: BoardLabelState
 }
 
 export type Dispatch = ReduxDispatch<RootState>
@@ -44,5 +48,7 @@ export const rootReducer = combineReducers<RootState>({
     checkList,
     checkItem,
     user,
-    ui
+    ui,
+    cardsLabel,
+    boardLabel
 })

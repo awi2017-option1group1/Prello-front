@@ -6,9 +6,14 @@ import { RootState, Dispatch } from '../../redux/RootReducer'
 import { actionCreators as boardsActionsCreators } from '../../redux/boards/actions'
 import { actionCreators as listsActionCreators } from '../../redux/lists/actions'
 import { actionCreators as cardsActionCreators } from '../../redux/cards/actions'
+import { actionCreators as labelsActionCreators } from '../../redux/tags/boardTags/actions'
+
+import randColor from '../../helpers/randColor'
+
 import { IBoard } from '../../redux/boards/types'
 import { IList } from '../../redux/lists/types'
 import { ICard } from '../../redux/cards/types'
+import { ITag } from '../../redux/tags/types'
 
 import Board from './DnDContextBoard'
 
@@ -22,6 +27,7 @@ interface BoardContainerProps {
 
 interface PropsFromState {
     board: IBoard
+    labels: ITag[]
     listToAppendCard: IList | null
     openedCard: ICard | null
     error?: string | null
@@ -35,12 +41,16 @@ interface PropsFromDispatch {
     saveCard: (name: string, desc: string) => void
     closeCreateCard: () => void
     closeCard: () => void
+    createLabel: () => void
+    updateLabel: (label: ITag, newValues: Partial<ITag>) => void
+    deleteLabel: (label: ITag) => void
     onDragEnd: (result: DropResult) => void
 }
 
 const mapStateToProps = (state: RootState) => {
     return {
         board: state.board.board,
+        labels: state.boardLabel.labels,
         listToAppendCard: state.board.listToAppendCard,
         openedCard: state.card,
         error: state.board.error,
@@ -50,10 +60,13 @@ const mapStateToProps = (state: RootState) => {
 
 const mapDispatchToProps = (dispatch: Dispatch, ownProps: BoardContainerProps) => {
     return {
-        loadData: () => { dispatch(boardsActionsCreators.fetchBoard(Number(ownProps.match.params.id))) },
+        loadData: () => { 
+            dispatch(boardsActionsCreators.fetchBoard(Number(ownProps.match.params.id)))
+            dispatch(labelsActionCreators.fetchBoardLabels(Number(ownProps.match.params.id)))
+        },
 
         setTitle: (title: string) => {
-            dispatch(boardsActionsCreators.updateBoardTitle(Number(ownProps.match.params.id), {name: title}))
+            dispatch(boardsActionsCreators.updateBoardTitle(Number(ownProps.match.params.id), { name: title }))
         },
 
         addList: () => {
@@ -71,6 +84,21 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: BoardContainerProps) =
 
         closeCard: () => {
             dispatch(cardsActionCreators.closeCard())
+        },
+
+        createLabel: () => {
+            dispatch(labelsActionCreators.createLabel(Number(ownProps.match.params.id), {
+                name: 'EmptyName',
+                color: randColor()
+            }))
+        },
+
+        updateLabel: (label: ITag, newValues: Partial<ITag>) => {
+            dispatch(labelsActionCreators.updateLabel(label, newValues))
+        },
+        
+        deleteLabel: (label: ITag) => {
+            dispatch(labelsActionCreators.deleteLabel(label))
         },
 
         onDragEnd: (result: DropResult) => {

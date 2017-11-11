@@ -17,3 +17,7 @@ footer {
 .ui.inverted.segment.bg-segment {
   padding: 25px 0;
 }
+
+.ui.modal-header-button {
+  margin-top: -5px;
+}

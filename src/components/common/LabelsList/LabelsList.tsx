@@ -1,15 +1,17 @@
 import * as React from 'react'
-import { Label, Popup, PopupContent } from 'semantic-ui-react'
+import { Label as SmLabel, Popup, PopupContent } from 'semantic-ui-react'
 
-import LabelModel from '../../../models/Label'
+import Label from '../Label'
+
+import { ITag } from '../../../redux/tags/types'
 
 interface LabelsListProps {
-    labels: LabelModel[]
+    labels: ITag[]
     maxToDisplay?: number
 }
 
-const arrayToElements = (array: LabelModel[]) => array.map(label => (
-    <Label color={label.color} key={label.title}>{label.title}</Label> 
+const arrayToElements = (array: ITag[]) => array.map(label => (
+    <Label label={label} key={label.id} />
 ))
 
 const LabelsList: React.StatelessComponent<LabelsListProps> = (props) => {
@@ -21,7 +23,7 @@ const LabelsList: React.StatelessComponent<LabelsListProps> = (props) => {
         <div>
             {arrayToElements(toDisplay)}
             {others.length > 0 && 
-                <Popup trigger={<Label icon="ellipsis horizontal" />}>
+                <Popup trigger={<SmLabel icon="ellipsis horizontal" />}>
                     <PopupContent>
                         {arrayToElements(others)}
                     </PopupContent>
