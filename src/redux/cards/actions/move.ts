@@ -3,6 +3,8 @@ import { API } from '../../../services/http'
 
 import { reorder } from '../../../services/collection'
 
+import { actionCreators as uiActionCreators } from '../../ui/actions'
+
 import { ICard } from '../types'
 
 export const MOVE_CARD = 'MOVE_CARD'
@@ -83,11 +85,17 @@ export const actionCreators = {
                     return API.put(`/cards/${card.id}`, { pos: index, listId: destinationList })
                 })
             ).then(
-                updatedLists => dispatch(actionCreators.moveCardRequestSuccess({
-                    listId: destinationList,
-                    list: updatedLists
-                })),
-                error => dispatch(actionCreators.moveCardRequestError(error))
+                updatedLists => {
+                    dispatch(actionCreators.moveCardRequestSuccess({
+                        listId: destinationList,
+                        list: updatedLists
+                    }))
+                    dispatch(uiActionCreators.showSaveMessage())
+                },
+                error => {
+                    dispatch(actionCreators.moveCardRequestError(error))
+                    dispatch(uiActionCreators.showCanNotSaveMessage())
+                }
             )
         }
     }

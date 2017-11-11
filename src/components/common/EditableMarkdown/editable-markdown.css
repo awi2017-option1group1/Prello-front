@@ -1,0 +1,11 @@
+.editable-markdown {
+    cursor: pointer;
+}
+
+.ui.form .markdown-preview {
+    min-height: 160px;
+}
+
+.markdown-tab {
+    margin-bottom: 14px;
+}

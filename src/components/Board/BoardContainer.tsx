@@ -32,7 +32,7 @@ interface PropsFromDispatch {
     loadData?: () => void
     setTitle: (title: string) => void
     addList: () => void
-    saveCard: (name: string) => void
+    saveCard: (name: string, desc: string) => void
     closeCreateCard: () => void
     closeCard: () => void
     onDragEnd: (result: DropResult) => void
@@ -60,8 +60,8 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: BoardContainerProps) =
             dispatch(listsActionCreators.createBoardList(Number(ownProps.match.params.id)))
         },
 
-        saveCard: (name: string) => {
-            dispatch(cardsActionCreators.createCard({ name }))
+        saveCard: (name: string, desc: string) => {
+            dispatch(cardsActionCreators.createCard({ name, desc }))
             dispatch(boardsActionsCreators.closeCreateCardModal())
         },
 

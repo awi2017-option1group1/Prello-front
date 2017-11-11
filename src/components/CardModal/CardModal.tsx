@@ -1,19 +1,25 @@
 import * as React from 'react'
 import { Card as SmCard, Button, Modal, Input, Icon, Grid, Segment, Accordion, Checkbox,
     Comment, Header, Menu, Form, Label } from 'semantic-ui-react'
-
+    
 import { StateProps } from '../StateProps'
 import { ICard } from '../../redux/cards/types'
-
+    
 import Spinner from '../common/Spinner'
 import EditableTitle from '../common/EditableTitle'
+import ConfirmModal from '../common/ConfirmModal/ConfirmModal'
+import EditableMarkdown from '../common/EditableMarkdown'
 import { AssigneesSegment } from './../AssigneesSegment'
-import { AttachmentsModal } from './../AttachmentsModal'
+
+import './card-modal.css'
 
 export interface ModalProps extends StateProps {
     card: ICard
 
     onClose: () => void
+
+    updateCard: (card: Partial<ICard>) => void
+    deleteCard: () => void
 }
 
 class TaskListAccordion extends React.Component {
@@ -31,17 +37,17 @@ class TaskListAccordion extends React.Component {
 
         return (
             <Accordion styled={true} fluid={true} >
-            <Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
-            <Icon name="dropdown" />
-            TaskList
-            </Accordion.Title>
-            <Accordion.Content active={activeIndex === 0}>
-            <p><Checkbox label="Task 1" /></p>
-            <p><Checkbox label="Task 2" /></p>
-            <p><Checkbox label="Task 3" /></p>
-            <Input fluid={true} placeholder="Add a new Task List" />
-            </Accordion.Content>
-        </Accordion>
+                <Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
+                    <Icon name="dropdown" />
+                    TaskList
+                </Accordion.Title>
+                <Accordion.Content active={activeIndex === 0}>
+                    <p><Checkbox label="Task 1" /></p>
+                    <p><Checkbox label="Task 2" /></p>
+                    <p><Checkbox label="Task 3" /></p>
+                    <Input fluid={true} placeholder="Add a new Task List" />
+                </Accordion.Content>
+            </Accordion>
         )
     }
 }
@@ -63,7 +69,11 @@ const CardModal: React.StatelessComponent<ModalProps> = (props) => {
             onClose={props.onClose}
         >
             <Header>
-                <EditableTitle type="h2" content={props.card.name} onSubmit={() => null} />
+                <EditableTitle 
+                    type="h2" 
+                    content={props.card.name}
+                    onSubmit={(name: string) => props.updateCard({ name })}
+                />
             </Header> 
             <Modal.Content
                 image={true}
@@ -72,26 +82,26 @@ const CardModal: React.StatelessComponent<ModalProps> = (props) => {
             <Modal.Description style={{ flex: 1 }}>
                 <Grid>
                 <Grid.Column width={11}>
-                    <Segment>
-                        <h3>Description</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Quisque pulvinar libero ut enim pretium, a ultrices eros ultricies.
-                        Fusce viverra elementum lectus laoreet pellentesque.
-                        In ut neque bibendum, elementum sapien malesuada, viverra nisi.</p>
-                    </Segment>
-                    <Input
-                            fluid={true}
-                            attached="bottom"
-                            placeholder="Click here to add a description"
+                    <h3>Description</h3>
+                    <EditableMarkdown 
+                        content={props.card.desc ? props.card.desc : 'No description yet!'} 
+                        onSubmit={(desc: string) => props.updateCard({ desc })}
                     />
-                    <br />
-                    <TaskListAccordion />
+
+                    <h3>Checklists</h3>
+                    <TaskListAccordion /> 
 
                     <Comment.Group>
                         <Header as="h3" dividing={true}>Comments (1)</Header>
-                        <Form reply={true} size="small">
+                        <Form size="small">
                             <Form.TextArea />
-                            <Button content="Add Comment" labelPosition="left" icon="edit" primary={true} />
+                            <Button 
+                                circular={true} 
+                                content="Add Comment" 
+                                labelPosition="left" 
+                                icon="edit" 
+                                primary={true}
+                            />
                         </Form>
                         <Comment>
                             <Comment.Avatar src="https://semantic-ui.com/images/avatar/small/elliot.jpg" />
@@ -157,8 +167,24 @@ const CardModal: React.StatelessComponent<ModalProps> = (props) => {
                             circular={true} 
                             fluid={true}
                         />
-                    </p>
-                    <p><AttachmentsModal /></p>
+                    </p>  
+                    <ConfirmModal
+                        trigger={
+                            <Button 
+                                content="Delete card" 
+                                icon="trash" 
+                                labelPosition="left" 
+                                color="red"
+                                circular={true} 
+                                fluid={true}
+                            />
+                        }
+                        title="Confirm delete"
+                        content={`Are you sure you want to delete card '${props.card.name}'? `}
+                        confirmButton="Yes, delete"
+                        cancelButton="No, cancel"
+                        onConfirm={props.deleteCard}
+                    />
                 </Grid.Column>
                 </Grid>
             </Modal.Description>
