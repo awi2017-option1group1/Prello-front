@@ -1,26 +1,27 @@
 import * as React from 'react'
-import { Image, Popup, PopupContent, PopupHeader, Label } from 'semantic-ui-react'
+import { Popup, PopupContent, PopupHeader, Label } from 'semantic-ui-react'
+
+import Avatar from '../common/Avatar'
+
+import { IUser } from '../../redux/users/types'
 
 interface AssigneesAvatarProps {
-    assignees: string[]
+    assignees: IUser[]
 }
 
-const getPopupHeaderText = (assignees: string[]) => {
+const getPopupHeaderText = (assignees: IUser[]) => {
     if (assignees.length >= 2) {
-        return `${assignees[0]} and ${assignees.length - 1} more`
+        return `${assignees[0].username} and ${assignees.length - 1} more`
     } else {
-        return assignees[0]
+        return assignees[0].username
     }
 }
 
-const getPopupContent = (assignees: string[]) => assignees.slice(1).map(assignee => (
-    <Label image={true} key={assignee}>
-        <Image
-            size="mini"
-            src={`https://semantic-ui.com/images/avatar/large/${assignee}.jpg`}
-        />
-        {assignee}
-    </Label>
+const getPopupContent = (assignees: IUser[]) => assignees.map(assignee => (
+    <Avatar 
+        key={assignee.username}
+        user={assignee}
+    />
 ))
 
 const AssigneesAvatar: React.StatelessComponent<AssigneesAvatarProps> = (props) => {
@@ -30,11 +31,11 @@ const AssigneesAvatar: React.StatelessComponent<AssigneesAvatarProps> = (props) 
 
     const MainAvatar = (
         <div className="right floated">
-            <Image 
-                avatar={true}
-                src={`https://semantic-ui.com/images/avatar/large/${props.assignees[0]}.jpg`}
-            />
-            {props.assignees.length >= 2 && 
+                <Avatar
+                    key={props.assignees[0].username}
+                    user={props.assignees[0]}
+                />
+                {props.assignees.length >= 2 && 
                 <Label size="large" circular={true} color="blue">+{props.assignees.length - 1}</Label>}
         </div>
     )

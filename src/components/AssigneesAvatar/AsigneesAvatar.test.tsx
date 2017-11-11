@@ -17,7 +17,13 @@ describe('<AssigneesAvatar />', () => {
     it('should display the avatar of the first assignee', () => {
         const assigneesAvatar = mount(
             <AssigneesAvatar 
-                assignees={['toto']}
+                assignees={[{
+                    id: 1, 
+                    username: 'toto', 
+                    notificationEnabled: true, 
+                    email: 'toto@toto.fr', 
+                    password: 'toto'}
+                ]}
             />
         )
         expect(assigneesAvatar.find(Image).length).toBe(1)
@@ -27,7 +33,13 @@ describe('<AssigneesAvatar />', () => {
     it('should display the name of the first assignee in the popup header', () => {
         const assigneesAvatar = shallow(
             <AssigneesAvatar 
-                assignees={['toto']}
+                assignees={[{
+                    id: 1, 
+                    username: 'toto', 
+                    notificationEnabled: true, 
+                    email: 'toto@toto.fr', 
+                    password: 'toto'}
+                ]}
             />
         )
         expect(assigneesAvatar.find(PopupHeader).children().text()).toBe('toto')
@@ -36,7 +48,19 @@ describe('<AssigneesAvatar />', () => {
     it('should display the avatar of the first assignee and a counter for the others', () => {
         const assigneesAvatar = mount(
             <AssigneesAvatar 
-                assignees={['toto', 'titi']}
+                assignees={[{
+                    id: 1, 
+                    username: 'toto', 
+                    notificationEnabled: true, 
+                    email: 'toto@toto.fr', 
+                    password: 'toto'},
+                    {
+                        id: 1, 
+                        username: 'titi', 
+                        notificationEnabled: true, 
+                        email: 'titi@titi.fr', 
+                        password: 'titi'},
+                ]}
             />
         )
         expect(assigneesAvatar.find(Image).length).toBe(1)
@@ -47,7 +71,19 @@ describe('<AssigneesAvatar />', () => {
     it('should display the name of the the others in the popup', () => {
         const assigneesAvatar = shallow(
             <AssigneesAvatar 
-                assignees={['toto', 'titi']}
+                assignees={[{
+                    id: 1, 
+                    username: 'toto', 
+                    notificationEnabled: true, 
+                    email: 'toto@toto.fr', 
+                    password: 'toto'},
+                    {
+                        id: 1, 
+                        username: 'titi', 
+                        notificationEnabled: true, 
+                        email: 'titi@titi.fr', 
+                        password: 'titi'},
+                ]}
             />
         )
         expect(assigneesAvatar.find(PopupHeader).children().text()).toBe('toto and 1 more')
