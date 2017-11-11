@@ -1,6 +1,8 @@
 import { Dispatch } from '../../RootReducer'
 import { API } from '../../../services/http'
 
+import { actionCreators as uiActionCreators } from '../../ui/actions'
+
 import { IBoard } from '../types'
 
 export const UPDATE_BOARD = 'UPDATE_BOARD'
@@ -51,8 +53,14 @@ export const actionCreators = {
         return (dispatch: Dispatch) => {
             dispatch(actionCreators.updateBoardRequest())
             return API.put(`/boards/${id}`, params).then(
-                board => dispatch(actionCreators.updateBoardRequestSuccess(board)),
-                error => dispatch(actionCreators.updateBoardRequestError(error.error.error))
+                board => {
+                    dispatch(actionCreators.updateBoardRequestSuccess(board))
+                    dispatch(uiActionCreators.showSaveMessage())
+                },
+                error => {
+                    dispatch(actionCreators.updateBoardRequestError(error.error.error))
+                    dispatch(uiActionCreators.showCanNotSaveMessage())
+                }
             )
         }
     }

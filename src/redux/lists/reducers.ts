@@ -1,32 +1,31 @@
 import { RootAction } from '../RootAction'
 import { FETCH_BOARD_LISTS, FETCH_BOARD_LISTS_ERROR, FETCH_BOARD_LISTS_SUCCESS } from './actions/fetch'
-import { CREATE_BOARD_LIST_SUCCESS, CREATE_BOARD_LIST_ERROR } from './actions/create'
-import { UPDATE_BOARD_LIST_SUCCESS, UPDATE_BOARD_LIST_ERROR } from './actions/update'
-import { MOVE_BOARD_LIST, MOVE_BOARD_LIST_ERROR, MOVE_BOARD_LIST_SUCCESS } from './actions/move'
-import { DELETE_BOARD_LIST_SUCCESS, DELETE_BOARD_LIST_ERROR } from './actions/delete'
+import { CREATE_BOARD_LIST, CREATE_BOARD_LIST_SUCCESS, CREATE_BOARD_LIST_ERROR } from './actions/create'
+import { UPDATE_BOARD_LIST, UPDATE_BOARD_LIST_ERROR } from './actions/update'
+import { MOVE_BOARD_LIST, MOVE_BOARD_LIST_ERROR } from './actions/move'
+import { DELETE_BOARD_LIST, DELETE_BOARD_LIST_ERROR } from './actions/delete'
 
 import { IList } from '../lists/types'
 
 export type State = {
     error: string | null,
     isProcessing: boolean,
-    oldLists: IList[],
     lists: IList[]
 }
 
 const defaultValue: State = {
     error: null,
     isProcessing: false,
-    oldLists: [],
     lists: []
 }
 
+// Reorder the list on update
 const updateList = (lists: IList[], list: IList): IList[] => {
     const newLists: IList[] = []
     let newListAdded = false
     lists.forEach(l => {
-        if (l.id !== list.id) {
-            if (!newListAdded && l.pos >= list.pos) {
+        if (l.id && l.id !== list.id) {
+            if (!newListAdded && list.id && l.pos >= list.pos) {
                 newLists.push(list)
                 newListAdded = true
             }
@@ -64,6 +63,13 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
                 isProcessing: false
             }
 
+        case CREATE_BOARD_LIST:
+            return {
+                ...state,
+                error: null,
+                lists: state.lists.concat(action.list as IList)
+            }
+
         case CREATE_BOARD_LIST_SUCCESS:
             return {
                 ...state,
@@ -77,7 +83,7 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
                 error: action.error
             }
 
-        case UPDATE_BOARD_LIST_SUCCESS:
+        case UPDATE_BOARD_LIST:
             return {
                 ...state,
                 error: null,
@@ -94,14 +100,6 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
             return {
                 ...state,
                 error: null,
-                oldLists: state.lists,
-                lists: action.lists
-            }
-
-        case MOVE_BOARD_LIST_SUCCESS:
-            return {
-                ...state,
-                error: null,
                 lists: action.lists
             }
 
@@ -109,11 +107,10 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
             return {
                 ...state,
                 oldLists: [],
-                lists: state.oldLists,
                 error: action.error
             }
 
-        case DELETE_BOARD_LIST_SUCCESS:
+        case DELETE_BOARD_LIST:
             const index = state.lists.indexOf(action.list)
             return {
                 ...state,

@@ -5,11 +5,11 @@ import { Menu, MenuItem, MenuMenu, Icon, Button } from 'semantic-ui-react'
 const UnloggedNavbar: React.StatelessComponent = () => (
     <Menu stackable={true}>
         <MenuItem header={true}>Prello</MenuItem>
-        <NavLink to="/" exact={true} className="item" activeClassName="active">
+        <NavLink to="/" exact={true} className="item">
             <Icon name="home" />
             Home
         </NavLink>
-        <NavLink to="/about-us" className="item" activeClassName="active">
+        <NavLink to="/about-us" className="item">
             <Icon name="hand peace" />
             About
         </NavLink>

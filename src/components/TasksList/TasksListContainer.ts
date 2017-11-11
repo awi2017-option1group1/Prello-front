@@ -25,7 +25,7 @@ interface PropsFromDispatch {
 const mapStateToProps = (state: RootState, ownProps: TasksListsContainerProps) => {
     return {
         list: ownProps.list,
-        size: state.cards[ ownProps.list.id].cards.length
+        size: ownProps.list.id ? state.cards[ownProps.list.id].cards.length : 0
     }
 }
 
