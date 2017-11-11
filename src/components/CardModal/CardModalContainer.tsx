@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 
 import { RootState, Dispatch } from '../../redux/RootReducer'
 import { actionCreators } from '../../redux/cards/actions'
+import { actionCreators as deleteActionCreator } from '../../redux/cards/actions/delete'
 import { ICard } from '../../redux/cards/types'
 
 import CardModal from './CardModal'
@@ -37,7 +38,7 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: CardModalContainerProp
         },
 
         deleteCard: () => {
-            dispatch(actionCreators.deleteCard(ownProps.card))
+            dispatch(deleteActionCreator.deleteCard(ownProps.card))
         }
     }
 }
