@@ -31,7 +31,7 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: CheckItemContainerProp
     // console.log('>>>CHECK_ITEM : ' + ownProps.checkList)
     return {
         loadData: () => {
-            dispatch(checkItemsActionsCreators.fetchCheckItem(Number(1)))
+            dispatch(checkItemsActionsCreators.fetchCheckItem(Number(ownProps.checkItem.id)))
         },
 
         // setTitle: (title: string) => {},

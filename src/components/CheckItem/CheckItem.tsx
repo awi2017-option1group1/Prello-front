@@ -30,7 +30,7 @@ class CheckItem extends React.Component<CheckItemProps> {
 
         return (
             <section id="checkItem">
-                <Checkbox label={this.props.checkItem.name}/>
+                <Checkbox label={this.props.checkItem.name + ' = ' + this.props.checkItem.id}/>
             </section>
         )
     }

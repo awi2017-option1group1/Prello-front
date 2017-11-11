@@ -92,6 +92,7 @@ const CardModal: React.StatelessComponent<ModalProps> = (props) => {
             onClose={props.onClose}
         >
             <Header>
+                <h2>#{props.card.id}</h2>
                 <EditableTitle
                     type="h2"
                     content={props.card.name}
