@@ -7,6 +7,7 @@ import { reducer as register, State as RegisterState } from './register/reducers
 import { reducer as board, State as BoardState } from './boards/reducers'
 import { reducer as boardsList, State as BoardsListState } from './boardsList/reducers'
 import { reducer as checkList, State as CheckListState } from './checkLists/reducers'
+import { reducer as checkLists, State as CheckListListState } from './checkListsList/reducers'
 import { reducer as checkItem, State as CheckItemState } from './checkItems/reducers'
 import { reducer as user, State as UserState } from './users/reducers'
 import { reducer as checkItems, State as CheckItemListState } from './checkItemsList/reducers'
@@ -26,6 +27,7 @@ export interface RootState extends StoreEnhancerState {
     auth: AuthState
     boardsList: BoardsListState
     checkList: CheckListState
+    checkLists: CheckListListState
     checkItem: CheckItemState
     user: UserState
     checkItems: CheckItemListState
@@ -50,6 +52,7 @@ export const rootReducer = combineReducers<RootState>({
     register,
     boardsList,
     checkList,
+    checkLists,
     checkItem,
     user,
     ui,

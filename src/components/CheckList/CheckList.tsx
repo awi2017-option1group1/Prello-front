@@ -51,8 +51,7 @@ class CheckList extends React.Component<CheckListProps> {
                 >
                     <EditableTitle
                             type="h3"
-                            content={this.props.checkList.name + ' = ' + this.props.checkList.id+ ' & CARD ID = '
-             + this.props.checkList.cardId}
+                            content={this.props.checkList.name}
                             onSubmit={this.props.setTitle}
                     />
                 </Accordion.Title>

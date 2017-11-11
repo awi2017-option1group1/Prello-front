@@ -16,11 +16,16 @@ import EditableTitle from '../common/EditableTitle'
 import ConfirmModal from '../common/ConfirmModal/ConfirmModal'
 import EditableMarkdown from '../common/EditableMarkdown'
 import { AssigneesSegment } from './../AssigneesSegment'
+<<<<<<< 3ea33a893f50a7cb0b5b991705b7793bd5affe8b
 import DatePicker from './DatePicker'
 import LabelsSegment from '../LabelsSegment'
 import AssigneesSegment from './../AssigneesSegment'
 
 import './card-modal.css'
+=======
+import { AttachmentsModal } from './../AttachmentsModal'
+import CheckLists from './../CheckLists'
+>>>>>>> feat(CheckList) : STEP print all checkLists and all checkItems
 
 export interface ModalProps extends StateProps {
     card: ICard
@@ -114,6 +119,8 @@ const CardModal: React.StatelessComponent<ModalProps> = (props) => {
 
                     <h3>Checklists</h3>
                     <TaskListAccordion />
+                    <br />
+                    <CheckLists cardId={props.card.id}/>
 
                     <Comment.Group>
                         <Header as="h3" dividing={true}>Comments (1)</Header>

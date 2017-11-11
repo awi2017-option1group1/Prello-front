@@ -1,13 +1,11 @@
-import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 
 import { RootState, Dispatch } from '../../redux/RootReducer'
 import { actionCreators as checkListsActionsCreators } from '../../redux/checkList/actions'
 import { ICheckList } from '../../redux/checkLists/types'
-import { ICard } from '../../redux/cards/types'
 
 interface CheckListContainerProps {
-    card: ICard
+    checkList: ICheckList
 }
 
 interface PropsFromState {
@@ -31,11 +29,10 @@ const mapStateToProps = (state: RootState) => {
 
 const mapDispatchToProps = (dispatch: Dispatch, ownProps: CheckListContainerProps) => {
     return {
-        // loadData: () => { dispatch(checkListsActionsCreators.fetchCheckList(Number(ownProps.match.params.id))) },
-        loadData: () => { dispatch(checkListsActionsCreators.fetchCheckList(Number(4))) },
+        loadData: () => { dispatch(checkListsActionsCreators.fetchCheckList(Number(ownProps.checkList.id))) },
 
         setTitle: (title: string) => {
-            dispatch(checkListsActionsCreators.updateCheckListTitle(Number(4), {name: title}))
+            dispatch(checkListsActionsCreators.updateCheckListTitle(Number(ownProps.checkList.id), {name: title}))
         },
 
         addCheckList: () => {
@@ -44,11 +41,9 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: CheckListContainerProp
     }
 }
 
-const CheckListContainer = withRouter(
-    connect<PropsFromState, PropsFromDispatch, {}>(
-        mapStateToProps,
-        mapDispatchToProps
-    )(CheckList)
-)
+const CheckListContainer = connect<PropsFromState, PropsFromDispatch, CheckListContainerProps>(
+    mapStateToProps,
+    mapDispatchToProps
+)(CheckList)
 
 export default CheckListContainer

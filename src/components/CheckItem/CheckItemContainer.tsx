@@ -26,6 +26,13 @@ const mapStateToProps = (state: RootState, ownProps: CheckItemContainerProps) =>
         checkItem: ownProps.checkItem,
     }
 }
+/* const mapStateToProps = (state: RootState) => {
+    return {
+        checkItem: state.checkItem.checkItem,
+        error: state.checkItem.error,
+        loading: state.checkItem.isProcessing
+    }
+}*/
 
 const mapDispatchToProps = (dispatch: Dispatch, ownProps: CheckItemContainerProps) => {
     // console.log('>>>CHECK_ITEM : ' + ownProps.checkList)

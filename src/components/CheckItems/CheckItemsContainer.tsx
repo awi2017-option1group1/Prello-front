@@ -23,8 +23,8 @@ interface PropsFromDispatch {
 const mapStateToProps = (state: RootState) => {
     return {
         checkItems: state.checkItems.checkItems,
-        error: state.lists.error,
-        loading: state.lists.isProcessing
+        error: state.checkItems.error,
+        loading: state.checkItems.isProcessing
     }
 }
 
