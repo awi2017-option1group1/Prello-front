@@ -11,15 +11,32 @@ export interface Config {
     server: ServerConfig
 }
 
-// Add default value because the env variables
-// are not set with the hot-reload activated
-export const config: Config = {
-    env: /*process.env.NODE_ENV ||*/ 'development',
+export interface MultiConfig {
+    [key: string]: Config
+}
 
-    server: {
-        host: /*process.env.SERVER_HOST ||*/ 'http://localhost',
-        port: /*process.env.PORT ||*/ 3000,
-        apiSuffix: process.env.API_SUFFIX || 'api',
-        authSuffix: process.env.AUTH_SUFFIX || 'auth'
+const configs: MultiConfig = {
+    production: {
+        env: 'production',
+
+        server: {
+            host: 'https://photon.igpolytech.fr',
+            port: 3000,
+            apiSuffix: 'api',
+            authSuffix: 'auth'
+        }
+    },
+
+    default: {
+         env: process.env.NODE_ENV || 'development',
+
+        server: {
+            host: process.env.SERVER_HOST || 'http://localhost',
+            port: process.env.PORT || 3000,
+            apiSuffix: process.env.API_SUFFIX || 'api',
+            authSuffix: process.env.AUTH_SUFFIX || 'auth'
+        }
     }
 }
+
+export const config: Config = process.env.NODE_ENV === 'production' ? configs.production : configs.default

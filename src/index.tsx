@@ -30,11 +30,13 @@ AUTH.get('/me')
         store.dispatch(
             actionCreators.loginSuccess(response.me)
         )
+    },
+    error => {
+        store.dispatch(
+            actionCreators.loginFail()
+        )
     }
 )
-.catch(error => store.dispatch(
-    actionCreators.loginFail()
-))
 
 ReactDOM.render(
     <Provider store={store}>

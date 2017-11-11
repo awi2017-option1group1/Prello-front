@@ -1,6 +1,8 @@
 import { Dispatch } from '../../RootReducer'
 import { API } from '../../../services/http'
 
+import { actionCreators as uiActionCreators } from '../../ui/actions'
+
 import { IList } from '../types'
 
 export const DELETE_BOARD_LIST = 'DELETE_BOARD_LIST'
@@ -9,7 +11,8 @@ export const DELETE_BOARD_LIST_ERROR = 'DELETE_BOARD_LIST_ERROR'
 
 export type Actions = {
     DELETE_BOARD_LIST: {
-        type: typeof DELETE_BOARD_LIST
+        type: typeof DELETE_BOARD_LIST,
+        list: IList
     },
     DELETE_BOARD_LIST_ERROR: {
         type: typeof DELETE_BOARD_LIST_ERROR,
@@ -22,8 +25,9 @@ export type Actions = {
 }
 
 export const actionCreators = {
-    deleteBoardListRequest: (): Actions[typeof DELETE_BOARD_LIST] => ({
-        type: DELETE_BOARD_LIST
+    deleteBoardListRequest: (list: IList): Actions[typeof DELETE_BOARD_LIST] => ({
+        type: DELETE_BOARD_LIST,
+        list
     }),
     deleteBoardListRequestError: (error: string): Actions[typeof DELETE_BOARD_LIST_ERROR] => ({
         type: DELETE_BOARD_LIST_ERROR,
@@ -35,10 +39,16 @@ export const actionCreators = {
     }),
     deleteBoardList: (list: IList) => {
         return (dispatch: Dispatch) => {
-            dispatch(actionCreators.deleteBoardListRequest())
+            dispatch(actionCreators.deleteBoardListRequest(list))
             return API.delete(`/lists/${list.id}`).then(
-                response => dispatch(actionCreators.deleteBoardListRequestSuccess(list)),
-                error => dispatch(actionCreators.deleteBoardListRequestError(error.error.error))
+                response => {
+                    dispatch(actionCreators.deleteBoardListRequestSuccess(list))
+                    dispatch(uiActionCreators.showSaveMessage())
+                },
+                error => {
+                    dispatch(actionCreators.deleteBoardListRequestError(error.error.error))
+                    dispatch(uiActionCreators.showCanNotSaveMessage())
+                }
             )
         }
     }

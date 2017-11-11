@@ -7,7 +7,7 @@ import { ICard } from '../../redux/cards/types'
 import CardsList from './DroppableCardsList'
 
 interface CardsListContainerProps {
-    listId: number
+    listId: number | undefined
     emptyText: string
 }
 
@@ -23,19 +23,31 @@ interface PropsFromDispatch {
 }
 
 const mapStateToProps = (state: RootState,  ownProps: CardsListContainerProps) => {
-    return {
-        cards: state.cards[ownProps.listId].cards,
-        error: state.cards[ownProps.listId].error,
-        loading: state.cards[ownProps.listId].isProcessing,
-        listId: ownProps.listId,
-        emptyText: ownProps.emptyText
+    if (ownProps.listId) {
+        return {
+            cards: state.cards[ownProps.listId].cards,
+            error: state.cards[ownProps.listId].error,
+            loading: state.cards[ownProps.listId].isProcessing,
+            listId: ownProps.listId,
+            emptyText: ownProps.emptyText
+        }       
+    } else {
+        return {
+            cards: [],
+            error: null,
+            loading: false,
+            listId: ownProps.listId,
+            emptyText: ownProps.emptyText
+        }
     }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch, ownProps: CardsListContainerProps) => {
     return {
         loadData: () => { 
-            dispatch(actionCreators.fetchCardsList(ownProps.listId)) 
+            if (ownProps.listId) {
+                dispatch(actionCreators.fetchCardsList(ownProps.listId)) 
+            }
         },
 
         select: (card: ICard) => {

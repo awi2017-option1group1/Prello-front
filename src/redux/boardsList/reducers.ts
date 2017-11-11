@@ -1,5 +1,5 @@
 import { FETCH_BOARDS, FETCH_BOARDS_ERROR, FETCH_BOARDS_SUCCESS } from './actions/fetchAll'
-import { CREATE_BOARD_ERROR, CREATE_BOARD_SUCCESS } from './actions/create'
+import { CREATE_BOARD, CREATE_BOARD_ERROR, CREATE_BOARD_SUCCESS } from './actions/create'
 import { RootAction } from '../RootAction'
 import { IBoard } from '../boards/types'
 
@@ -39,11 +39,20 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
                     isProcessing: false
                 }
 
+            case CREATE_BOARD:
+                return {
+                    ...state,
+                    error: null,
+                    boards: state.boards.concat(action.board as IBoard)
+                }
+
             case CREATE_BOARD_SUCCESS:
                 return {
                     ...state,
                     error: null,
-                    boards: state.boards.concat([action.board])
+                    boards: state.boards
+                        .filter(b => b.id !== null && b.id !== undefined)
+                        .concat(action.board as IBoard)
                 }
 
             case CREATE_BOARD_ERROR:
