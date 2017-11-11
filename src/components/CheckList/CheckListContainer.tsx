@@ -17,6 +17,7 @@ interface PropsFromState {
 interface PropsFromDispatch {
     loadData?: () => void
     setTitle: (title: string) => void
+    delete: () => void
 }
 
 const mapStateToProps = (state: RootState) => {
@@ -37,6 +38,10 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: CheckListContainerProp
 
         addCheckList: () => {
             dispatch(checkListsActionsCreators.createCheckList(Number(ownProps.match.params.id)))
+        },
+        
+        delete: () => {
+            dispatch(checkListsActionsCreators.removeCheckList(ownProps.checkList))
         },
     }
 }

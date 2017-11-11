@@ -5,7 +5,10 @@ import { ICheckList } from '../../redux/checkLists/types'
 
 import { StateProps } from '../StateProps'
 
+import SplitHeader from '../common/SplitHeader'
+
 import EditableTitle from '../common/EditableTitle'
+import ConfirmModal from '../common/ConfirmModal/ConfirmModal'
 import Spinner from '../common/Spinner'
 import PageNotFound from '../../routes/PageNotFound'
 
@@ -14,21 +17,10 @@ import CheckItems from './../CheckItems'
 export interface CheckListProps extends StateProps {
     checkList: ICheckList
     setTitle: (title: string) => void
+    delete: () => void
 }
 
 class CheckList extends React.Component<CheckListProps> {
-    state = { activeCheckList: -1 }
-
-    componentDidMount() {
-        this.props.loadData!()
-    }
-
-    handleClick = (e: React.SyntheticEvent<HTMLDivElement>, titleProps: {index: number}) => {
-        const { index } = titleProps
-        const { activeCheckList } = this.state
-        const newIndex = activeCheckList === index ? -1 : index
-        this.setState({ activeCheckList: newIndex })
-    }
 
     render() {
         if (this.props.loading) {
@@ -39,26 +31,31 @@ class CheckList extends React.Component<CheckListProps> {
             return <PageNotFound />
         }
 
-        const { activeCheckList } = this.state
-
         return (
             <section id="checkList">
-                <Accordion styled={true} fluid={true} />
-                <Accordion.Title
-                            active={activeCheckList === 0}
-                            index={0}
-                            onClick={this.handleClick}
-                >
+                <SplitHeader>
                     <EditableTitle
                             type="h3"
                             content={this.props.checkList.name}
                             onSubmit={this.props.setTitle}
                     />
-                </Accordion.Title>
-                <Accordion.Content active={activeCheckList === 0}>
-                    <CheckItems checkListId={this.props.checkList.id} />
+                    <ConfirmModal
+                        trigger={
+                            <Button
+                                icon="trash"
+                                circular={true}
+                                size='mini'
+                            />
+                        }
+                        title="Confirm delete"
+                        content={`Are you sure you want to delete check-list '${this.props.checkList.name}'? `}
+                        confirmButton="Yes, delete"
+                        cancelButton="No, cancel"
+                        onConfirm={this.props.delete}
+                    />
+                </SplitHeader>
+                <CheckItems checkListId={this.props.checkList.id} />
                     <Input fluid={true} placeholder="New Task" />
-                </Accordion.Content>
             </section>
         )
     }

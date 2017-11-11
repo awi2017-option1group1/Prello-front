@@ -43,7 +43,7 @@ export const actionCreators = {
     // --------------------------------------- //
     //                   ASYNC                 //
     // --------------------------------------- //
-    createBackendCheckItems: (checkItem: ICheckItem) => {
+    createCheckItemsTODO: (checkItem: ICheckItem) => {
         return (dispatch: Dispatch) => {
             dispatch(actionCreators.createCheckItemRequest())
             return API.post(`/checklists/${checkItem.checkListId}/checkItems`, checkItem).then(

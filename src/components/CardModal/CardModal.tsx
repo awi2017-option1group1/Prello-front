@@ -16,16 +16,17 @@ import EditableTitle from '../common/EditableTitle'
 import ConfirmModal from '../common/ConfirmModal/ConfirmModal'
 import EditableMarkdown from '../common/EditableMarkdown'
 import { AssigneesSegment } from './../AssigneesSegment'
-<<<<<<< 3ea33a893f50a7cb0b5b991705b7793bd5affe8b
+
 import DatePicker from './DatePicker'
 import LabelsSegment from '../LabelsSegment'
 import AssigneesSegment from './../AssigneesSegment'
 
+import CheckLists from './../CheckLists'
+
 import './card-modal.css'
-=======
+
 import { AttachmentsModal } from './../AttachmentsModal'
 import CheckLists from './../CheckLists'
->>>>>>> feat(CheckList) : STEP print all checkLists and all checkItems
 
 export interface ModalProps extends StateProps {
     card: ICard
@@ -44,40 +45,7 @@ export interface ModalProps extends StateProps {
 
     updateCard: (card: Partial<ICard>) => void
     deleteCard: () => void
-
-    assignLabel: (label: ITag) => void
-    createAndAssignLabel: (name: string) => void
-    removeLabel: (label: ITag) => void
-}
-
-class TaskListAccordion extends React.Component {
-    state = { activeIndex: -1 }
-
-    handleClick = (e: React.SyntheticEvent<HTMLDivElement>, titleProps: {index: number}) => {
-        const { index } = titleProps
-        const { activeIndex } = this.state
-        const newIndex = activeIndex === index ? -1 : index
-        this.setState({ activeIndex: newIndex })
-    }
-
-    render() {
-        const { activeIndex } = this.state
-
-        return (
-            <Accordion styled={true} fluid={true} >
-                <Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
-                    <Icon name="dropdown" />
-                    TaskList
-                </Accordion.Title>
-                <Accordion.Content active={activeIndex === 0}>
-                    <p><Checkbox label="Task 1" /></p>
-                    <p><Checkbox label="Task 2" /></p>
-                    <p><Checkbox label="Task 3" /></p>
-                    <Input fluid={true} placeholder="Add a new Task List" />
-                </Accordion.Content>
-            </Accordion>
-        )
-    }
+    addCheckList: () => void
 }
 
 const CardModal: React.StatelessComponent<ModalProps> = (props) => {
@@ -180,6 +148,7 @@ const CardModal: React.StatelessComponent<ModalProps> = (props) => {
                             primary={true}
                             circular={true}
                             fluid={true}
+                            onClick={props.addCheckList}
                         />
                     </p>
                     <p>

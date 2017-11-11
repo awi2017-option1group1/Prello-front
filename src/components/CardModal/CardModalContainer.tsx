@@ -13,6 +13,7 @@ import { IBoard } from '../../redux/boards/types'
 import { ITag } from '../../redux/tags/types'
 import { actionCreators as assigneesCreator } from '../../redux/cards/AssignedUsers/actions'
 
+import { actionCreators as createCheckListActionCreator } from '../../redux/checkLists/actions/create'
 import { ICard } from '../../redux/cards/types'
 import { IUser } from '../../redux/users/types'
 
@@ -45,6 +46,7 @@ interface PropsFromDispatch {
     
     assignUser: (user: IUser) => void
     removeUser: (user: IUser) => void
+    addCheckList: () => void
 }
 
 const mapStateToProps = (state: RootState,  ownProps: CardModalContainerProps) => {
@@ -99,6 +101,9 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: CardModalContainerProp
             dispatch(assigneesCreator.fetchAssigneesList(ownProps.card.id))
         }
 
+        addCheckList: () => {
+            dispatch(createCheckListActionCreator.createCheckListFromCardId(ownProps.card.id))
+        },
     }
 }
 
