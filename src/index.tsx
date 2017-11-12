@@ -22,6 +22,7 @@ import BoardsListPage from './routes/BoardsPage'
 import PageNotFound from './routes/PageNotFound'
 import ProfilePage from './routes/ProfilePage'
 import ValidConfirmPage from './routes/ValidConfirmPage'
+import RegisterSuccessPage from './routes/RegisterSuccessPage'
 
 /* Authenticate user */
 AUTH.get('/me')
@@ -43,6 +44,7 @@ ReactDOM.render(
                 <Switch>
                     <Route exact={true} path="/" component={IndexPage}/>
                     
+                    <Route path="/register/success" component={requireNotAuth(RegisterSuccessPage)}/>
                     <Route path="/register" component={requireNotAuth(RegisterPage)}/>
                     <Route path="/overview" component={requireAuth(BoardsListPage)}/>
                     <Route path="/boards/:id" component={requireAuth(BoardPage)}/>
