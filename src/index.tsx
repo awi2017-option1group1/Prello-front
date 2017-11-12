@@ -48,6 +48,7 @@ ReactDOM.render(
                     <Route path="/register/success" component={requireNotAuth(RegisterSuccessPage)}/>
                     <Route path="/register" component={requireNotAuth(RegisterPage)}/>
                     <Route path="/overview" component={requireAuth(BoardsListPage)}/>
+                    <Route path="/boards/:id/cards/:cardId" component={requireAuth(BoardPage)}/>
                     <Route path="/boards/:id" component={requireAuth(BoardPage)}/>
                     <Route path="/profile" component={requireAuth(ProfilePage)}/>
 

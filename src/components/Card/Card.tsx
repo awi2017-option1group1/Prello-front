@@ -14,7 +14,9 @@ import './card.css'
 export interface CardProps extends StateProps {
     card: ICard
     labels: ITag[]
+    shouldBeOpen: boolean
 
+    open: () => void
     onClick: () => void
 }
 
@@ -25,6 +27,9 @@ class Card extends React.Component<CardProps> {
 
     componentWillMount() {
         this.props.loadData!()
+        if (this.props.shouldBeOpen) {
+            this.props.open()
+        }
     }
 
     render() {

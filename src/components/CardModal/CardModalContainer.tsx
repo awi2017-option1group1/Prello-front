@@ -1,5 +1,4 @@
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router'
 
 import { RootState, Dispatch } from '../../redux/RootReducer'
 
@@ -79,11 +78,9 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: CardModalContainerProp
     }
 }
 
-const CardsListContainer = withRouter(
-    connect<PropsFromState, PropsFromDispatch, CardModalContainerProps>(
-        mapStateToProps,
-        mapDispatchToProps
-    )(CardModal)
-)
+const CardsListContainer = connect<PropsFromState, PropsFromDispatch, CardModalContainerProps>(
+    mapStateToProps,
+    mapDispatchToProps
+)(CardModal)
 
 export default CardsListContainer
