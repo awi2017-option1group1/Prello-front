@@ -7,9 +7,9 @@ import { StateProps } from '../StateProps'
 
 import SplitHeader from '../common/SplitHeader'
 import Spinner from '../common/Spinner'
-import CardsList from '../CardsList'
-
+import ConfirmModal from '../common/ConfirmModal/ConfirmModal'
 import EditableTitle from '../common/EditableTitle'
+import CardsList from '../CardsList'
 
 import './tasks-list.css'
 
@@ -37,7 +37,20 @@ const TasksList: React.StatelessComponent<TasksListProps> = (props) => {
 
             <SplitHeader>
                 <EditableTitle type="h2" content={props.list.name} onSubmit={props.setTitle} />
-                <Button icon="trash" primary={true} circular={true} onClick={props.delete} />          
+                <ConfirmModal
+                    trigger={
+                        <Button 
+                            icon="trash" 
+                            primary={true} 
+                            circular={true} 
+                        />  
+                    }
+                    title="Confirm delete"
+                    content={`Are you sure you want to delete list '${props.list.name}'? `}
+                    confirmButton="Yes, delete"
+                    cancelButton="No, cancel"
+                    onConfirm={props.delete}
+                />        
             </SplitHeader>
 
             <CardsList emptyText="No tasks yet!" listId={props.list.id} />

@@ -1,6 +1,8 @@
 import { Dispatch, RootState } from '../../RootReducer'
 import { API } from '../../../services/http'
 
+import { actionCreators as uiActionCreators } from '../../ui/actions'
+
 import { IBoard } from '../../boards/types'
 
 export const CREATE_BOARD = 'CREATE_BOARD'
@@ -9,7 +11,8 @@ export const CREATE_BOARD_ERROR = 'CREATE_BOARD_ERROR'
 
 export type Actions = {
     CREATE_BOARD: {
-        type: typeof CREATE_BOARD
+        type: typeof CREATE_BOARD,
+        board: Partial<IBoard>
     },
     CREATE_BOARD_ERROR: {
         type: typeof CREATE_BOARD_ERROR,
@@ -22,8 +25,9 @@ export type Actions = {
 }
 
 export const actionCreators = {
-    createBoardRequest: (): Actions[typeof CREATE_BOARD] => ({
-        type: CREATE_BOARD
+    createBoardRequest: (board: Partial<IBoard>): Actions[typeof CREATE_BOARD] => ({
+        type: CREATE_BOARD,
+        board
     }),
     createBoardRequestError: (error: string): Actions[typeof CREATE_BOARD_ERROR] => ({
         type: CREATE_BOARD_ERROR,
@@ -35,11 +39,19 @@ export const actionCreators = {
     }),
     createBoard: () => {
         return (dispatch: Dispatch, getState: () => RootState) => {
-            dispatch(actionCreators.createBoardRequest())
+            dispatch(actionCreators.createBoardRequest({
+                name: 'EmptyBoard'
+            }))
             const userId = getState().auth.user!.uid
             return API.post(`/users/${userId}/boards`).then(
-                board => dispatch(actionCreators.createBoardRequestSuccess(board)),
-                error => dispatch(actionCreators.createBoardRequestError(error.error.error))
+                board => {
+                    dispatch(actionCreators.createBoardRequestSuccess(board))
+                    dispatch(uiActionCreators.showSaveMessage())
+                },
+                error => {
+                    dispatch(actionCreators.createBoardRequestError(error.error.error))
+                    dispatch(uiActionCreators.showCanNotSaveMessage())
+                }
             )
         }
     }

@@ -3,6 +3,8 @@ import { API } from '../../../services/http'
 
 import { reorder } from '../../../services/collection'
 
+import { actionCreators as uiActionCreators } from '../../ui/actions'
+
 import { IList } from '../types'
 
 export const MOVE_BOARD_LIST = 'MOVE_BOARD_LIST'
@@ -48,8 +50,14 @@ export const actionCreators = {
                     return API.put(`/lists/${list.id}`, { pos: index })
                 })
             ).then(
-                updatedLists => dispatch(actionCreators.moveBoardListRequestSuccess(updatedLists)),
-                error => dispatch(actionCreators.moveBoardListRequestError(error))
+                updatedLists => {
+                    dispatch(actionCreators.moveBoardListRequestSuccess(updatedLists))
+                    dispatch(uiActionCreators.showSaveMessage())
+                },
+                error => {
+                    dispatch(actionCreators.moveBoardListRequestError(error))
+                    dispatch(uiActionCreators.showCanNotSaveMessage())
+                }
             )
         }
     }

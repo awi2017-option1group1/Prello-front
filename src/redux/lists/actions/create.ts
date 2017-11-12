@@ -1,6 +1,8 @@
 import { Dispatch } from '../../RootReducer'
 import { API } from '../../../services/http'
 
+import { actionCreators as uiActionCreators } from '../../ui/actions'
+
 import { IList } from '../types'
 
 export const CREATE_BOARD_LIST = 'CREATE_BOARD_LIST'
@@ -9,7 +11,8 @@ export const CREATE_BOARD_LIST_ERROR = 'CREATE_BOARD_LIST_ERROR'
 
 export type Actions = {
     CREATE_BOARD_LIST: {
-        type: typeof CREATE_BOARD_LIST
+        type: typeof CREATE_BOARD_LIST,
+        list: Partial<IList>
     },
     CREATE_BOARD_LIST_ERROR: {
         type: typeof CREATE_BOARD_LIST_ERROR,
@@ -22,8 +25,9 @@ export type Actions = {
 }
 
 export const actionCreators = {    
-    createBoardListRequest: (): Actions[typeof CREATE_BOARD_LIST] => ({
-        type: CREATE_BOARD_LIST
+    createBoardListRequest: (list: Partial<IList>): Actions[typeof CREATE_BOARD_LIST] => ({
+        type: CREATE_BOARD_LIST,
+        list
     }),
     createBoardListRequestError: (error: string): Actions[typeof CREATE_BOARD_LIST_ERROR] => ({
         type: CREATE_BOARD_LIST_ERROR,
@@ -35,10 +39,18 @@ export const actionCreators = {
     }),
     createBoardList: (boardId: number) => {
         return (dispatch: Dispatch) => {
-            dispatch(actionCreators.createBoardListRequest())
+            dispatch(actionCreators.createBoardListRequest({
+                name: 'EmptyName'
+            }))
             return API.post(`/boards/${boardId}/lists`).then(
-                list => dispatch(actionCreators.createBoardListRequestSuccess(list)),
-                error => dispatch(actionCreators.createBoardListRequestError(error.error.error))
+                list => {
+                    dispatch(actionCreators.createBoardListRequestSuccess(list))
+                    dispatch(uiActionCreators.showSaveMessage())
+                },
+                error => {
+                    dispatch(actionCreators.createBoardListRequestError(error.error.error))
+                    dispatch(uiActionCreators.showCanNotSaveMessage())
+                }
             )
         }
     }

@@ -5,3 +5,7 @@
 #navbar-more .ui.menu {
     width: 100%;
 }
+
+.ui.menu .ui.label.initial {
+    margin: 0;
+}
