@@ -1,7 +1,12 @@
 import * as React from 'react'
 import { Card as SmCard, Button, Modal, Input, Icon, Grid, Segment, Accordion, Checkbox,
     Comment, Header, Menu, Form, Label } from 'semantic-ui-react'
-    
+
+import DatePicker from 'react-datepicker'
+import * as moment from 'moment'
+
+import 'react-datepicker/dist/react-datepicker.css'
+
 import { StateProps } from '../StateProps'
 import { ICard } from '../../redux/cards/types'
     
@@ -15,7 +20,7 @@ import './card-modal.css'
 
 export interface ModalProps extends StateProps {
     card: ICard
-
+    currentMoment?: moment.Moment
     onClose: () => void
 
     updateCard: (card: Partial<ICard>) => void
@@ -139,14 +144,19 @@ const CardModal: React.StatelessComponent<ModalProps> = (props) => {
                     </Menu.Item>
                     <h3>Actions</h3>
                     <p>
-                        <Button 
-                            content="Set due date" 
+                    <DatePicker
+                        selected={props.currentMoment}
+                        onChange={() => null}
+                        customInput={<Button 
+                            content="Add due date" 
                             icon="calendar" 
                             labelPosition="left" 
                             primary={true} 
                             circular={true} 
                             fluid={true}
-                        />
+                        />}
+                    />
+                        
                     </p>
                     <p>
                         <Button 
