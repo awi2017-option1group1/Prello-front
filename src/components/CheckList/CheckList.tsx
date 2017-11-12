@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Input, Accordion, Checkbox } from 'semantic-ui-react'
+import { Input, Accordion, Checkbox, Button } from 'semantic-ui-react'
 
 import { ICheckList } from '../../redux/checkLists/types'
 
@@ -18,6 +18,7 @@ export interface CheckListProps extends StateProps {
     checkList: ICheckList
     setTitle: (title: string) => void
     delete: () => void
+    createCheckItem: (title: string) => void
 }
 
 class CheckList extends React.Component<CheckListProps> {
@@ -44,7 +45,7 @@ class CheckList extends React.Component<CheckListProps> {
                             <Button
                                 icon="trash"
                                 circular={true}
-                                size='mini'
+                                size="mini"
                             />
                         }
                         title="Confirm delete"
@@ -55,7 +56,12 @@ class CheckList extends React.Component<CheckListProps> {
                     />
                 </SplitHeader>
                 <CheckItems checkListId={this.props.checkList.id} />
-                    <Input fluid={true} placeholder="New Task" />
+                <EditableTitle  // This allows the user to create a new CheckItem
+                            type="h5"
+                            content="New Task ?"
+                            onSubmit={this.props.createCheckItem}
+                />
+                <br />
             </section>
         )
     }

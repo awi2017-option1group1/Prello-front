@@ -1,7 +1,8 @@
 import { connect } from 'react-redux'
 
 import { RootState, Dispatch } from '../../redux/RootReducer'
-import { actionCreators as checkListsActionsCreators } from '../../redux/checkList/actions'
+import { actionCreators as checkListsActionsCreators } from '../../redux/checkLists/actions'
+import { actionCreators as checkItemsActionsCreators } from '../../redux/checkItems/actions'
 import { ICheckList } from '../../redux/checkLists/types'
 
 interface CheckListContainerProps {
@@ -18,6 +19,7 @@ interface PropsFromDispatch {
     loadData?: () => void
     setTitle: (title: string) => void
     delete: () => void
+    createCheckItem: (title: string) => void
 }
 
 const mapStateToProps = (state: RootState) => {
@@ -29,6 +31,7 @@ const mapStateToProps = (state: RootState) => {
 }
 
 const mapDispatchToProps = (dispatch: Dispatch, ownProps: CheckListContainerProps) => {
+
     return {
         loadData: () => { dispatch(checkListsActionsCreators.fetchCheckList(Number(ownProps.checkList.id))) },
 
@@ -43,6 +46,9 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: CheckListContainerProp
         delete: () => {
             dispatch(checkListsActionsCreators.removeCheckList(ownProps.checkList))
         },
+        createCheckItem: (title: string) => {
+            dispatch(checkItemsActionsCreators.createCheckItemFromCheckListId(ownProps.checkList.id, {name : title}))
+        }
     }
 }
 
