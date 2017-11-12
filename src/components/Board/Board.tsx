@@ -1,9 +1,10 @@
 import * as React from 'react'
-import { Button } from 'semantic-ui-react'
+import { Button, Modal } from 'semantic-ui-react'
 
 import { IBoard } from '../../redux/boards/types'
 import { IList } from '../../redux/lists/types'
 import { ICard } from '../../redux/cards/types'
+import { ITag } from '../../redux/tags/types'
 
 import { StateProps } from '../StateProps'
 
@@ -12,6 +13,7 @@ import CardModal from '../CardModal'
 import CreateCardModal from '../CreateCardModal'
 import Spinner from '../common/Spinner'
 import EditableTitle from '../common/EditableTitle'
+import LabelTable from '../LabelTable'
 import TasksLists from '../TasksLists'
 import PageNotFound from '../../routes/PageNotFound'
 
@@ -19,6 +21,7 @@ import './board.css'
 
 export interface BoardProps extends StateProps {
     board: IBoard
+    labels: ITag[]
     listToAppendCard: IList | null
     openedCard: ICard | null
 
@@ -27,6 +30,10 @@ export interface BoardProps extends StateProps {
     saveCard: (name: string) => void
     closeCreateCard: () => void
     closeCard: () => void
+
+    createLabel: () => void
+    updateLabel: (label: ITag, newValues: Partial<ITag>) => void
+    deleteLabel: (label: ITag) => void
 }
 
 class Board extends React.Component<BoardProps> {
@@ -47,14 +54,49 @@ class Board extends React.Component<BoardProps> {
             <section id="board">
                 <SplitHeader>
                     <EditableTitle type="h1" content={this.props.board.name} onSubmit={this.props.setTitle} />
-                    <Button 
-                        content="Add column" 
-                        icon="plus" 
-                        labelPosition="left" 
-                        primary={true} 
-                        circular={true} 
-                        onClick={this.props.addList} 
-                    />
+                    <div>
+                        <Button 
+                            content="Add column" 
+                            icon="plus" 
+                            labelPosition="left" 
+                            primary={true} 
+                            circular={true} 
+                            onClick={this.props.addList} 
+                        />
+                        <Modal 
+                            trigger={
+                                <Button 
+                                    content="Manage labels" 
+                                    icon="tags" 
+                                    labelPosition="left" 
+                                    circular={true}
+                                />
+                            }
+                            closeIcon={true}
+                            size="large"
+                        >
+                            <Modal.Header>
+                                Labels
+                                <Button 
+                                    content="Add label" 
+                                    icon="plus" 
+                                    labelPosition="left" 
+                                    floated="right"
+                                    primary={true} 
+                                    circular={true}
+                                    className="modal-header-button"
+                                    onClick={this.props.createLabel}
+                                />
+                            </Modal.Header>
+                            <Modal.Content>
+                                <LabelTable 
+                                    labels={this.props.labels} 
+                                    updateLabel={this.props.updateLabel}
+                                    deleteLabel={this.props.deleteLabel}
+                                />
+                            </Modal.Content>
+                        </Modal>
+                    </div>
                 </SplitHeader>
                 <TasksLists boardId={this.props.board.id} />
                 <CreateCardModal 
@@ -64,7 +106,7 @@ class Board extends React.Component<BoardProps> {
                     cancel={this.props.closeCreateCard} 
                 />
                 {this.props.openedCard !== null && 
-                    <CardModal onClose={this.props.closeCard} card={this.props.openedCard} />
+                    <CardModal board={this.props.board} onClose={this.props.closeCard} card={this.props.openedCard} />
                 }
             </section>
         )
