@@ -1,8 +1,8 @@
 import * as React from 'react'
 import * as _ from 'lodash'
 import { Dropdown, Segment } from 'semantic-ui-react'
-import Avatar from '../common/Avatar'
-// import AssigneeAvatar from '../AssigneesAvatar'
+
+import AssigneesAvatar from '../AssigneesAvatar'
 
 import { IUser } from '../../redux/users/types'
 
@@ -35,7 +35,6 @@ const AssigneesForm: React.StatelessComponent<AssigneesFormProps> = (props) => {
                 fluid={true}
                 onChange={(e, data) => {
                     const value = data.value![0]
-                    // If the value is a number => user have picks up an existing label
                     if (typeof data.value![0] === 'number') {
                         const assignee = props.boardAssignees.find(u => u.id === value)
                         if (assignee) {
@@ -50,9 +49,7 @@ const AssigneesForm: React.StatelessComponent<AssigneesFormProps> = (props) => {
             />
             <Segment basic={true} className="label-modal-segment">
                 {props.cardAssignees.length === 0 && 'No users yet!'}
-                {props.cardAssignees.map(l => (
-                    <Avatar user={l} key={l.id} onDelete={props.removeAssignee} />
-                ))}
+                    <AssigneesAvatar assignees={props.cardAssignees} onDelete={props.removeAssignee} />
             </Segment>
         </div>
     )

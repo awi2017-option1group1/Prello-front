@@ -10,6 +10,7 @@ describe('<AssigneesAvatar />', () => {
         const assigneesAvatar = shallow(
             <AssigneesAvatar 
                 assignees={[]}
+                onDelete={() => null}
             />
         )
         expect(assigneesAvatar.get(0)).toBe(null)
@@ -25,6 +26,7 @@ describe('<AssigneesAvatar />', () => {
                     email: 'toto@toto.fr', 
                     password: 'toto'}
                 ]}
+                onDelete={() => null}
             />
         )
         expect(assigneesAvatar.find(AssigneesAvatar).length).toBe(1)
@@ -40,6 +42,7 @@ describe('<AssigneesAvatar />', () => {
                     email: 'toto@toto.fr', 
                     password: 'toto'}
                 ]}
+                onDelete={() => null}
             />
         )
         expect(assigneesAvatar.find(PopupHeader).children().text()).toBe('toto')
@@ -61,6 +64,7 @@ describe('<AssigneesAvatar />', () => {
                         email: 'titi@titi.fr', 
                         password: 'titi'},
                 ]}
+                onDelete={() => null}
             />
         )
         expect(assigneesAvatar.find(AssigneesAvatar).length).toBe(1)
@@ -84,6 +88,7 @@ describe('<AssigneesAvatar />', () => {
                         email: 'titi@titi.fr', 
                         password: 'titi'},
                 ]}
+                onDelete={() => null}
             />
         )
         expect(assigneesAvatar.find(PopupHeader).children().text()).toBe('toto and 1 more')

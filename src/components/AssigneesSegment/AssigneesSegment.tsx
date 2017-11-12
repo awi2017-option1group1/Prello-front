@@ -1,6 +1,5 @@
 import * as React from 'react'
-import { Menu, Segment } from 'semantic-ui-react'
-import AssigneesAvatar from '../AssigneesAvatar'
+import { Menu } from 'semantic-ui-react'
 import AssigneeForm from '../AssigneeForm'
 
 import { StateProps } from '../StateProps'
@@ -27,11 +26,6 @@ const AssigneesSegment = (props: AssigneesSegmentProps) => {
                 removeAssignee={props.removeUser}
             />
             </Menu.Item>
-            <Segment basic={true}>
-                <AssigneesAvatar 
-                    assignees={props.assignees}
-                />
-            </Segment>
         </div>
 
     )

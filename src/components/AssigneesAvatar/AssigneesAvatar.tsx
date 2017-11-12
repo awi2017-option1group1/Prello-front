@@ -7,6 +7,8 @@ import { IUser } from '../../redux/users/types'
 
 interface AssigneesAvatarProps {
     assignees: IUser[]
+
+    onDelete?: (assignee: IUser) => void
 }
 
 const getPopupHeaderText = (assignees: IUser[]) => {
@@ -34,6 +36,7 @@ const AssigneesAvatar: React.StatelessComponent<AssigneesAvatarProps> = (props) 
                 <Avatar
                     key={props.assignees[0].username}
                     user={props.assignees[0]}
+                    onDelete={props.onDelete}
                 />
                 {props.assignees.length >= 2 && 
                 <Label size="large" circular={true} color="blue">+{props.assignees.length - 1}</Label>}
