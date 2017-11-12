@@ -17,7 +17,7 @@ const getPopupHeaderText = (assignees: IUser[]) => {
     }
 }
 
-const getPopupContent = (assignees: IUser[]) => assignees.map(assignee => (
+const getPopupContent = (assignees: IUser[]) => assignees.slice(1).map(assignee => (
     <Avatar 
         key={assignee.username}
         user={assignee}

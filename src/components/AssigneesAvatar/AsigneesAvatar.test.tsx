@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { shallow, mount } from 'enzyme'
-import { Image, Label, PopupHeader, PopupContent } from 'semantic-ui-react'
+import { PopupHeader, PopupContent } from 'semantic-ui-react'
 
+import Avatar from '../common/Avatar'
 import AssigneesAvatar from './AssigneesAvatar'
 
 describe('<AssigneesAvatar />', () => {
@@ -26,8 +27,7 @@ describe('<AssigneesAvatar />', () => {
                 ]}
             />
         )
-        expect(assigneesAvatar.find(Image).length).toBe(1)
-        expect(assigneesAvatar.find(Label).length).toBe(0)
+        expect(assigneesAvatar.find(AssigneesAvatar).length).toBe(1)
     }) 
 
     it('should display the name of the first assignee in the popup header', () => {
@@ -63,20 +63,20 @@ describe('<AssigneesAvatar />', () => {
                 ]}
             />
         )
-        expect(assigneesAvatar.find(Image).length).toBe(1)
-        expect(assigneesAvatar.find(Label).length).toBe(1)
-        expect(assigneesAvatar.find(Label).first().text()).toBe('+1')
+        expect(assigneesAvatar.find(AssigneesAvatar).length).toBe(1)
+        expect(assigneesAvatar.find(AssigneesAvatar).first().text()).toBe('T+1')
     })
 
     it('should display the name of the the others in the popup', () => {
         const assigneesAvatar = shallow(
             <AssigneesAvatar 
                 assignees={[{
-                    id: 1, 
-                    username: 'toto', 
-                    notificationEnabled: true, 
-                    email: 'toto@toto.fr', 
-                    password: 'toto'},
+                        id: 1, 
+                        username: 'toto', 
+                        notificationEnabled: true, 
+                        email: 'toto@toto.fr', 
+                        password: 'toto'
+                    },
                     {
                         id: 1, 
                         username: 'titi', 
@@ -87,7 +87,6 @@ describe('<AssigneesAvatar />', () => {
             />
         )
         expect(assigneesAvatar.find(PopupHeader).children().text()).toBe('toto and 1 more')
-        expect(assigneesAvatar.find(PopupContent).find(Label).length).toBe(1)
-        expect(assigneesAvatar.find(PopupContent).find(Image).length).toBe(1)
+        expect(assigneesAvatar.find(PopupContent).find(Avatar).length).toBe(1)
     })
 })
