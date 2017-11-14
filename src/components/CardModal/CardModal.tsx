@@ -6,21 +6,30 @@ import { StateProps } from '../StateProps'
 import { ICard } from '../../redux/cards/types'
 import { ITag } from '../../redux/tags/types'
     
+import { IUser } from '../../redux/users/types'   
+
 import Spinner from '../common/Spinner'
 import EditableTitle from '../common/EditableTitle'
 import ConfirmModal from '../common/ConfirmModal/ConfirmModal'
 import EditableMarkdown from '../common/EditableMarkdown'
-import { AssigneesSegment } from './../AssigneesSegment'
 import LabelsSegment from '../LabelsSegment'
+import AssigneesSegment from './../AssigneesSegment'
 
 import './card-modal.css'
 
 export interface ModalProps extends StateProps {
     card: ICard
+
     boardLabels: ITag[]
     labels: ITag[]
 
+    assignees: IUser[]
+    boardAssignees: IUser[]
+    
     onClose: () => void
+
+    assignUser: (user: IUser) => void
+    removeUser: (user: IUser) => void
 
     updateCard: (card: Partial<ICard>) => void
     deleteCard: () => void
@@ -130,7 +139,12 @@ const CardModal: React.StatelessComponent<ModalProps> = (props) => {
                 </Grid.Column>
 
                 <Grid.Column width={5}>
-                    <AssigneesSegment />
+                    <AssigneesSegment 
+                        assignees={props.assignees}
+                        boardAssignees={props.boardAssignees}
+                        assignUser={props.assignUser}
+                        removeUser={props.removeUser}
+                    />
 
                     <LabelsSegment 
                         boardLabels={props.boardLabels}
