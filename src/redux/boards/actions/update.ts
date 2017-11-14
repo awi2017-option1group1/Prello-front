@@ -49,7 +49,7 @@ export const actionCreators = {
             )
         }
     },
-    updateBoardTitle: (id: number, params: {name?: string}) => {
+    updateBoardTitle: (id: number, params: { name?: string }) => {
         return (dispatch: Dispatch) => {
             dispatch(actionCreators.updateBoardRequest())
             return API.put(`/boards/${id}`, params).then(
