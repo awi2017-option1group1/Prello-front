@@ -5,11 +5,12 @@ import { Route, Switch } from 'react-router'
 import { ConnectedRouter } from 'react-router-redux'
 
 import Layout from './components/Layout'
+import Alert from './components/Alert'
 
 import { AUTH } from './services/auth'
 import { requireNotAuth, requireAuth } from './components/Auth'
 
-import './index.css'
+import './index.css';
 
 import store, { history } from './redux/store'
 import { actionCreators } from './redux/auth/actions'
@@ -43,6 +44,7 @@ ReactDOM.render(
     <Provider store={store}>
         <ConnectedRouter history={history}>
             <Layout>
+                <Alert />
                 <Switch>
                     <Route exact={true} path="/" component={IndexPage}/>
                     
