@@ -1,5 +1,7 @@
 .editable-markdown {
     cursor: pointer;
+    width: 100%;
+    min-height: 100px;
 }
 
 .ui.form .markdown-preview {

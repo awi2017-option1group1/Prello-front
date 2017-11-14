@@ -28,6 +28,12 @@ class EditableTitle extends React.Component<EditableTitleProps, EditableTitleSta
         this.handleKeyPress = this.handleKeyPress.bind(this)
     }
 
+    componentWillReceiveProps(newProps: EditableTitleProps) {
+        this.setState({
+            value: newProps.content
+        })
+    }
+
     handleClick() {
         this.setState({
             editing: true

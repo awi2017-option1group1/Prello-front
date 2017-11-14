@@ -35,6 +35,12 @@ class EditableMarkdown extends React.Component<EditableMarkdownProps, EditableMa
         this.renderTab = this.renderTab.bind(this)
     }
 
+    componentWillReceiveProps(newProps: EditableMarkdownProps) {
+        this.setState({
+            value: newProps.content
+        })
+    }
+
     handleClick() {
         this.setState({
             editing: true
