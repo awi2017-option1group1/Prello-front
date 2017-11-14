@@ -16,6 +16,7 @@ export type IUser = {
     notificationEnabled: boolean,
     email: string,
     password: string,
+    uuidToken?: string | null,
     boardRole?: IBoardRole[],
     teamRole?: ITeamRole[]
 }

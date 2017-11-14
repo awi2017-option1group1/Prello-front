@@ -17,11 +17,12 @@ import { actionCreators } from './redux/auth/actions'
 /* Pages Components Imports */
 import IndexPage from './routes/IndexPage'
 import RegisterPage from './routes/RegisterPage'
-import RegisterSuccessPage from './routes/RegisterSuccessPage'
 import BoardPage from './routes/BoardPage'
 import BoardsListPage from './routes/BoardsPage'
 import PageNotFound from './routes/PageNotFound'
 import ProfilePage from './routes/ProfilePage'
+import ValidConfirmPage from './routes/ValidConfirmPage'
+import RegisterSuccessPage from './routes/RegisterSuccessPage'
 
 /* Authenticate user */
 AUTH.get('/me')
@@ -50,6 +51,7 @@ ReactDOM.render(
                     <Route path="/overview" component={requireAuth(BoardsListPage)}/>
                     <Route path="/boards/:id" component={requireAuth(BoardPage)}/>
                     <Route path="/profile" component={requireAuth(ProfilePage)}/>
+                    <Route path="/users/:id/validate/:uuidToken" component={requireNotAuth(ValidConfirmPage)}/>
 
                     <Route component={PageNotFound}/>
                 </Switch>
