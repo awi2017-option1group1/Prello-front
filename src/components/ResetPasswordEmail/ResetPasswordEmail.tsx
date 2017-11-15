@@ -1,4 +1,5 @@
 import * as React from 'react'
+
 import { Link as ValueLink } from 'valuelink'
 import { Button, Form, Grid, GridColumn, Header, FormInput, Message, Segment } from 'semantic-ui-react'
 
@@ -8,6 +9,7 @@ export interface ForgotPasswordProps extends FormProps {
     isProcessing: boolean
 
     sendMail: (email: string) => void
+    redirect: () => void
 }
 
 interface EmailFormState {
@@ -60,7 +62,7 @@ export default class EmailForm extends React.Component<ForgotPasswordProps, Emai
                 >
                     <GridColumn style={{ maxWidth: 450 }}>
                         <Header as="h2" textAlign="center">
-                            Create a Prello account for FREE!
+                            Please, give us your email address, to reset your password
                         </Header>
                         <Form 
                             size="large" 
@@ -90,9 +92,11 @@ export default class EmailForm extends React.Component<ForgotPasswordProps, Emai
                                     loading={this.props.isProcessing} 
                                     disabled={this.props.isProcessing 
                                         || this.hasErrors(emailLink) }
-                                >
-                                    Send the mail
-                                </Button>
+                                    content="Send the mail"
+                                    onClick={() =>  
+                                        this.props.redirect()
+                                    }
+                                />
                             </Segment>
                         </Form>
                     </GridColumn>

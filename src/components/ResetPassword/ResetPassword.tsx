@@ -3,11 +3,14 @@ import { Link as ValueLink } from 'valuelink'
 import { Button, Form, Grid, GridColumn, FormInput, Message, Segment } from 'semantic-ui-react'
 
 import { FormProps } from '../FormProps'
+import PageNotFound from '../../routes/PageNotFound'
 
 export interface ForgotPasswordProps extends FormProps {
     isProcessing: boolean
+    error: string | null
 
     changePassword: (password: string) => void
+    confirmLink: () => void
 }
 
 interface PasswordFormState {
@@ -27,6 +30,9 @@ export default class EmailForm extends React.Component<ForgotPasswordProps, Pass
         this.hasErrors = this.hasErrors.bind(this)
     }
 
+    componentWillMount() {
+        this.props.confirmLink()
+    }
     handleInput(link: ValueLink<string>) {
         return (event: React.ChangeEvent<HTMLInputElement>) => {
             link.set(event.target.value)
@@ -36,6 +42,7 @@ export default class EmailForm extends React.Component<ForgotPasswordProps, Pass
     handleSubmit() {
         const { password } = this.state
         this.props.changePassword(password)
+        window.location.replace('/auth/login')
     }
 
     hasErrors(passwordLink: ValueLink<string>) {
@@ -51,7 +58,12 @@ export default class EmailForm extends React.Component<ForgotPasswordProps, Pass
         ValueLink.state(this, 'password')
             .check( x => x.length >= 3, 'Password must have 3 characters or more' )
             
+        if (this.props.error) {
+            return <PageNotFound />
+        }
+
         return (
+
             <Segment inverted={true} color="blue" id="register-form">
                 <Grid
                     textAlign="center"

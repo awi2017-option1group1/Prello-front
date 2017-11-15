@@ -1,4 +1,5 @@
 import { connect } from 'react-redux'
+import { push } from 'react-router-redux'
 
 import { RootState, Dispatch } from '../../redux/RootReducer'
 import { actionCreators } from '../../redux/resetPassword/actions'
@@ -16,6 +17,10 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
         sendMail: (email: string) => {
             dispatch(actionCreators.sendMail(email))
+        },
+
+        redirect: () => {
+            dispatch(push('/'))
         }
     }
 }

@@ -11,6 +11,10 @@ export const CHANGE_PASSWORD = 'CHANGE_PASSWORD'
 export const CHANGE_PASSWORD_SUCCESS = 'CHANGE_PASSWORD_SUCCESS'
 export const CHANGE_PASSWORD_ERROR = 'CHANGE_PASSWORD_ERROR'
 
+export const CONFIRM_LINK = 'CONFIRM_LINK'
+export const CONFIRM_LINK_SUCCESS = 'CONFIRM_LINK_SUCCESS'
+export const CONFIRM_LINK_ERROR = 'CONFIRM_LINK_ERROR'
+
 export type Actions = {
     SEND_MAIL: {
         type: typeof SEND_MAIL
@@ -23,6 +27,7 @@ export type Actions = {
         type: typeof SEND_MAIL_SUCCESS,
         bool: boolean
     },
+
     CHANGE_PASSWORD: {
         type: typeof CHANGE_PASSWORD
     },
@@ -32,6 +37,18 @@ export type Actions = {
     },
     CHANGE_PASSWORD_SUCCESS: {
         type: typeof CHANGE_PASSWORD_SUCCESS,
+        bool: boolean
+    },
+
+    CONFIRM_LINK: {
+        type: typeof CONFIRM_LINK
+    },
+    CONFIRM_LINK_ERROR: {
+        type: typeof CONFIRM_LINK_ERROR,
+        error: string
+    },
+    CONFIRM_LINK_SUCCESS: {
+        type: typeof CONFIRM_LINK_SUCCESS,
         bool: boolean
     },
     
@@ -50,8 +67,8 @@ export const actionCreators = {
         bool
     }),
 
-    resetPasswordRequest: (): Actions[typeof CHANGE_PASSWORD] => ({
-        type: CHANGE_PASSWORD
+    resetPasswordRequest: (): Actions[typeof CONFIRM_LINK] => ({
+        type: CONFIRM_LINK
     }),
     resetPasswordRequestError: (errors: FormErrors): Actions[typeof CHANGE_PASSWORD_ERROR] => ({
         type: CHANGE_PASSWORD_ERROR,
@@ -62,6 +79,17 @@ export const actionCreators = {
         bool
     }),
 
+    confirmRequest: (): Actions[typeof CONFIRM_LINK] => ({
+        type: CONFIRM_LINK
+    }),
+    confirmRequestError: (error: string): Actions[typeof CONFIRM_LINK_ERROR] => ({
+        type: CONFIRM_LINK_ERROR,
+        error
+    }),
+    confirmRequestSuccess: (bool: boolean): Actions[typeof CONFIRM_LINK_SUCCESS] => ({
+        type: CONFIRM_LINK_SUCCESS,
+        bool
+    }),
     sendMail: (email: string) => {
         return (dispatch: Dispatch) => {
             dispatch(actionCreators.sendMailRequest())
@@ -79,6 +107,17 @@ export const actionCreators = {
             return API.post(`/users/${userID}/reset/${token}`, {password: password}).then(
                 bool => dispatch(actionCreators.sendMailRequestSuccess(bool)),
                 error => dispatch(actionCreators.sendMailRequestError(error.error.error))
+            )
+        }
+    },
+
+    confirmLink: (userID: number, token: string) => {
+        return (dispatch: Dispatch) => {
+            dispatch(actionCreators.confirmRequest())
+            
+            return API.get(`/users/${userID}/reset/${token}`).then(
+                bool => dispatch(actionCreators.confirmRequestSuccess(bool)),
+                error => dispatch(actionCreators.confirmRequestError(error.error))
             )
         }
     }

@@ -14,22 +14,25 @@ interface ResetContainerProps {
             userID: string,
             uuidToken: string,
         }
-    }
+    },
 }
 
 interface PropsFromState {
     errors?: FormErrors
     isProcessing: boolean
+    error: string | null
 }
 
 interface PropsFromDispatch {
    changePassword: (password: string) => void
+   confirmLink: () => void
 }
 
 const mapStateToProps = (state: RootState) => {
     return {
         isProcessing: state.resetPass.isProcessing,
-        errors: state.resetPass.errors // TODO
+        errors: state.resetPass.errors,
+        error: state.resetPass.error
     }
 }
 
@@ -39,7 +42,10 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: ResetContainerProps) =
             dispatch(actionCreators.resetPassword(  password, 
                                                     Number(ownProps.match.params.userID), 
                                                     ownProps.match.params.uuidToken))
-        }
+        },
+
+        confirmLink: () => dispatch(actionCreators.confirmLink( Number(ownProps.match.params.userID), 
+                                                                ownProps.match.params.uuidToken))
     }
 }
 
