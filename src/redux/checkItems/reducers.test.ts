@@ -73,11 +73,11 @@ describe('Register reducer', () => {
                 undefined,
                 {
                     type: CHECKITEM_ERROR,
-                    error: "ID requested"
+                    error: 'ID requested'
                 }
             )
         ).toEqual({
-            error: "ID requested",
+            error: 'ID requested',
             isProcessing: false
         })
 
@@ -85,16 +85,16 @@ describe('Register reducer', () => {
             reducer(
                 {
                     checkItem: checkItemDefault,
-                    error: "ID requested",
+                    error: 'ID requested',
                     isProcessing: false
                 },
                 {
                     type: CHECKITEM_ERROR,
-                    error: "ID requested",
+                    error: 'ID requested',
                 }
             )
         ).toEqual({
-            error: "ID requested",
+            error: 'ID requested',
             isProcessing: false
         })
     })
@@ -139,11 +139,11 @@ describe('Register reducer', () => {
                 undefined,
                 {
                     type: CREATE_CHECKITEM_ERROR,
-                    error: "ID requested"
+                    error: 'ID requested'
                 }
             )
         ).toEqual({
-            error: "ID requested",
+            error: 'ID requested',
             isProcessing: false
         })
 
@@ -151,16 +151,16 @@ describe('Register reducer', () => {
             reducer(
                 {
                     checkItem: checkItemDefault,
-                    error: "ID requested",
+                    error: 'ID requested',
                     isProcessing: true
                 },
                 {
                     type: CREATE_CHECKITEM_ERROR,
-                    error: "ID requested",
+                    error: 'ID requested',
                 }
             )
         ).toEqual({
-            error: "ID requested",
+            error: 'ID requested',
             isProcessing: false
         })
     })
@@ -205,11 +205,11 @@ describe('Register reducer', () => {
                 undefined,
                 {
                     type: REMOVE_CHECKITEM_ERROR,
-                    error: "ID requested"
+                    error: 'ID requested'
                 }
             )
         ).toEqual({
-            error: "ID requested",
+            error: 'ID requested',
             isProcessing: false
         })
 
@@ -217,16 +217,16 @@ describe('Register reducer', () => {
             reducer(
                 {
                     checkItem: checkItemDefault,
-                    error: "ID requested",
+                    error: 'ID requested',
                     isProcessing: false
                 },
                 {
                     type: REMOVE_CHECKITEM_ERROR,
-                    error: "ID requested",
+                    error: 'ID requested',
                 }
             )
         ).toEqual({
-            error: "ID requested",
+            error: 'ID requested',
             isProcessing: false
         })
     })
@@ -271,11 +271,11 @@ describe('Register reducer', () => {
                 undefined,
                 {
                     type: UPDATE_CHECKITEM_ERROR,
-                    error: "ID requested"
+                    error: 'ID requested'
                 }
             )
         ).toEqual({
-            error: "ID requested",
+            error: 'ID requested',
             isProcessing: false
         })
 
@@ -283,16 +283,16 @@ describe('Register reducer', () => {
             reducer(
                 {
                     checkItem: checkItemDefault,
-                    error: "ID requested",
+                    error: 'ID requested',
                     isProcessing: false
                 },
                 {
                     type: UPDATE_CHECKITEM_ERROR,
-                    error: "ID requested",
+                    error: 'ID requested',
                 }
             )
         ).toEqual({
-            error: "ID requested",
+            error: 'ID requested',
             isProcessing: false
         })
     })

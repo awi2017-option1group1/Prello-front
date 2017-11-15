@@ -44,7 +44,7 @@ export const actionCreators = {
         return (dispatch: Dispatch) => {
             dispatch(actionCreators.updateCheckItemRequest())
             return API.put(`/checkitems/${checkItem.id}`, newValues).then(
-                checkItem => dispatch(actionCreators.updateCheckItemRequestSuccess(checkItem)),
+                checkItemUpdated => dispatch(actionCreators.updateCheckItemRequestSuccess(checkItemUpdated)),
                 error => dispatch(actionCreators.updateCheckItemRequestError(error.message)),
             )
         }

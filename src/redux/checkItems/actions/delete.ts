@@ -44,7 +44,7 @@ export const actionCreators = {
         return (dispatch: Dispatch) => {
             dispatch(actionCreators.removeCheckItemRequest())
             return API.delete(`/checkitems/${checkItem.id}`).then(
-                checkItem => dispatch(actionCreators.removeCheckItemRequestSucess(checkItem)),
+                checkItemDeleted => dispatch(actionCreators.removeCheckItemRequestSucess(checkItemDeleted)),
                 error => dispatch(actionCreators.removeCheckItemRequestError(error.message)),
             )
         }

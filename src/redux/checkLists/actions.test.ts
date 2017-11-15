@@ -1,8 +1,12 @@
 
-import { actionCreators as CreateActionCreators, CREATE_CHECKLIST_ERROR, CREATE_CHECKLIST_SUCCESS, CREATE_CHECKLIST } from './actions/create'
-/*import { actionCreators as FetchActionCreators, FETCH_CHECKITEM, FETCH_CHECKITEM_SUCCESS } from './actions/fetch'
-import { actionCreators as DeleteActionCreators, REMOVE_CHECKITEM, REMOVE_CHECKITEM_SUCCESS, REMOVE_CHECKITEM_ERROR } from './actions/delete'
-import { actionCreators as UpdateActionCreators, UPDATE_CHECKITEM, UPDATE_CHECKITEM_SUCCESS, UPDATE_CHECKITEM_ERROR } from './actions/update'
+import { actionCreators as CreateActionCreators,
+    CREATE_CHECKLIST_ERROR, CREATE_CHECKLIST_SUCCESS, CREATE_CHECKLIST } from './actions/create'
+/*import { actionCreators as FetchActionCreators,
+    FETCH_CHECKITEM, FETCH_CHECKITEM_SUCCESS } from './actions/fetch'
+import { actionCreators as DeleteActionCreators,
+    REMOVE_CHECKITEM, REMOVE_CHECKITEM_SUCCESS, REMOVE_CHECKITEM_ERROR } from './actions/delete'
+import { actionCreators as UpdateActionCreators,
+    UPDATE_CHECKITEM, UPDATE_CHECKITEM_SUCCESS, UPDATE_CHECKITEM_ERROR } from './actions/update'
 */
 
 import { ICheckList } from '../checkLists/types'
@@ -49,9 +53,9 @@ describe('CheckLists sync actions', () => {
     it('should create an action to create a CHECKLIST error', () => {
         const expectedAction = {
             type: CREATE_CHECKLIST_ERROR,
-            error: "error message"
+            error: 'error message'
         }
-        expect(CreateActionCreators.createCheckListError("error message")).toEqual(expectedAction)
+        expect(CreateActionCreators.createCheckListError('error message')).toEqual(expectedAction)
     })
 })
 
@@ -62,7 +66,6 @@ describe('Board async actions', () => {
     afterEach(() => {
         nock.cleanAll()
     })
-
 
     it('should create FETCH_CHECKITEM_SUCCESS', () => {
         nock(getBaseUrl())
@@ -97,7 +100,7 @@ describe('Board async actions', () => {
 
         const store = mockStore({ checkItem: [{ id: 1, name: 'CheckItem', pos: 4, state: false, checkListId: 4}] })
 
-        return store.dispatch(CreateActionCreators.createCheckItemFromCheckListId(4, {name: "CheckItem"})).then(() => {
+        return store.dispatch(CreateActionCreators.createCheckItemFromCheckListId(4, {name: 'CheckItem'})).then(() => {
             expect(store.getActions()).toEqual(expectedActions) })
     })
 

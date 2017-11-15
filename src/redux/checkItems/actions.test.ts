@@ -1,8 +1,12 @@
 
-import { actionCreators as CreateActionCreators, CREATE_CHECKITEM_ERROR, CREATE_CHECKITEM_SUCCESS, CREATE_CHECKITEM } from './actions/create'
-import { actionCreators as FetchActionCreators, FETCH_CHECKITEM, FETCH_CHECKITEM_SUCCESS } from './actions/fetch'
-import { actionCreators as DeleteActionCreators, REMOVE_CHECKITEM, REMOVE_CHECKITEM_SUCCESS, REMOVE_CHECKITEM_ERROR } from './actions/delete'
-import { actionCreators as UpdateActionCreators, UPDATE_CHECKITEM, UPDATE_CHECKITEM_SUCCESS, UPDATE_CHECKITEM_ERROR } from './actions/update'
+import { actionCreators as CreateActionCreators,
+    CREATE_CHECKITEM_ERROR, CREATE_CHECKITEM_SUCCESS, CREATE_CHECKITEM } from './actions/create'
+import { actionCreators as FetchActionCreators,
+    FETCH_CHECKITEM, FETCH_CHECKITEM_SUCCESS } from './actions/fetch'
+import { actionCreators as DeleteActionCreators,
+    REMOVE_CHECKITEM, REMOVE_CHECKITEM_SUCCESS, REMOVE_CHECKITEM_ERROR } from './actions/delete'
+import { actionCreators as UpdateActionCreators,
+    UPDATE_CHECKITEM, UPDATE_CHECKITEM_SUCCESS, UPDATE_CHECKITEM_ERROR } from './actions/update'
 
 import { ICheckItem } from '../checkItems/types'
 
@@ -46,9 +50,9 @@ describe('CheckItems sync actions', () => {
     it('should create an action to create a CHECKITEM error', () => {
         const expectedAction = {
             type: CREATE_CHECKITEM_ERROR,
-            error: "error message"
+            error: 'error message'
         }
-        expect(CreateActionCreators.createCheckItemError("error message")).toEqual(expectedAction)
+        expect(CreateActionCreators.createCheckItemError('error message')).toEqual(expectedAction)
     })
 
     /* FETCH actions */
@@ -98,9 +102,9 @@ describe('CheckItems sync actions', () => {
     it('should create an action to notify a CHECKITEM delete error', () => {
         const expectedAction = {
             type: REMOVE_CHECKITEM_ERROR,
-            error: "error message"
+            error: 'error message'
         }
-        expect(DeleteActionCreators.removeCheckItemRequestError("error message")).toEqual(expectedAction)
+        expect(DeleteActionCreators.removeCheckItemRequestError('error message')).toEqual(expectedAction)
     })
 
     /*Update*/
@@ -128,9 +132,9 @@ describe('CheckItems sync actions', () => {
     it('should create an action to notify a CHECKITEM update error', () => {
         const expectedAction = {
             type: UPDATE_CHECKITEM_ERROR,
-            error: "error message"
+            error: 'error message'
         }
-        expect(UpdateActionCreators.updateCheckItemRequestError("error message")).toEqual(expectedAction)
+        expect(UpdateActionCreators.updateCheckItemRequestError('error message')).toEqual(expectedAction)
     })
 })
 

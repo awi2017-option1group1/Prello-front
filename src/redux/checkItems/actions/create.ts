@@ -47,7 +47,7 @@ export const actionCreators = {
         return (dispatch: Dispatch) => {
             dispatch(actionCreators.createCheckItemRequest())
             return API.post(`/checklists/${checkItem.checkListId}/checkitems`, checkItem).then(
-                checkItem => dispatch(actionCreators.createCheckItemSuccess(checkItem)),
+                checkItemCreated => dispatch(actionCreators.createCheckItemSuccess(checkItemCreated)),
                 error => dispatch(actionCreators.createCheckItemError(error.message)),
             )
         }
