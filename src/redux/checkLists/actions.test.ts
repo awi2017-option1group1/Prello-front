@@ -266,4 +266,3 @@ describe('CheckLists async actions', () => {
     })
 
 })
-
