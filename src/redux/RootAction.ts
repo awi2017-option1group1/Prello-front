@@ -13,6 +13,7 @@ import { Actions as CardActions } from './cards/actions'
 import { Actions as UiActions } from './ui/actions'
 import { Actions as BoardLabelActions } from './tags/boardTags/actions'
 import { Actions as CardsLabelActions } from './tags/cardsTags/actions'
+import { Actions as ResetPasswordActions } from './resetPassword/actions'
 
 type ReactRouterAction = RouterAction | LocationChangeAction
 
@@ -31,3 +32,4 @@ export type RootAction =
   | UiActions[keyof UiActions]
   | BoardLabelActions[keyof BoardLabelActions]
   | CardsLabelActions[keyof CardsLabelActions]
+  | ResetPasswordActions[keyof ResetPasswordActions]
