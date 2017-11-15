@@ -10,7 +10,7 @@ export const FETCH_CHECKLIST = 'FETCH_CHECKLIST'
 export const FETCH_CHECKLIST_SUCCESS = 'FETCH_CHECKLIST_SUCCESS'
 
 export type Actions = {
-    CHECKLIST_ERROR: {    
+    CHECKLIST_ERROR: {
         type: typeof CHECKLIST_ERROR,
         error: string,
     },
@@ -18,10 +18,10 @@ export type Actions = {
         type: typeof CHECKLIST_SUCCESS,
         successMessage: string,
     },
-    FETCH_CHECKLIST: {  
+    FETCH_CHECKLIST: {
         type: typeof FETCH_CHECKLIST,
     },
-    FETCH_CHECKLIST_SUCCESS: {    
+    FETCH_CHECKLIST_SUCCESS: {
         type: typeof FETCH_CHECKLIST_SUCCESS,
         checkList: ICheckList,
     }
@@ -31,7 +31,7 @@ export const actionCreators = {
     // --------------------------------------- //
     //                    SYNC                 //
     // --------------------------------------- //
-    checkListError: (error: string): Actions[typeof CHECKLIST_ERROR] => ({      
+    checkListError: (error: string): Actions[typeof CHECKLIST_ERROR] => ({
         type: CHECKLIST_ERROR,
         error,
     }),
@@ -40,10 +40,10 @@ export const actionCreators = {
         successMessage,
     }),
 
-    fetchCheckListRequest: (): Actions[typeof FETCH_CHECKLIST] => ({     
+    fetchCheckListRequest: (): Actions[typeof FETCH_CHECKLIST] => ({
         type: FETCH_CHECKLIST,
     }),
-    fetchCheckListSuccess: (checkList: ICheckList):       
+    fetchCheckListSuccess: (checkList: ICheckList):
     Actions[typeof FETCH_CHECKLIST_SUCCESS] => ({
         type: FETCH_CHECKLIST_SUCCESS,
         checkList,
@@ -52,11 +52,11 @@ export const actionCreators = {
     // --------------------------------------- //
     //                   ASYNC                 //
     // --------------------------------------- //
-    fetchCheckList: (checkListId: string) => {     
+    fetchCheckList: (checkListId: number) => {
         return (dispatch: Dispatch) => {
             dispatch(actionCreators.fetchCheckListRequest())
             return API.get(`/checklists/${checkListId}`).then(
-                response => dispatch(actionCreators.fetchCheckListSuccess(response.checkList)),
+                checkList => dispatch(actionCreators.fetchCheckListSuccess(checkList)),
                 error => dispatch(actionCreators.checkListError(error.message)),
             )
         }

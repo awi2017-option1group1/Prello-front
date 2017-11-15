@@ -8,7 +8,7 @@ export const UPDATE_CHECKLIST_ERROR = 'UPDATE_CHECKLIST_ERROR'
 export const UPDATE_CHECKLIST_SUCCESS = 'UPDATE_CHECKLIST_SUCCESS'
 
 export type Actions = {
-    UPDATE_CHECKLIST: {   
+    UPDATE_CHECKLIST: {
         type: typeof UPDATE_CHECKLIST,
     },
     UPDATE_CHECKLIST_ERROR: {
@@ -44,8 +44,17 @@ export const actionCreators = {
         return (dispatch: Dispatch) => {
             dispatch(actionCreators.updateCheckListRequest())
             return API.put(`/checklists/${checkList.id}`, newValues).then(
-                response => dispatch(actionCreators.updateCheckListRequestSuccess(response.checkList)),
+                checkListResponse => dispatch(actionCreators.updateCheckListRequestSuccess(checkListResponse)),
                 error => dispatch(actionCreators.updateCheckListRequestError(error.message)),
+            )
+        }
+    },
+    updateCheckListTitle: (id: number, params: {name?: string}) => {
+        return (dispatch: Dispatch) => {
+            dispatch(actionCreators.updateCheckListRequest())
+            return API.put(`/checklists/${id}`, params).then(
+                newCheckList => dispatch(actionCreators.updateCheckListRequestSuccess(newCheckList)),
+                error => dispatch(actionCreators.updateCheckListRequestError(error.error.error))
             )
         }
     }
