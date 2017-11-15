@@ -10,6 +10,7 @@ import { Actions as CheckListActions } from './checkLists/actions'
 import { Actions as TestActions } from './testActions'
 import { Actions as UserActions } from './users/actions'
 import { Actions as CardActions } from './cards/actions'
+import { Actions as AssigneesActions } from './cards/AssignedUsers/actions'
 import { Actions as UiActions } from './ui/actions'
 import { Actions as BoardLabelActions } from './tags/boardTags/actions'
 import { Actions as CardsLabelActions } from './tags/cardsTags/actions'
@@ -33,3 +34,4 @@ export type RootAction =
   | BoardLabelActions[keyof BoardLabelActions]
   | CardsLabelActions[keyof CardsLabelActions]
   | ResetPasswordActions[keyof ResetPasswordActions]
+  | AssigneesActions[keyof AssigneesActions]

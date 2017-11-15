@@ -1,2 +1,3 @@
+import AssigneesSegment from './AssigneesSegment'
 
-export {default as AssigneesSegment} from './AssigneesSegment'
+export default AssigneesSegment

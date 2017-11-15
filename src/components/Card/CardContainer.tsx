@@ -1,10 +1,12 @@
 import { connect } from 'react-redux'
 
 import { RootState, Dispatch } from '../../redux/RootReducer'
-import { actionCreators } from '../../redux/tags/cardsTags/actions'
+import { actionCreators as labelActionCreators } from '../../redux/tags/cardsTags/actions'
+import { actionCreators as assignedActionCreators } from '../../redux/cards/AssignedUsers/actions/fetchAll'
 
-import { ICard } from '../../redux/cards/types'
 import { ITag } from '../../redux/tags/types'
+import { ICard } from '../../redux/cards/types'
+import { IUser } from '../../redux/users/types'
 
 import Card from './DraggableCard'
 
@@ -15,6 +17,7 @@ interface CardContainerProps {
 
 interface PropsFromState {
     labels: ITag[]
+    assignees: IUser[]
 }
 
 interface PropsFromDispatch {
@@ -24,11 +27,13 @@ interface PropsFromDispatch {
 const mapStateToProps = (state: RootState, ownProps: CardContainerProps) => {
     if (ownProps.card.id) {
         return {
-            labels: state.cardsLabel[ownProps.card.id].labels
+            labels: state.cardsLabel[ownProps.card.id].labels,
+            assignees: state.assignees[ownProps.card.id].assignees
         }
     } else {
         return {
-            labels: []
+            labels: [],
+            assignees: []
         }
     }
 }
@@ -37,7 +42,8 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: CardContainerProps) =>
     return {
         loadData: () => {
             if (ownProps.card.id) {
-                dispatch(actionCreators.fetchCardLabels(ownProps.card.id))
+                dispatch(labelActionCreators.fetchCardLabels(ownProps.card.id))
+                dispatch(assignedActionCreators.fetchAssigneesList(ownProps.card.id))
             }
         }
     }
