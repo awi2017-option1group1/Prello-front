@@ -8,14 +8,14 @@ export const REMOVE_CHECKITEM_ERROR = 'REMOVE_CHECKITEM_ERROR'
 export const REMOVE_CHECKITEM_SUCCESS = 'REMOVE_CHECKITEM_SUCCESS'
 
 export type Actions = {
-    REMOVE_CHECKITEM: {   
+    REMOVE_CHECKITEM: {
         type: typeof REMOVE_CHECKITEM,
     },
-    REMOVE_CHECKITEM_ERROR: {     
+    REMOVE_CHECKITEM_ERROR: {
         type: typeof REMOVE_CHECKITEM_ERROR,
         error: string
     },
-    REMOVE_CHECKITEM_SUCCESS: {   
+    REMOVE_CHECKITEM_SUCCESS: {
         type: typeof REMOVE_CHECKITEM_SUCCESS,
         checkItem: ICheckItem
     },
@@ -40,11 +40,11 @@ export const actionCreators = {
     // --------------------------------------- //
     //                   ASYNC                 //
     // --------------------------------------- //
-    removeBackendCheckItem: (checkItem: ICheckItem) => {
+    removeCheckItem: (checkItem: ICheckItem) => {
         return (dispatch: Dispatch) => {
             dispatch(actionCreators.removeCheckItemRequest())
-            return API.delete('/checkitems/', checkItem.id).then(
-                response => dispatch(actionCreators.removeCheckItemRequestSucess(response.checkItem)),
+            return API.delete(`/checkitems/${checkItem.id}`).then(
+                checkItem => dispatch(actionCreators.removeCheckItemRequestSucess(checkItem)),
                 error => dispatch(actionCreators.removeCheckItemRequestError(error.message)),
             )
         }
