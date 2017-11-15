@@ -1,3 +1,3 @@
-import Card from './DraggableCard'
+import Card from './CardContainer'
 
 export default Card

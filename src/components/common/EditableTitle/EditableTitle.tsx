@@ -4,7 +4,7 @@ import './editable-title.css'
 
 interface EditableTitleProps {
     content: string
-    type: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+    type: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p'
 
     onSubmit: (newValue: string) => void
 }
@@ -56,7 +56,7 @@ class EditableTitle extends React.Component<EditableTitleProps, EditableTitleSta
     render() {
         if (this.state.editing) {
             return (
-                <div className="ui input">
+                <div className="ui input fluid">
                     <input
                         autoFocus={true}
                         value={this.state.value} 

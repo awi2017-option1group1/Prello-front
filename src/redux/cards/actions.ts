@@ -22,5 +22,5 @@ export const actionCreators = {
     ...moveActionCreators,
     ...createActionCreators,
     ...updateActionCreators,
-    ...deleteActionCreators
+    ...deleteActionCreators,
 }

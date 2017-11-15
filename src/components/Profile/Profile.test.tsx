@@ -9,7 +9,7 @@ const ProfileProps = {
         username: 'username',
         email: 'email',
         password: 'password',
-        notificationEnabled: false
+        notificationEnabled: false,
     },
     loadData: () => {return},
     setFullName: () => {return},

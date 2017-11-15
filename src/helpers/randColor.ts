@@ -1,21 +1,8 @@
 import { SemanticCOLORS } from 'semantic-ui-react'
 
+import { semanticColors } from './color'
+
 const randColor = (): SemanticCOLORS => {
-    const semanticColors = [
-        'red',
-        'orange',
-        'yellow',
-        'olive',
-        'green',
-        'teal',
-        'blue',
-        'violet',
-        'purple',
-        'pink',
-        'brown',
-        'grey',
-        'black'
-    ]
     return semanticColors[Math.floor((Math.random() * 13))] as SemanticCOLORS
 }
 

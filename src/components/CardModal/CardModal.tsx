@@ -1,13 +1,15 @@
 import * as React from 'react'
-import { Card as SmCard, Button, Modal, Input, Icon, Grid, Segment, Accordion, Checkbox,
-    Comment, Header, Menu, Form, Label } from 'semantic-ui-react'
+import { Card as SmCard, Button, Modal, Input, Icon, Grid, Accordion, Checkbox,
+    Comment, Header, Form } from 'semantic-ui-react'
 
 import * as moment from 'moment'
-
 import 'react-datepicker/dist/react-datepicker.css'
 
 import { StateProps } from '../StateProps'
 import { ICard } from '../../redux/cards/types'
+import { ITag } from '../../redux/tags/types'
+    
+import { IUser } from '../../redux/users/types'   
 
 import Spinner from '../common/Spinner'
 import EditableTitle from '../common/EditableTitle'
@@ -15,15 +17,32 @@ import ConfirmModal from '../common/ConfirmModal/ConfirmModal'
 import EditableMarkdown from '../common/EditableMarkdown'
 import { AssigneesSegment } from './../AssigneesSegment'
 import DatePicker from './DatePicker'
+import LabelsSegment from '../LabelsSegment'
+import AssigneesSegment from './../AssigneesSegment'
+
 import './card-modal.css'
 
 export interface ModalProps extends StateProps {
     card: ICard
     currentMoment?: moment.Moment
+
+    boardLabels: ITag[]
+    labels: ITag[]
+
+    assignees: IUser[]
+    boardAssignees: IUser[]
+
     onClose: () => void
+
+    assignUser: (user: IUser) => void
+    removeUser: (user: IUser) => void
 
     updateCard: (card: Partial<ICard>) => void
     deleteCard: () => void
+
+    assignLabel: (label: ITag) => void
+    createAndAssignLabel: (name: string) => void
+    removeLabel: (label: ITag) => void
 }
 
 class TaskListAccordion extends React.Component {
@@ -126,21 +145,21 @@ const CardModal: React.StatelessComponent<ModalProps> = (props) => {
                 </Grid.Column>
 
                 <Grid.Column width={5}>
-                    <AssigneesSegment />
+                    <AssigneesSegment 
+                        assignees={props.assignees}
+                        boardAssignees={props.boardAssignees}
+                        assignUser={props.assignUser}
+                        removeUser={props.removeUser}
+                    />
 
-                    <h3>Labels</h3>
-                    <Menu.Item>
-                        <Input
-                            icon="tags"
-                            placeholder="Search..."
-                            iconPosition="left"
-                            fluid={true}
-                        />
-                        <Segment basic={true}>
-                            <Label color="red" horizontal={true}>Fruit</Label>
-                            <Label color="purple" horizontal={true}>Candy</Label>
-                        </Segment>
-                    </Menu.Item>
+                    <LabelsSegment 
+                        boardLabels={props.boardLabels}
+                        cardLabels={props.labels}
+                        addLabel={props.assignLabel}
+                        createAndAddLabel={props.createAndAssignLabel}
+                        removeLabel={props.removeLabel}
+                    />
+
                     <h3>Actions</h3>
                     <p>
                     <DatePicker card={props.card} currentMoment={moment()}/>
