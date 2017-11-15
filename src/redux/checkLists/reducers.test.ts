@@ -99,7 +99,6 @@ describe('Register reducer', () => {
         })
     })
 
-
     it('should handle CREATE_CHECKLIST_SUCCESS', () => {
         expect(
             reducer(

@@ -229,8 +229,8 @@ describe('CheckLists async actions', () => {
             { type: CREATE_CHECKLIST_SUCCESS,
                 checkList: { id: 1, name: 'EmptyName', pos: 4, cardId: 4, checkItems: []}
             },
-            { type: "SHOW_ALERT_MESSAGE",
-                payload: {"msg": "Content saved!", "type": "success"},
+            { type: 'SHOW_ALERT_MESSAGE',
+                payload: {'msg': 'Content saved!', 'type': 'success'},
             }
         ]
         const store = mockStore()
@@ -252,8 +252,8 @@ describe('CheckLists async actions', () => {
             { type: REMOVE_CHECKLIST_SUCCESS,
                 checkList: { id: 1, name: 'NewCheckList', pos: 4, cardId: 4, checkItems: []}
             },
-            { type: "SHOW_ALERT_MESSAGE",
-                payload: {"msg": "Content saved!", "type": "success"},
+            { type: 'SHOW_ALERT_MESSAGE',
+                payload: {'msg': 'Content saved!', 'type': 'success'},
             }
         ]
 
@@ -264,8 +264,6 @@ describe('CheckLists async actions', () => {
         )).then(() => {
             expect(store.getActions()).toEqual(expectedActions) })
     })
-
-
 
 })
 
