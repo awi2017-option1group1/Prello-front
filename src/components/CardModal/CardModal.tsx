@@ -2,20 +2,19 @@ import * as React from 'react'
 import { Card as SmCard, Button, Modal, Input, Icon, Grid, Segment, Accordion, Checkbox,
     Comment, Header, Menu, Form, Label } from 'semantic-ui-react'
 
-import DatePicker from 'react-datepicker'
 import * as moment from 'moment'
 
 import 'react-datepicker/dist/react-datepicker.css'
 
 import { StateProps } from '../StateProps'
 import { ICard } from '../../redux/cards/types'
-    
+
 import Spinner from '../common/Spinner'
 import EditableTitle from '../common/EditableTitle'
 import ConfirmModal from '../common/ConfirmModal/ConfirmModal'
 import EditableMarkdown from '../common/EditableMarkdown'
 import { AssigneesSegment } from './../AssigneesSegment'
-
+import DatePicker from './DatePicker'
 import './card-modal.css'
 
 export interface ModalProps extends StateProps {
@@ -74,12 +73,12 @@ const CardModal: React.StatelessComponent<ModalProps> = (props) => {
             onClose={props.onClose}
         >
             <Header>
-                <EditableTitle 
-                    type="h2" 
+                <EditableTitle
+                    type="h2"
                     content={props.card.name}
                     onSubmit={(name: string) => props.updateCard({ name })}
                 />
-            </Header> 
+            </Header>
             <Modal.Content
                 image={true}
                 scrolling={true}
@@ -88,23 +87,23 @@ const CardModal: React.StatelessComponent<ModalProps> = (props) => {
                 <Grid>
                 <Grid.Column width={11}>
                     <h3>Description</h3>
-                    <EditableMarkdown 
-                        content={props.card.desc ? props.card.desc : 'No description yet!'} 
+                    <EditableMarkdown
+                        content={props.card.desc ? props.card.desc : 'No description yet!'}
                         onSubmit={(desc: string) => props.updateCard({ desc })}
                     />
 
                     <h3>Checklists</h3>
-                    <TaskListAccordion /> 
+                    <TaskListAccordion />
 
                     <Comment.Group>
                         <Header as="h3" dividing={true}>Comments (1)</Header>
                         <Form size="small">
                             <Form.TextArea />
-                            <Button 
-                                circular={true} 
-                                content="Add Comment" 
-                                labelPosition="left" 
-                                icon="edit" 
+                            <Button
+                                circular={true}
+                                content="Add Comment"
+                                labelPosition="left"
+                                icon="edit"
                                 primary={true}
                             />
                         </Form>
@@ -144,48 +143,36 @@ const CardModal: React.StatelessComponent<ModalProps> = (props) => {
                     </Menu.Item>
                     <h3>Actions</h3>
                     <p>
-                    <DatePicker
-                        selected={props.currentMoment}
-                        onChange={() => null}
-                        customInput={<Button 
-                            content="Add due date" 
-                            icon="calendar" 
-                            labelPosition="left" 
-                            primary={true} 
-                            circular={true} 
-                            fluid={true}
-                        />}
-                    />
-                        
+                    <DatePicker card={props.card} currentMoment={moment()}/>
                     </p>
                     <p>
-                        <Button 
-                            content="Add checklist" 
-                            icon="checkmark box" 
-                            labelPosition="left" 
-                            primary={true} 
-                            circular={true} 
+                        <Button
+                            content="Add checklist"
+                            icon="checkmark box"
+                            labelPosition="left"
+                            primary={true}
+                            circular={true}
                             fluid={true}
                         />
                     </p>
                     <p>
-                        <Button 
-                            content="Move card" 
-                            icon="move" 
-                            labelPosition="left" 
-                            primary={true} 
-                            circular={true} 
+                        <Button
+                            content="Move card"
+                            icon="move"
+                            labelPosition="left"
+                            primary={true}
+                            circular={true}
                             fluid={true}
                         />
-                    </p>  
+                    </p>
                     <ConfirmModal
                         trigger={
-                            <Button 
-                                content="Delete card" 
-                                icon="trash" 
-                                labelPosition="left" 
+                            <Button
+                                content="Delete card"
+                                icon="trash"
+                                labelPosition="left"
                                 color="red"
-                                circular={true} 
+                                circular={true}
                                 fluid={true}
                             />
                         }
