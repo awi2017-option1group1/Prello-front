@@ -11,20 +11,26 @@ import { actionCreators as cardLabelActionCreator } from '../../redux/tags/cards
 
 import { IBoard } from '../../redux/boards/types'
 import { ITag } from '../../redux/tags/types'
+import { actionCreators as assigneesCreator } from '../../redux/cards/AssignedUsers/actions'
+
 import { ICard } from '../../redux/cards/types'
+import { IUser } from '../../redux/users/types'
 
 import CardModal from './CardModal'
 
 interface CardModalContainerProps {
     board: IBoard
     card: ICard    
+    boardAssignees: IUser[]
     onClose: () => void
 }
 
 interface PropsFromState {
     card: ICard
     boardLabels: ITag[]
+    boardAssignees: IUser[]
     labels: ITag[]
+    assignees: IUser[]
 }
 
 interface PropsFromDispatch {
@@ -36,13 +42,18 @@ interface PropsFromDispatch {
     assignLabel: (label: ITag) => void
     createAndAssignLabel: (name: string) => void
     removeLabel: (label: ITag) => void
+    
+    assignUser: (user: IUser) => void
+    removeUser: (user: IUser) => void
 }
 
 const mapStateToProps = (state: RootState,  ownProps: CardModalContainerProps) => {
     return {
         card: ownProps.card,
         boardLabels: state.boardLabel.labels,
-        labels: state.cardsLabel[ownProps.card.id].labels
+        labels: state.cardsLabel[ownProps.card.id].labels,
+        boardAssignees: ownProps.boardAssignees, // TODO: Fetch from state
+        assignees: state.assignees[ownProps.card.id].assignees
     }
 }
 
@@ -75,7 +86,19 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: CardModalContainerProp
 
         removeLabel: (label: ITag) => {
             dispatch(cardLabelActionCreator.unassignLabel(ownProps.card.id, label))
+        },
+        
+        assignUser: (user: IUser) => {
+            dispatch(assigneesCreator.assignUser(ownProps.card.id, user))
+        },
+        removeUser: (user: IUser) => {
+            dispatch(assigneesCreator.unassignUser(ownProps.card.id, user))
+        },
+
+        loadData: () => {
+            dispatch(assigneesCreator.fetchAssigneesList(ownProps.card.id))
         }
+
     }
 }
 

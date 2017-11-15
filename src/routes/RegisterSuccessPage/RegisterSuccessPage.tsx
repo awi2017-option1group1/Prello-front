@@ -4,7 +4,7 @@ import { Segment, Header } from 'semantic-ui-react'
 class RegisterSuccessPage extends React.Component {
     render() {
         return (
-            <Segment inverted={true} color="green" className="bg-segment">
+            <Segment inverted={true} color="green" className="bgsegment">
                 <Header as="h2" textAlign="center">
                     Thank you for your registration!
                 </Header>
