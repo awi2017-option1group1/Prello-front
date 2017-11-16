@@ -15,6 +15,7 @@ import { IBoard } from '../../redux/boards/types'
 import { IList } from '../../redux/lists/types'
 import { ICard } from '../../redux/cards/types'
 import { ITag } from '../../redux/tags/types'
+import { IUser } from '../../redux/users/types'
 
 import Board from './DnDContextBoard'
 
@@ -29,6 +30,8 @@ interface BoardContainerProps {
 interface PropsFromState {
     board: IBoard
     labels: ITag[]
+    assignees: IUser[]
+
     listToAppendCard: IList | null
     openedCard: ICard | null
     error?: string | null
@@ -52,6 +55,15 @@ const mapStateToProps = (state: RootState) => {
     return {
         board: state.board.board,
         labels: state.boardLabel.labels,
+        assignees: [
+            {
+                id: 1,
+                username: 'test',
+                email: 'flouggi@gmail.com',
+                notificationEnabled: true,
+                password: '',
+            }
+        ],
         listToAppendCard: state.board.listToAppendCard,
         openedCard: state.card,
         error: state.board.error,

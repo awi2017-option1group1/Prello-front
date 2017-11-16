@@ -1,3 +1,4 @@
 .editable-title {
     cursor: pointer;
+    min-height: 30px;
 }

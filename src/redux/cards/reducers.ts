@@ -2,6 +2,7 @@ import { RootAction } from '../RootAction'
 import { ICard } from '../cards/types'
 
 import { OPEN_CARD, CLOSE_CARD } from './actions/select'
+import { UPDATE_CARD } from './actions/update'
 
 export type State = ICard | null
 
@@ -14,6 +15,9 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
 
         case CLOSE_CARD:
             return null
+
+        case UPDATE_CARD:
+            return action.card
 
         default:
             return state

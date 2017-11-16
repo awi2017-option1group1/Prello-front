@@ -5,6 +5,7 @@ import { IBoard } from '../../redux/boards/types'
 import { IList } from '../../redux/lists/types'
 import { ICard } from '../../redux/cards/types'
 import { ITag } from '../../redux/tags/types'
+import { IUser } from '../../redux/users/types'
 
 import { StateProps } from '../StateProps'
 
@@ -24,6 +25,7 @@ export interface BoardProps extends StateProps {
     labels: ITag[]
     listToAppendCard: IList | null
     openedCard: ICard | null
+    assignees: IUser[]
 
     setTitle: (title: string) => void
     addList: () => void
@@ -99,14 +101,19 @@ class Board extends React.Component<BoardProps> {
                     </div>
                 </SplitHeader>
                 <TasksLists boardId={this.props.board.id} />
-                <CreateCardModal 
-                    isOpen={this.props.listToAppendCard != null} 
+                <CreateCardModal
+                    isOpen={this.props.listToAppendCard != null}
                     listName={this.props.listToAppendCard ? this.props.listToAppendCard!.name : ''}
-                    save={this.props.saveCard} 
-                    cancel={this.props.closeCreateCard} 
+                    save={this.props.saveCard}
+                    cancel={this.props.closeCreateCard}
                 />
                 {this.props.openedCard !== null && 
-                    <CardModal board={this.props.board} onClose={this.props.closeCard} card={this.props.openedCard} />
+                    <CardModal 
+                        board={this.props.board}
+                        onClose={this.props.closeCard} 
+                        card={this.props.openedCard} 
+                        boardAssignees={this.props.assignees}
+                    />
                 }
             </section>
         )
