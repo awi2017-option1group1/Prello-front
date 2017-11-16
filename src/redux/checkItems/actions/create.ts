@@ -11,11 +11,13 @@ export const CREATE_CHECKITEM_ERROR = 'CREATE_CHECKITEM_ERROR'
 export type Actions = {
     CREATE_CHECKITEM: {
         type: typeof CREATE_CHECKITEM,
-        checkItem: Partial<ICheckItem>
+        checkItem: Partial<ICheckItem>,
+        checkListId: number
     },
     CREATE_CHECKITEM_SUCCESS: {
         type: typeof CREATE_CHECKITEM_SUCCESS,
         checkItem: ICheckItem,
+        checkListId: number
     },
     CREATE_CHECKITEM_ERROR: {
         type: typeof CREATE_CHECKITEM_ERROR,
@@ -24,36 +26,29 @@ export type Actions = {
 }
 
 export const actionCreators = {
-    // --------------------------------------- //
-    //                    SYNC                 //
-    // --------------------------------------- //
-    createCheckItemRequest: (checkItem: Partial<ICheckItem>):
-    Actions[typeof CREATE_CHECKITEM] => ({
+    createCheckItemRequest: (checkListId: number, checkItem: Partial<ICheckItem>): 
+        Actions[typeof CREATE_CHECKITEM] => ({
         type: CREATE_CHECKITEM,
-        checkItem
+        checkItem,
+        checkListId
     }),
-    createCheckItemSuccess: (checkItem: ICheckItem):
-    Actions[typeof CREATE_CHECKITEM_SUCCESS] => ({
+    createCheckItemSuccess: (checkListId: number, checkItem: ICheckItem): Actions[typeof CREATE_CHECKITEM_SUCCESS] => ({
         type: CREATE_CHECKITEM_SUCCESS,
         checkItem,
+        checkListId
     }),
-    createCheckItemError: (error: string):
-    Actions[typeof CREATE_CHECKITEM_ERROR] => ({
+    createCheckItemError: (error: string): Actions[typeof CREATE_CHECKITEM_ERROR] => ({
         type: CREATE_CHECKITEM_ERROR,
-        error,
+        error
     }),
-
-    // --------------------------------------- //
-    //                   ASYNC                 //
-    // --------------------------------------- //
-    createCheckItemFromCheckListId: (checkListId: number, params: {name: string}) => {
+    createCheckItemFromCheckListId: (checkListId: number, params: { name: string }) => {
         return (dispatch: Dispatch) => {
-                dispatch(actionCreators.createCheckItemRequest({
+                dispatch(actionCreators.createCheckItemRequest(checkListId, {
                     name: params.name
                 }))
-                return API.post(`/checklists/${checkListId}/checkItems`, params.name).then(
+                return API.post(`/checklists/${checkListId}/checkitems`, { name: params.name }).then(
                     item => {
-                        dispatch(actionCreators.createCheckItemSuccess(item))
+                        dispatch(actionCreators.createCheckItemSuccess(checkListId, item))
                         dispatch(uiActionCreators.showSaveMessage())
                     },
                     error => {

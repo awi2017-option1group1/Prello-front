@@ -25,34 +25,24 @@ export type Actions = {
 }
 
 export const actionCreators = {
-    // --------------------------------------- //
-    //                    SYNC                 //
-    // --------------------------------------- //
-    createCheckListRequest: (checkList: Partial<ICheckList>):
-    Actions[typeof CREATE_CHECKLIST] => ({
+    createCheckListRequest: (checkList: Partial<ICheckList>): Actions[typeof CREATE_CHECKLIST] => ({
         type: CREATE_CHECKLIST,
         checkList
     }),
-    createCheckListSuccess: (checkList: ICheckList):
-    Actions[typeof CREATE_CHECKLIST_SUCCESS] => ({
+    createCheckListSuccess: (checkList: ICheckList): Actions[typeof CREATE_CHECKLIST_SUCCESS] => ({
         type: CREATE_CHECKLIST_SUCCESS,
-        checkList,
+        checkList
     }),
-    createCheckListError: (error: string):
-    Actions[typeof CREATE_CHECKLIST_ERROR] => ({
+    createCheckListError: (error: string): Actions[typeof CREATE_CHECKLIST_ERROR] => ({
         type: CREATE_CHECKLIST_ERROR,
-        error,
+        error
     }),
-
-    // --------------------------------------- //
-    //                   ASYNC                 //
-    // --------------------------------------- //
     createCheckListFromCardId: (cardId: number) => {
         return (dispatch: Dispatch) => {
             dispatch(actionCreators.createCheckListRequest({
                 name: 'EmptyName'
             }))
-            return API.post(`/cards/${cardId}/checkLists`).then(
+            return API.post(`/cards/${cardId}/checklists`).then(
                 checkListCreated => {
                     dispatch(actionCreators.createCheckListSuccess(checkListCreated))
                     dispatch(uiActionCreators.showSaveMessage())

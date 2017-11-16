@@ -1,24 +1,24 @@
 import { connect } from 'react-redux'
 
 import { RootState, Dispatch } from '../../redux/RootReducer'
-import { actionCreators as checkItemsActionsCreators } from '../../redux/checkItems/actions'
+import { actionCreators } from '../../redux/checkItems/actions'
 import { ICheckItem } from '../../redux/checkItems/types'
 
 import CheckItem from './CheckItem'
 
 interface CheckItemContainerProps {
     checkItem: ICheckItem
+    checkListId: number
 }
 
 interface PropsFromState {
     checkItem: ICheckItem
-    error?: string | null
-    loading?: boolean
 }
 
 interface PropsFromDispatch {
-    loadData?: () => void
-    // setTitle: (title: string) => void
+    update: (name: string) => void
+    setState: (state: boolean) => void
+    delete: () => void
 }
 
 const mapStateToProps = (state: RootState, ownProps: CheckItemContainerProps) => {
@@ -26,22 +26,20 @@ const mapStateToProps = (state: RootState, ownProps: CheckItemContainerProps) =>
         checkItem: ownProps.checkItem,
     }
 }
-/* const mapStateToProps = (state: RootState) => {
-    return {
-        checkItem: state.checkItem.checkItem,
-        error: state.checkItem.error,
-        loading: state.checkItem.isProcessing
-    }
-}*/
 
 const mapDispatchToProps = (dispatch: Dispatch, ownProps: CheckItemContainerProps) => {
-    // console.log('>>>CHECK_ITEM : ' + ownProps.checkList)
     return {
-        loadData: () => {
-            dispatch(checkItemsActionsCreators.fetchCheckItem(Number(ownProps.checkItem.id)))
+        update: (name: string) => {
+            dispatch(actionCreators.updateCheckItem(ownProps.checkListId, ownProps.checkItem, { name }))
         },
 
-        // setTitle: (title: string) => {},
+        setState: (state: boolean) => {
+            dispatch(actionCreators.updateCheckItem(ownProps.checkListId, ownProps.checkItem, { state }))
+        },
+
+        delete: () => {
+            dispatch(actionCreators.removeCheckItem(ownProps.checkListId, ownProps.checkItem))
+        }
     }
 }
 

@@ -8,6 +8,7 @@ import Spinner from '../common/Spinner'
 import CheckItem from '../CheckItem'
 
 export interface CheckItemsProps extends StateProps {
+    checkListId: number
     checkItems: ICheckItem[]
 }
 
@@ -26,7 +27,13 @@ class CheckItems extends React.Component<CheckItemsProps> {
         }
         return (
             <section id="checkItem-lists" className="checkItem-lists">
-                {this.props.checkItems.map(checkItem => <CheckItem checkItem={checkItem} key={checkItem.id}/>)}
+                {this.props.checkItems.map(checkItem => (
+                    <CheckItem 
+                        checkItem={checkItem} 
+                        key={checkItem.id} 
+                        checkListId={this.props.checkListId} 
+                    />
+                ))}
             </section>
         )
     }

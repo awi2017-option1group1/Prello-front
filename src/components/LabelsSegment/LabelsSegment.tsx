@@ -5,6 +5,8 @@ import { ITag } from '../../redux/tags/types'
 
 import LabelAssignForm from '../LabelAssignForm'
 
+import './label-segment.css'
+
 export interface LabelsSegmentProps {
     boardLabels: ITag[]
     cardLabels: ITag[]
@@ -16,7 +18,7 @@ export interface LabelsSegmentProps {
 
 const LabelsSegment: React.StatelessComponent<LabelsSegmentProps> = (props) => {
     return (
-        <div>
+        <div className="label-segment">
             <h3>Labels</h3>
             <Menu.Item>
                 <LabelAssignForm {...props} />

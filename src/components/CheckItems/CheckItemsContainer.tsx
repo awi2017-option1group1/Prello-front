@@ -11,6 +11,7 @@ interface CheckItemsContainerProps {
 }
 
 interface PropsFromState {
+    checkListId: number
     checkItems: ICheckItem[]
     error?: string | null
     loading?: boolean
@@ -20,11 +21,21 @@ interface PropsFromDispatch {
     loadData?: () => void
 }
 
-const mapStateToProps = (state: RootState) => {
-    return {
-        checkItems: state.checkItems.checkItems,
-        error: state.checkItems.error,
-        loading: state.checkItems.isProcessing
+const mapStateToProps = (state: RootState, ownProps: CheckItemsContainerProps) => {
+    if (ownProps.checkListId) {
+        return {
+            checkListId: ownProps.checkListId,
+            checkItems: state.checkItems[ownProps.checkListId].items,
+            error: state.checkItems[ownProps.checkListId].error,
+            loading: state.checkItems[ownProps.checkListId].isProcessing
+        }
+    } else {
+        return {
+            checkListId: ownProps.checkListId,
+            checkItems: [],
+            error: null,
+            loading: false
+        }
     }
 }
 
