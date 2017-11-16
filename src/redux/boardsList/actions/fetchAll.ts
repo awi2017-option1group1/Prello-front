@@ -36,7 +36,7 @@ export const actionCreators = {
     fetchBoards: () => {
         return (dispatch: Dispatch) => {
             dispatch(actionCreators.fetchBoardsRequest())
-            return API.get(`/users/1/boards`).then(
+            return API.get(`/users/2/boards`).then(
                 boards => dispatch(actionCreators.fetchBoardsRequestSuccess(boards)),
                 error => dispatch(actionCreators.fetchBoardsRequestError(error.error.error))
             )
