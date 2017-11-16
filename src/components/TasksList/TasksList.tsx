@@ -35,14 +35,14 @@ const TasksList: React.StatelessComponent<TasksListProps> = (props) => {
         <Segment className="tasks-list">
             <Label ribbon={true} color="olive" className="task-counter">{props.size} task(s)</Label>
 
-            <SplitHeader>
+            <SplitHeader primaryWidth="12" secondaryWidth="4">
                 <EditableTitle type="h2" content={props.list.name} onSubmit={props.setTitle} />
                 <ConfirmModal
                     trigger={
                         <Button 
                             icon="trash" 
-                            primary={true} 
                             circular={true} 
+                            color="red"
                         />  
                     }
                     title="Confirm delete"

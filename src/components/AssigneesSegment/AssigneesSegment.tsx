@@ -1,36 +1,31 @@
 import * as React from 'react'
-import { Menu, Input, ItemImage, Segment } from 'semantic-ui-react'
+import { Menu } from 'semantic-ui-react'
+import AssigneeForm from '../AssigneeForm'
 
-const AssigneesSegment = () => {
+import { StateProps } from '../StateProps'
+
+import { IUser } from '../../redux/users/types'
+
+export interface AssigneesSegmentProps extends StateProps {
+    assignees: IUser[]
+    boardAssignees: IUser[]
+
+    assignUser: (user: IUser) => void
+    removeUser: (user: IUser) => void
+}
+const AssigneesSegment = (props: AssigneesSegmentProps) => {
 
     return (
         <div>
         <h3>Assignee(s)</h3>
             <Menu.Item>
-                <Input 
-                    icon="users" 
-                    placeholder="Search..." 
-                    iconPosition="left" 
-                    fluid={true}
-                />
+            <AssigneeForm 
+                boardAssignees={props.boardAssignees}
+                cardAssignees={props.assignees}
+                addAssignee={props.assignUser}
+                removeAssignee={props.removeUser}
+            />
             </Menu.Item>
-            <Segment basic={true}>
-                <ItemImage 
-                    avatar={true} 
-                    size="mini"
-                    src="https://semantic-ui.com/images/avatar/small/elliot.jpg"
-                />
-                <ItemImage 
-                    avatar={true} 
-                    size="mini"
-                    src="https://semantic-ui.com/images/avatar/small/elliot.jpg"
-                />
-                <ItemImage 
-                    avatar={true} 
-                    size="mini"
-                    src="https://semantic-ui.com/images/avatar/small/elliot.jpg" 
-                />
-            </Segment>
         </div>
 
     )
