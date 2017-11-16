@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Progress, Card as SmCard, CardContent, CardDescription, CardMeta } from 'semantic-ui-react'
+import { Card as SmCard, CardContent, CardDescription, CardMeta } from 'semantic-ui-react'
 
 import { StateProps } from '../StateProps'
 
@@ -41,9 +41,6 @@ class Card extends React.Component<CardProps> {
                             {this.props.card.name}
                         </CardDescription>
                     </CardContent>
-                    {0 !== 0 &&
-                        <Progress percent={0} indicating={true} attached="bottom" />
-                    }
                 </SmCard>
             )
         }

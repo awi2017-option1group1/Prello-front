@@ -7,14 +7,15 @@ import randColor from '../../helpers/randColor'
 
 import { actionCreators } from '../../redux/cards/actions'
 import { actionCreators as deleteActionCreator } from '../../redux/cards/actions/delete'
+import { actionCreators as assigneesCreator } from '../../redux/cards/AssignedUsers/actions'
 import { actionCreators as cardLabelActionCreator } from '../../redux/tags/cardsTags/actions'
+import { actionCreators as checkListActionCreator } from '../../redux/checkLists/actions'
 
 import { IBoard } from '../../redux/boards/types'
 import { ITag } from '../../redux/tags/types'
-import { actionCreators as assigneesCreator } from '../../redux/cards/AssignedUsers/actions'
-
 import { ICard } from '../../redux/cards/types'
 import { IUser } from '../../redux/users/types'
+import { ICheckList } from '../../redux/checkLists/types'
 
 import CardModal from './CardModal'
 
@@ -31,6 +32,7 @@ interface PropsFromState {
     boardAssignees: IUser[]
     labels: ITag[]
     assignees: IUser[]
+    checkLists: ICheckList[]
 }
 
 interface PropsFromDispatch {
@@ -45,6 +47,7 @@ interface PropsFromDispatch {
     
     assignUser: (user: IUser) => void
     removeUser: (user: IUser) => void
+    addCheckList: () => void
 }
 
 const mapStateToProps = (state: RootState,  ownProps: CardModalContainerProps) => {
@@ -53,7 +56,8 @@ const mapStateToProps = (state: RootState,  ownProps: CardModalContainerProps) =
         boardLabels: state.boardLabel.labels,
         labels: state.cardsLabel[ownProps.card.id].labels,
         boardAssignees: ownProps.boardAssignees, // TODO: Fetch from state
-        assignees: state.assignees[ownProps.card.id].assignees
+        assignees: state.assignees[ownProps.card.id].assignees,
+        checkLists: state.checkLists.checkLists
     }
 }
 
@@ -91,14 +95,14 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: CardModalContainerProp
         assignUser: (user: IUser) => {
             dispatch(assigneesCreator.assignUser(ownProps.card.id, user))
         },
+        
         removeUser: (user: IUser) => {
             dispatch(assigneesCreator.unassignUser(ownProps.card.id, user))
         },
 
-        loadData: () => {
-            dispatch(assigneesCreator.fetchAssigneesList(ownProps.card.id))
-        }
-
+        addCheckList: () => {
+            dispatch(checkListActionCreator.createCheckListFromCardId(ownProps.card.id))
+        },
     }
 }
 

@@ -41,8 +41,8 @@ const TasksList: React.StatelessComponent<TasksListProps> = (props) => {
                     trigger={
                         <Button 
                             icon="trash" 
-                            primary={true} 
                             circular={true} 
+                            color="red"
                         />  
                     }
                     title="Confirm delete"
