@@ -50,7 +50,7 @@ class LoggedNavbar extends React.Component<LoggedNavbarProps> {
                     Teams
                 </NavLink>
                 <MenuItem>
-                    <SearchBar />
+                    <SearchBar userID={this.props.user.uid}/>
                 </MenuItem>
                 <MenuMenu position="right">
                     <Link to="/profile#notifications" className="item">

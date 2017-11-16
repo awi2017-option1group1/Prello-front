@@ -15,6 +15,7 @@ import { reducer as ui, State as UiState } from './ui/reducers'
 import { reducer as cardsLabel, State as CardsLabelState } from './tags/cardsTags/reducers'
 import { reducer as boardLabel, State as BoardLabelState } from './tags/boardTags/reducers'
 import { reducer as assignees, State as AssigneesState } from './cards/AssignedUsers/reducers'
+import { reducer as search, State as SearchState } from './search/reducers'
 
 interface StoreEnhancerState { }
 
@@ -27,13 +28,14 @@ export interface RootState extends StoreEnhancerState {
     checkLists: CheckListListState
     user: UserState
     checkItems: CheckItemListState
-    register: RegisterState,
-    cards: CardsState,
+    register: RegisterState
+    cards: CardsState
     card: CardState
     ui: UiState
     cardsLabel: CardsLabelState
     boardLabel: BoardLabelState
     assignees: AssigneesState
+    search: SearchState
 }
 
 export type Dispatch = ReduxDispatch<RootState>
@@ -53,5 +55,6 @@ export const rootReducer = combineReducers<RootState>({
     cardsLabel,
     boardLabel,
     assignees,
-    checkItems
+    checkItems,
+    search,
 })

@@ -16,6 +16,7 @@ import { Actions as AssigneesActions } from './cards/AssignedUsers/actions'
 import { Actions as UiActions } from './ui/actions'
 import { Actions as BoardLabelActions } from './tags/boardTags/actions'
 import { Actions as CardsLabelActions } from './tags/cardsTags/actions'
+import { Actions as SearchActions } from './search/actions'
 
 type ReactRouterAction = RouterAction | LocationChangeAction
 
@@ -37,3 +38,4 @@ export type RootAction =
   | BoardLabelActions[keyof BoardLabelActions]
   | CardsLabelActions[keyof CardsLabelActions]
   | AssigneesActions[keyof AssigneesActions]
+  | SearchActions[keyof SearchActions]
