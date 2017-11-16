@@ -216,7 +216,7 @@ describe('CheckLists async actions', () => {
             expect(store.getActions()).toEqual(expectedActions) })
     })
 
-    /* Problem here
+    /* Problem
     it('should create CREATE_CHECKLIST_SUCCESS', () => {
         nock(getBaseUrl())
         .post('/cards/4/checklists')
@@ -224,7 +224,7 @@ describe('CheckLists async actions', () => {
 
         const expectedActions = [
             { type: CREATE_CHECKLIST,
-                checkList: { id: 1, name: 'EmptyName', pos: 4, cardId: 4, checkItems: []}
+                checkList: { name: 'EmptyName' }
             },
             { type: CREATE_CHECKLIST_SUCCESS,
                 checkList: { id: 1, name: 'EmptyName', pos: 4, cardId: 4, checkItems: []}
@@ -237,8 +237,7 @@ describe('CheckLists async actions', () => {
 
         return store.dispatch(CreateActionCreators.createCheckListFromCardId( 4 )).then(() => {
             expect(store.getActions()).toEqual(expectedActions) })
-    })
-    */
+    })*/
 
     it('should create REMOVE_CHECKLIST_SUCCESS', () => {
         nock(getBaseUrl())
@@ -256,7 +255,6 @@ describe('CheckLists async actions', () => {
                 payload: {'msg': 'Content saved!', 'type': 'success'},
             }
         ]
-
         const store = mockStore()
 
         return store.dispatch(DeleteActionCreators.removeCheckList(
