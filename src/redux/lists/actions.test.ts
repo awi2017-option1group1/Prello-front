@@ -1,9 +1,9 @@
 import { actionCreators as CreateActionCreators,
-    CREATE_BOARD_LIST, CREATE_BOARD_LIST_ERROR, CREATE_BOARD_LIST_SUCCESS} from './actions/create'
+    CREATE_BOARD_LIST, CREATE_BOARD_LIST_ERROR, CREATE_BOARD_LIST_SUCCESS } from './actions/create'
 import { actionCreators as FetchActionCreators,
     FETCH_BOARD_LISTS, FETCH_BOARD_LISTS_SUCCESS, FETCH_BOARD_LISTS_ERROR } from './actions/fetch'
 import { actionCreators as DeleteActionCreators,
-    DELETE_BOARD_LIST, DELETE_BOARD_LIST_ERROR, DELETE_BOARD_LIST_SUCCESS} from './actions/delete'
+    DELETE_BOARD_LIST, DELETE_BOARD_LIST_ERROR, DELETE_BOARD_LIST_SUCCESS } from './actions/delete'
 import { actionCreators as UpdateActionCreators,
     UPDATE_BOARD_LIST, UPDATE_BOARD_LIST_SUCCESS, UPDATE_BOARD_LIST_ERROR } from './actions/update'
 import { actionCreators as MoveActionCreators,
