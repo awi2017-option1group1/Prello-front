@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Progress, Card as SmCard, CardContent, CardDescription, CardMeta } from 'semantic-ui-react'
+import { Card as SmCard, CardContent, CardDescription, CardMeta } from 'semantic-ui-react'
 
 import { StateProps } from '../StateProps'
 
@@ -15,18 +15,20 @@ import './card.css'
 export interface CardProps extends StateProps {
     card: ICard
     labels: ITag[]
+    shouldBeOpen: boolean
     assignees: IUser[]
-    
+
+    open: () => void
     onClick: () => void
 }
 
 class Card extends React.Component<CardProps> {
-        constructor(props: CardProps) {
-            super(props)
-        }
     
         componentWillMount() {
             this.props.loadData!()
+            if (this.props.shouldBeOpen) {
+              this.props.open()
+            }
         }
     
         render() {
@@ -41,9 +43,6 @@ class Card extends React.Component<CardProps> {
                             {this.props.card.name}
                         </CardDescription>
                     </CardContent>
-                    {0 !== 0 &&
-                        <Progress percent={0} indicating={true} attached="bottom" />
-                    }
                 </SmCard>
             )
         }

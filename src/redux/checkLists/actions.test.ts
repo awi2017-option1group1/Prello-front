@@ -1,8 +1,6 @@
 
 import { actionCreators as CreateActionCreators,
     CREATE_CHECKLIST_ERROR, CREATE_CHECKLIST_SUCCESS, CREATE_CHECKLIST } from './actions/create'
-import { actionCreators as FetchActionCreators,
-    FETCH_CHECKLIST, FETCH_CHECKLIST_SUCCESS } from './actions/fetch'
 import { actionCreators as DeleteActionCreators,
     REMOVE_CHECKLIST, REMOVE_CHECKLIST_SUCCESS, REMOVE_CHECKLIST_ERROR } from './actions/delete'
 import { actionCreators as UpdateActionCreators,
@@ -20,9 +18,7 @@ describe('CheckLists sync actions', () => {
     const checkListModel: ICheckList = {
         id: -1,
         name: 'Default Check List',
-        pos: 1,
-        cardId: -1,
-        checkItems: []
+        pos: 1
     }
 
     /* CREATE ACTIONS */
@@ -33,10 +29,7 @@ describe('CheckLists sync actions', () => {
                 id: -1,
                 name: 'Default Check List',
                 pos: 1,
-                cardId: -1,
-                checkItems: []
             }
-
         }
         expect(CreateActionCreators.createCheckListRequest(checkListModel)).toEqual(expectedAction)
     })
@@ -48,8 +41,6 @@ describe('CheckLists sync actions', () => {
                 id: -1,
                 name: 'Default Check List',
                 pos: 1,
-                cardId: -1,
-                checkItems: []
             }
         }
         expect(CreateActionCreators.createCheckListSuccess(checkListModel)).toEqual(expectedAction)
@@ -63,28 +54,6 @@ describe('CheckLists sync actions', () => {
         expect(CreateActionCreators.createCheckListError('error message')).toEqual(expectedAction)
     })
 
-    /* FETCH actions */
-    it('should create an action FETCH_CHECKLIST', () => {
-        const expectedAction = {
-            type: FETCH_CHECKLIST,
-        }
-        expect(FetchActionCreators.fetchCheckListRequest()).toEqual(expectedAction)
-    })
-
-    it('should create an action FETCH_CHECKLIST_SUCCESS', () => {
-        const expectedAction = {
-            type: FETCH_CHECKLIST_SUCCESS,
-            checkList: {
-                id: -1,
-                name: 'Default Check List',
-                pos: 1,
-                cardId: -1,
-                checkItems: []
-            }
-        }
-        expect(FetchActionCreators.fetchCheckListSuccess(checkListModel)).toEqual(expectedAction)
-    })
-
     /* DELETE actions */
     it('should create an action REMOVE_CHECKLIST', () => {
         const expectedAction = {
@@ -93,8 +62,6 @@ describe('CheckLists sync actions', () => {
                 id: -1,
                 name: 'Default Check List',
                 pos: 1,
-                cardId: -1,
-                checkItems: []
             }
         }
         expect(DeleteActionCreators.removeCheckListRequest(checkListModel)).toEqual(expectedAction)
@@ -106,12 +73,10 @@ describe('CheckLists sync actions', () => {
             checkList: {
                 id: -1,
                 name: 'Default Check List',
-                pos: 1,
-                cardId: -1,
-                checkItems: []
+                pos: 1
             }
         }
-        expect(DeleteActionCreators.removeCheckListRequestSucess(checkListModel)).toEqual(expectedAction)
+        expect(DeleteActionCreators.removeCheckListRequestSuccess(checkListModel)).toEqual(expectedAction)
     })
 
     it('should create an action REMOVE_CHECKLIST_ERROR ', () => {
@@ -126,8 +91,13 @@ describe('CheckLists sync actions', () => {
     it('should create an action UPDATE_CHECKLIST', () => {
         const expectedAction = {
             type: UPDATE_CHECKLIST,
+            checkList: {
+                id: -1,
+                name: 'Default Check List',
+                pos: 1,
+            }
         }
-        expect(UpdateActionCreators.updateCheckListRequest()).toEqual(expectedAction)
+        expect(UpdateActionCreators.updateCheckListRequest(checkListModel)).toEqual(expectedAction)
     })
 
     it('should create an action UPDATE_CHECKLIST_SUCCESS', () => {
@@ -137,8 +107,6 @@ describe('CheckLists sync actions', () => {
                 id: -1,
                 name: 'Default Check List',
                 pos: 1,
-                cardId: -1,
-                checkItems: []
             }
         }
         expect(UpdateActionCreators.updateCheckListRequestSuccess(checkListModel)).toEqual(expectedAction)
@@ -160,58 +128,27 @@ describe('CheckLists async actions', () => {
         nock.cleanAll()
     })
 
-    it('should create FETCH_CHECKLIST_SUCCESS', () => {
-        nock(getBaseUrl())
-        .get('/checklists/1')
-        .reply(200, { id: 1, name: 'CheckList', pos: 4, cardId: 4, checkItems: []} )
-
-        const expectedActions = [
-            { type: FETCH_CHECKLIST },
-            { type: FETCH_CHECKLIST_SUCCESS,
-                checkList: { id: 1, name: 'CheckList', pos: 4, cardId: 4, checkItems: []}
-            }
-        ]
-        const store = mockStore()
-
-        return store.dispatch(FetchActionCreators.fetchCheckList(1)).then(() => {
-            expect(store.getActions()).toEqual(expectedActions) })
-    })
-
     it('should create UPDATE_CHECKLIST_SUCCESS', () => {
         nock(getBaseUrl())
         .put('/checklists/1')
-        .reply(200, { id: 1, name: 'NewCheckList', pos: 4, cardId: 4, checkItems: []} )
+        .reply(200, { id: 1, name: 'NewCheckList', pos: 4} )
 
         const expectedActions = [
-            { type: UPDATE_CHECKLIST },
+            { type: UPDATE_CHECKLIST,
+                checkList: { id: 1, name: 'NewCheckList', pos: 4}
+            },
             { type: UPDATE_CHECKLIST_SUCCESS,
-                checkList: { id: 1, name: 'NewCheckList', pos: 4, cardId: 4, checkItems: []}
+                checkList: { id: 1, name: 'NewCheckList', pos: 4}
+            },
+            { type: 'SHOW_ALERT_MESSAGE',
+                payload: {'msg': 'Content saved!', 'type': 'success'},
             }
         ]
         const store = mockStore()
 
-        return store.dispatch(UpdateActionCreators.updateBackendCheckList(
-            { id: 1, name: 'CheckList', pos: 4, cardId: 4, checkItems: []},
+        return store.dispatch(UpdateActionCreators.updateCheckList(
+            { id: 1, name: 'CheckList', pos: 4},
             { name: 'NewCheckList' }
-        )).then(() => {
-            expect(store.getActions()).toEqual(expectedActions) })
-    })
-
-    it('should create UPDATE_CHECKLIST_SUCCESS', () => {
-        nock(getBaseUrl())
-        .put('/checklists/1')
-        .reply(200, { id: 1, name: 'NewCheckList', pos: 4, cardId: 4, checkItems: []} )
-
-        const expectedActions = [
-            { type: UPDATE_CHECKLIST },
-            { type: UPDATE_CHECKLIST_SUCCESS,
-                checkList: { id: 1, name: 'NewCheckList', pos: 4, cardId: 4, checkItems: []}
-            }
-        ]
-        const store = mockStore()
-
-        return store.dispatch(UpdateActionCreators.updateCheckListTitle(
-            1, { name: 'NewCheckList' }
         )).then(() => {
             expect(store.getActions()).toEqual(expectedActions) })
     })
@@ -220,14 +157,14 @@ describe('CheckLists async actions', () => {
     it('should create CREATE_CHECKLIST_SUCCESS', () => {
         nock(getBaseUrl())
         .post('/cards/4/checklists')
-        .reply(200, { id: 1, name: 'EmptyName', pos: 4, cardId: 4, checkItems: []} )
+        .reply(200, { id: 1, name: 'EmptyName', pos: 4} )
 
         const expectedActions = [
             { type: CREATE_CHECKLIST,
                 checkList: { name: 'EmptyName' }
             },
             { type: CREATE_CHECKLIST_SUCCESS,
-                checkList: { id: 1, name: 'EmptyName', pos: 4, cardId: 4, checkItems: []}
+                checkList: { id: 1, name: 'EmptyName', pos: 4}
             },
             { type: 'SHOW_ALERT_MESSAGE',
                 payload: {'msg': 'Content saved!', 'type': 'success'},
@@ -242,14 +179,14 @@ describe('CheckLists async actions', () => {
     it('should create REMOVE_CHECKLIST_SUCCESS', () => {
         nock(getBaseUrl())
         .delete('/checklists/1')
-        .reply(200, { id: 1, name: 'NewCheckList', pos: 4, cardId: 4, checkItems: []} )
+        .reply(200, { id: 1, name: 'NewCheckList', pos: 4} )
 
         const expectedActions = [
             { type: REMOVE_CHECKLIST,
-                checkList: { id: 1, name: 'NewCheckList', pos: 4, cardId: 4, checkItems: []}
+                checkList: { id: 1, name: 'NewCheckList', pos: 4}
             },
             { type: REMOVE_CHECKLIST_SUCCESS,
-                checkList: { id: 1, name: 'NewCheckList', pos: 4, cardId: 4, checkItems: []}
+                checkList: { id: 1, name: 'NewCheckList', pos: 4}
             },
             { type: 'SHOW_ALERT_MESSAGE',
                 payload: {'msg': 'Content saved!', 'type': 'success'},
@@ -258,7 +195,7 @@ describe('CheckLists async actions', () => {
         const store = mockStore()
 
         return store.dispatch(DeleteActionCreators.removeCheckList(
-            { id: 1, name: 'NewCheckList', pos: 4, cardId: 4, checkItems: []}
+            { id: 1, name: 'NewCheckList', pos: 4}
         )).then(() => {
             expect(store.getActions()).toEqual(expectedActions) })
     })

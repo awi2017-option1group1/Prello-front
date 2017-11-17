@@ -25,9 +25,6 @@ export type Actions = {
 }
 
 export const actionCreators = {
-    // --------------------------------------- //
-    //                    SYNC                 //
-    // --------------------------------------- //
     removeCheckListRequest: (checkList: ICheckList): Actions[typeof REMOVE_CHECKLIST] => ({
         type: REMOVE_CHECKLIST,
         checkList
@@ -36,24 +33,20 @@ export const actionCreators = {
         type: REMOVE_CHECKLIST_ERROR,
         error
     }),
-    removeCheckListRequestSucess: (checkList: ICheckList): Actions[typeof REMOVE_CHECKLIST_SUCCESS] => ({
+    removeCheckListRequestSuccess: (checkList: ICheckList): Actions[typeof REMOVE_CHECKLIST_SUCCESS] => ({
         type: REMOVE_CHECKLIST_SUCCESS,
         checkList
     }),
-
-    // --------------------------------------- //
-    //                   ASYNC                 //
-    // --------------------------------------- //
     removeCheckList: (checkList: ICheckList) => {
         return (dispatch: Dispatch) => {
             dispatch(actionCreators.removeCheckListRequest(checkList))
             return API.delete(`/checklists/${checkList.id}`).then(
                 response => {
-                    dispatch(actionCreators.removeCheckListRequestSucess(checkList))
+                    dispatch(actionCreators.removeCheckListRequestSuccess(checkList))
                     dispatch(uiActionCreators.showSaveMessage())
                 },
                 error => {
-                    dispatch(actionCreators.removeCheckListRequestError(error.error.error))
+                    dispatch(actionCreators.removeCheckListRequestError(error.message))
                     dispatch(uiActionCreators.showCanNotSaveMessage())
                 }
             )

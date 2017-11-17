@@ -1,8 +1,6 @@
 
 import { actionCreators as CreateActionCreators,
     CREATE_CHECKITEM_ERROR, CREATE_CHECKITEM_SUCCESS, CREATE_CHECKITEM } from './actions/create'
-import { actionCreators as FetchActionCreators,
-    FETCH_CHECKITEM, FETCH_CHECKITEM_SUCCESS } from './actions/fetch'
 import { actionCreators as DeleteActionCreators,
     REMOVE_CHECKITEM, REMOVE_CHECKITEM_SUCCESS, REMOVE_CHECKITEM_ERROR } from './actions/delete'
 import { actionCreators as UpdateActionCreators,
@@ -18,36 +16,36 @@ import { getBaseUrl } from '../../services/http'
 describe('CheckItems sync actions', () => {
 
     const checkItemModel: ICheckItem = {
-        id: -1,
+        id: 1,
         name: 'Default Check Item',
         pos: 1,
         state: false,
-        checkListId: -1
     }
 
     /* CREATE ACTIONS */
-    it('should create an action to notify a success CHECKITEM creation request', () => {
+    it('should create an action CREATE_CHECKITEM', () => {
         const expectedAction = {
             type: CREATE_CHECKITEM,
+            checkItem: {
+                name: 'DefaultCheckItem',
+            },
+            checkListId: 1
         }
-        expect(CreateActionCreators.createCheckItemRequest()).toEqual(expectedAction)
+        expect(CreateActionCreators.createCheckItemRequest(
+            1, { name: 'DefaultCheckItem' }
+        )).toEqual(expectedAction)
     })
 
-    it('should create an action to notify a success CHECKITEM creation', () => {
+    it('should create an action CREATE_CHECKITEM_SUCCESS', () => {
         const expectedAction = {
             type: CREATE_CHECKITEM_SUCCESS,
-            checkItem: {
-                id: -1,
-                name: 'Default Check Item',
-                pos: 1,
-                state: false,
-                checkListId: -1
-            }
+            checkItem: { id: 1, name: 'Default Check Item', pos: 1, state: false},
+            checkListId: 1
         }
-        expect(CreateActionCreators.createCheckItemSuccess(checkItemModel)).toEqual(expectedAction)
+        expect(CreateActionCreators.createCheckItemSuccess(1, checkItemModel)).toEqual(expectedAction)
     })
 
-    it('should create an action to create a CHECKITEM error', () => {
+    it('should create an action CREATE_CHECKITEM_ERROR ', () => {
         const expectedAction = {
             type: CREATE_CHECKITEM_ERROR,
             error: 'error message'
@@ -55,51 +53,26 @@ describe('CheckItems sync actions', () => {
         expect(CreateActionCreators.createCheckItemError('error message')).toEqual(expectedAction)
     })
 
-    /* FETCH actions */
-    it('should create an action to notify a success CHECKITEM fetch', () => {
-        const expectedAction = {
-            type: FETCH_CHECKITEM,
-        }
-        expect(FetchActionCreators.fetchCheckItemRequest()).toEqual(expectedAction)
-    })
-
-    it('should create an action to notify a success CHECKITEM fetch', () => {
-        const expectedAction = {
-            type: FETCH_CHECKITEM_SUCCESS,
-            checkItem: {
-                id: -1,
-                name: 'Default Check Item',
-                pos: 1,
-                state: false,
-                checkListId: -1
-            }
-        }
-        expect(FetchActionCreators.fetchCheckItemSuccess(checkItemModel)).toEqual(expectedAction)
-    })
-
     /* DELETE actions */
-    it('should create an action to notify a success CHECKITEM delete request', () => {
+    it('should create an action REMOVE_CHECKITEM', () => {
         const expectedAction = {
             type: REMOVE_CHECKITEM,
+            checkListId: 1,
+            checkItem: { id: 1, name: 'Default Check Item', pos: 1, state: false}
+
         }
-        expect(DeleteActionCreators.removeCheckItemRequest()).toEqual(expectedAction)
+        expect(DeleteActionCreators.removeCheckItemRequest(1, checkItemModel)).toEqual(expectedAction)
     })
 
-    it('should create an action to notify a successfull CHECKITEM delete', () => {
+    it('should create an action REMOVE_CHECKITEM_SUCCESS', () => {
         const expectedAction = {
             type: REMOVE_CHECKITEM_SUCCESS,
-            checkItem: {
-                id: -1,
-                name: 'Default Check Item',
-                pos: 1,
-                state: false,
-                checkListId: -1
-            }
+            checkItem: { id: 1, name: 'Default Check Item', pos: 1, state: false}
         }
-        expect(DeleteActionCreators.removeCheckItemRequestSucess(checkItemModel)).toEqual(expectedAction)
+        expect(DeleteActionCreators.removeCheckItemRequestSuccess(checkItemModel)).toEqual(expectedAction)
     })
 
-    it('should create an action to notify a CHECKITEM delete error', () => {
+    it('should create an action REMOVE_CHECKITEM_ERROR', () => {
         const expectedAction = {
             type: REMOVE_CHECKITEM_ERROR,
             error: 'error message'
@@ -108,28 +81,26 @@ describe('CheckItems sync actions', () => {
     })
 
     /*Update*/
-    it('should create an action to notify a success CHECKITEM update', () => {
+    it('should create an action UPDATE_CHECKITEM', () => {
         const expectedAction = {
             type: UPDATE_CHECKITEM,
+            checkItem: { id: 1, name: 'CheckItem', pos: 4, state: false},
+            checkListId: 2
         }
-        expect(UpdateActionCreators.updateCheckItemRequest()).toEqual(expectedAction)
+        expect(UpdateActionCreators.updateCheckItemRequest(
+            2, { id: 1, name: 'CheckItem', pos: 4, state: false}
+        )).toEqual(expectedAction)
     })
 
-    it('should create an action to notify a successfull CHECKITEM update', () => {
+    it('should create an action UPDATE_CHECKITEM_SUCCESS', () => {
         const expectedAction = {
             type: UPDATE_CHECKITEM_SUCCESS,
-            checkItem: {
-                id: -1,
-                name: 'Default Check Item',
-                pos: 1,
-                state: false,
-                checkListId: -1
-            }
+            checkItem: { id: 1, name: 'Default Check Item', pos: 1, state: false},
         }
         expect(UpdateActionCreators.updateCheckItemRequestSuccess(checkItemModel)).toEqual(expectedAction)
     })
 
-    it('should create an action to notify a CHECKITEM update error', () => {
+    it('should create an action UPDATE_CHECKITEM_ERROR', () => {
         const expectedAction = {
             type: UPDATE_CHECKITEM_ERROR,
             error: 'error message'
@@ -145,79 +116,82 @@ describe('CheckItems async actions', () => {
         nock.cleanAll()
     })
 
-    it('should create FETCH_CHECKITEM_SUCCESS', () => {
-        nock(getBaseUrl())
-        .get('/checkitems/1')
-        .reply(200, { id: 1, name: 'CheckItem', pos: 4, state: false, checkListId: 4} )
-
-        const expectedActions = [
-            { type: FETCH_CHECKITEM },
-            { type: FETCH_CHECKITEM_SUCCESS,
-                checkItem: { id: 1, name: 'CheckItem', pos: 4, state: false, checkListId: 4}
-            }
-        ]
-
-        const store = mockStore()
-
-        return store.dispatch(FetchActionCreators.fetchCheckItem(1)).then(() => {
-            expect(store.getActions()).toEqual(expectedActions) })
-    })
-
     it('should create UPDATE_CHECKITEM_SUCCESS', () => {
         nock(getBaseUrl())
         .put('/checkitems/1')
-        .reply(200, { id: 1, name: 'NewCheckItem', pos: 4, state: false, checkListId: 4} )
+        .reply(200, { id: 1, name: 'NewCheckItem', pos: 4, state: false} )
 
         const expectedActions = [
-            { type: UPDATE_CHECKITEM },
+            { type: UPDATE_CHECKITEM,
+                checkItem: { id: 1, name: 'NewCheckItem', pos: 4, state: false},
+                checkListId: 2
+            },
             { type: UPDATE_CHECKITEM_SUCCESS,
-                checkItem: { id: 1, name: 'NewCheckItem', pos: 4, state: false, checkListId: 4}
+                checkItem: { id: 1, name: 'NewCheckItem', pos: 4, state: false}
+            },
+            { type: 'SHOW_ALERT_MESSAGE',
+                payload: {'msg': 'Content saved!', 'type': 'success'},
             }
         ]
-
         const store = mockStore()
 
-        return store.dispatch(UpdateActionCreators.updateBackendCheckItem(
-            { id: 1, name: 'CheckItem', pos: 4, state: false, checkListId: 4},
+        return store.dispatch(UpdateActionCreators.updateCheckItem(
+            2,
+            { id: 1, name: 'CheckItem', pos: 4, state: false},
             { name: 'NewCheckItem' }
         )).then(() => {
             expect(store.getActions()).toEqual(expectedActions) })
     })
 
+    /*
     it('should create CREATE_CHECKITEM_SUCCESS', () => {
         nock(getBaseUrl())
-        .post('/checklists/4/checkitems')
-        .reply(200, { id: 1, name: 'NewCheckItem', pos: 4, state: false, checkListId: 4} )
+        .post('/checklists/2/checkitems')
+        .reply(200, { id: 1, name: 'CheckItemCreated', pos: 4, state: false} )
 
         const expectedActions = [
-            { type: CREATE_CHECKITEM },
+            { type: CREATE_CHECKITEM,
+                checkItem: { name: 'CheckItemCreated' },
+                checkListId: 2
+            },
             { type: CREATE_CHECKITEM_SUCCESS,
-                checkItem: { id: 1, name: 'NewCheckItem', pos: 4, state: false, checkListId: 4}
+                checkItem: { id: 1, name: 'CheckItemCreated', pos: 4, state: false},
+                checkListId: 2
+            },
+            { type: 'SHOW_ALERT_MESSAGE',
+                payload: {'msg': 'Content saved!', 'type': 'success'},
             }
         ]
         const store = mockStore()
 
         return store.dispatch(CreateActionCreators.createCheckItemFromCheckListId(
-            { id: 1, name: 'CheckItem', pos: 4, state: false, checkListId: 4}
+            2, { name: 'CheckItemCreated'}
         )).then(() => {
             expect(store.getActions()).toEqual(expectedActions) })
     })
+    */
 
     it('should create REMOVE_CHECKITEM_SUCCESS', () => {
         nock(getBaseUrl())
         .delete('/checkitems/1')
-        .reply(200, { id: 1, name: 'NewCheckItem', pos: 4, state: false, checkListId: 4 } )
+        .reply(200, { id: 1, name: 'CheckItem', pos: 4, state: false } )
 
         const expectedActions = [
-            { type: REMOVE_CHECKITEM },
+            { type: REMOVE_CHECKITEM,
+                checkItem: { id: 1, name: 'CheckItem', pos: 4, state: false},
+                checkListId: 2
+            },
             { type: REMOVE_CHECKITEM_SUCCESS,
-                checkItem: { id: 1, name: 'NewCheckItem', pos: 4, state: false, checkListId: 4}
+                checkItem: { id: 1, name: 'CheckItem', pos: 4, state: false}
+            },
+            { type: 'SHOW_ALERT_MESSAGE',
+                payload: {'msg': 'Content saved!', 'type': 'success'},
             }
         ]
         const store = mockStore()
 
         return store.dispatch(DeleteActionCreators.removeCheckItem(
-            { id: 1, name: 'CheckItem', pos: 4, state: false, checkListId: 4}
+            2, { id: 1, name: 'CheckItem', pos: 4, state: false}
         )).then(() => {
             expect(store.getActions()).toEqual(expectedActions) })
     })

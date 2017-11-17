@@ -1,7 +1,6 @@
 export type ICheckItem = {
     id: number,
-    name: string, 
+    name: string,
     pos: number,
-    state: boolean,
-    checkListId: number
+    state: boolean
 }
