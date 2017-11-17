@@ -15,6 +15,9 @@ const ProfileProps = {
     setFullName: () => {return},
     setEmail: () => {return},
     setPseudo: () => {return},
+    setBio: () => {return},
+    setPassword: () => {return},
+    toggleProps: () => {return},
 }
 
 describe('<Profile />', () => {
@@ -26,6 +29,9 @@ describe('<Profile />', () => {
                 setFullName={ProfileProps.setFullName}
                 setEmail={ProfileProps.setEmail}
                 setPseudo={ProfileProps.setPseudo}
+                setBio={ProfileProps.setBio}
+                setPassword={ProfileProps.setPassword}
+                toggleNotifications={ProfileProps.toggleProps}
             />
             ))
         expect(profile.children.length).toBe(1)
