@@ -47,6 +47,8 @@ interface PropsFromDispatch {
     createLabel: () => void
     updateLabel: (label: ITag, newValues: Partial<ITag>) => void
     deleteLabel: (label: ITag) => void
+    addUser: (username: String) => void
+    removeUser: (user: IUser) => void
     onDragEnd: (result: DropResult) => void
 }
 
@@ -54,15 +56,7 @@ const mapStateToProps = (state: RootState) => {
     return {
         board: state.board.board,
         labels: state.boardLabel.labels,
-        assignees: [
-            {
-                id: 1,
-                username: 'test',
-                email: 'flouggi@gmail.com',
-                notificationEnabled: true,
-                password: '',
-            }
-        ],
+        assignees: state.board.users,
         listToAppendCard: state.board.listToAppendCard,
         openedCard: state.card,
         error: state.board.error,
@@ -72,7 +66,7 @@ const mapStateToProps = (state: RootState) => {
 
 const mapDispatchToProps = (dispatch: Dispatch, ownProps: BoardContainerProps) => {
     return {
-        loadData: () => { 
+        loadData: () => {
             dispatch(boardsActionsCreators.fetchBoard(Number(ownProps.match.params.id)))
             dispatch(labelsActionCreators.fetchBoardLabels(Number(ownProps.match.params.id)))
         },
@@ -108,9 +102,17 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: BoardContainerProps) =
         updateLabel: (label: ITag, newValues: Partial<ITag>) => {
             dispatch(labelsActionCreators.updateLabel(label, newValues))
         },
-        
+
         deleteLabel: (label: ITag) => {
             dispatch(labelsActionCreators.deleteLabel(label))
+        },
+
+        addUser: (username: String) => {
+            dispatch(boardsActionsCreators.addUser(Number(ownProps.match.params.id), username))
+        },
+
+        removeUser: (user: IUser) => {
+            dispatch(boardsActionsCreators.removeUser(Number(ownProps.match.params.id), user))
         },
 
         onDragEnd: (result: DropResult) => {
@@ -134,7 +136,7 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: BoardContainerProps) =
                             Number(cardId),
                             Number(sourceList),
                             result.source.index,
-                            Number(destinationList), 
+                            Number(destinationList),
                             result.destination!.index
                         )
                     )

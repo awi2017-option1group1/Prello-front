@@ -8,14 +8,13 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { StateProps } from '../StateProps'
 import { ICard } from '../../redux/cards/types'
 import { ITag } from '../../redux/tags/types'
-    
-import { IUser } from '../../redux/users/types'   
+
+import { IUser } from '../../redux/users/types'
 
 import Spinner from '../common/Spinner'
 import EditableTitle from '../common/EditableTitle'
 import ConfirmModal from '../common/ConfirmModal/ConfirmModal'
 import EditableMarkdown from '../common/EditableMarkdown'
-import { AssigneesSegment } from './../AssigneesSegment'
 import DatePicker from './DatePicker'
 import LabelsSegment from '../LabelsSegment'
 import AssigneesSegment from './../AssigneesSegment'
@@ -145,14 +144,14 @@ const CardModal: React.StatelessComponent<ModalProps> = (props) => {
                 </Grid.Column>
 
                 <Grid.Column width={5}>
-                    <AssigneesSegment 
+                    <AssigneesSegment
                         assignees={props.assignees}
                         boardAssignees={props.boardAssignees}
                         assignUser={props.assignUser}
                         removeUser={props.removeUser}
                     />
 
-                    <LabelsSegment 
+                    <LabelsSegment
                         boardLabels={props.boardLabels}
                         cardLabels={props.labels}
                         addLabel={props.assignLabel}
