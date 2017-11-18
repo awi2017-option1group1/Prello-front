@@ -25,7 +25,7 @@ class ConditionalRoute extends React.Component<ConditionalRouteProps> {
     }
 
     componentWillReceiveProps(nextProps: ConditionalRouteProps) {
-        if (this.props.condition === null) {
+        if (nextProps.condition === null) {
             return
         }
         

@@ -42,15 +42,15 @@ class BoardsList extends React.Component<BoardsListProps> {
                 />
                 <section id="boards-list" className="boards-list">
                 <Card.Group itemsPerRow={3}>
-                    {this.props.boards.map(board =>
+                    {this.props.boards.map(board => (
                         <Card
                             as={Link}
                             color={randColor()}
-                            key={board.id}
+                            key={board.id || -1}
                             header={board.name}
                             link={false}
                             to={'/boards/' + board.id}
-                        />)}
+                        />))}
                 </Card.Group>
                 </section>
             </div>

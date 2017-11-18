@@ -1,4 +1,4 @@
-import { Segment, Grid } from 'semantic-ui-react'
+import { Segment, Grid, Radio } from 'semantic-ui-react'
 import * as React from 'react'
 
 import { IUser } from '../../redux/users/types'
@@ -7,6 +7,7 @@ import { StateProps } from '../StateProps'
 
 import Spinner from '../common/Spinner'
 import EditableTitle from '../common/EditableTitle'
+import EditableTextArea from '../common/EditableTextArea'
 
 import './Profile.css'
 
@@ -16,6 +17,9 @@ export interface ProfileProps extends StateProps {
     setFullName: (fullName: string) => void
     setEmail: (email: string) => void
     setPseudo: (pseudo: string) => void
+    setBio: (bio: string) => void
+    toggleNotifications: () => void
+    setPassword: (password: string) => void
 }
 
 class Profile extends React.Component<ProfileProps> {
@@ -42,11 +46,11 @@ class Profile extends React.Component<ProfileProps> {
                 <Grid columns={3}>
                     <Grid.Row>
                         <Grid.Column>
-                            <h2>Email :</h2>
+                            <div>Email :</div>
                         </Grid.Column>
                         <Grid.Column>
                             <EditableTitle
-                                type="h2"
+                                type="h5"
                                 content={this.props.user.email}
                                 onSubmit={this.props.setEmail}
                             />
@@ -54,11 +58,11 @@ class Profile extends React.Component<ProfileProps> {
                     </Grid.Row>
                     <Grid.Row>
                         <Grid.Column>
-                            <h2>Pseudo :</h2>
+                            <div>Pseudo :</div>
                         </Grid.Column>
                         <Grid.Column>
                             <EditableTitle
-                                type="h2"
+                                type="h5"
                                 content={this.props.user.username}
                                 onSubmit={this.props.setPseudo}
                             />
@@ -66,13 +70,48 @@ class Profile extends React.Component<ProfileProps> {
                     </Grid.Row>
                     <Grid.Row>
                         <Grid.Column>
-                            <h2>Full name :</h2>
+                            <div>Full name :</div>
                         </Grid.Column>
                         <Grid.Column>
                             <EditableTitle
-                                type="h2"
+                                type="h5"
                                 content={(this.props.user.fullName) ? this.props.user.fullName : ''}
                                 onSubmit={this.props.setFullName}
+                            />
+                        </Grid.Column>
+                    </Grid.Row>
+                    <Grid.Row>
+                        <Grid.Column>
+                            <div>Biography :</div>
+                        </Grid.Column>
+                        <Grid.Column>
+                            <EditableTextArea
+                                content={(this.props.user.bio) ? this.props.user.bio : ''}
+                                onSubmit={this.props.setBio}
+                            />
+                        </Grid.Column>
+                    </Grid.Row>
+                    <Grid.Row>
+                        <Grid.Column>
+                            <div>notifications Enabled :</div>
+                        </Grid.Column>
+                        <Grid.Column>
+                            <Radio
+                                toggle={true}
+                                onChange={this.props.toggleNotifications}
+                                checked={this.props.user.notificationsEnabled}
+                            />
+                        </Grid.Column>
+                    </Grid.Row>
+                    <Grid.Row>
+                        <Grid.Column>
+                            <div>Password :</div>
+                        </Grid.Column>
+                        <Grid.Column>
+                            <EditableTitle
+                                type="password"
+                                content={this.props.user.password}
+                                onSubmit={this.props.setPassword}
                             />
                         </Grid.Column>
                     </Grid.Row>

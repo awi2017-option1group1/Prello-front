@@ -1,3 +1,3 @@
-import SearchBar from './SearchBar'
+import SearchBarContainer from './SearchBarContainer'
 
-export default SearchBar
+export default SearchBarContainer

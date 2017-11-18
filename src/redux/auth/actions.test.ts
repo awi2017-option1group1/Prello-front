@@ -7,13 +7,15 @@ describe('Login sync actions', () => {
             user: {
                 uid: 1,
                 email: 'titi@photon.fr',
-                username: 'toto'
+                username: 'toto',
+                avatarColor: 'olive'
             }
         }
         expect(actionCreators.loginSuccess({
             uid: 1,
             email: 'titi@photon.fr',
-            username: 'toto'
+            username: 'toto',
+            avatarColor: 'olive'
         })).toEqual(expectedAction)
     })
 })

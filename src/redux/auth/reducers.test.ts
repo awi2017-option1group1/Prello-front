@@ -19,7 +19,8 @@ describe('Login reducer', () => {
                     user: {
                         uid: 1,
                         email: 'titi@photon.fr',
-                        username: 'toto'
+                        username: 'toto',
+                        avatarColor: 'olive'
                     }
                 }
             )
@@ -27,7 +28,8 @@ describe('Login reducer', () => {
             user: {
                 uid: 1,
                 email: 'titi@photon.fr',
-                username: 'toto'
+                username: 'toto',
+                avatarColor: 'olive'
             },
             isAuthenticated: true
         })
@@ -43,7 +45,8 @@ describe('Login reducer', () => {
                     user: {
                         uid: 1,
                         email: 'titi@photon.fr',
-                        username: 'toto'
+                        username: 'toto',
+                        avatarColor: 'olive'
                     }
                 }
             )
@@ -51,7 +54,8 @@ describe('Login reducer', () => {
             user: {
                 uid: 1,
                 email: 'titi@photon.fr',
-                username: 'toto'
+                username: 'toto',
+                avatarColor: 'olive'
             },
             isAuthenticated: true
         })

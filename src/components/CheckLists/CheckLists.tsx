@@ -26,7 +26,7 @@ class CheckLists extends React.Component<CheckListsProps> {
         }
         return (
             <section id="checkList-lists" className="checkList-lists">
-                {this.props.checkLists.map(checkList => <CheckList checkList={checkList} key={checkList.id}/>)}
+                {this.props.checkLists.map(checkList => <CheckList checkList={checkList} key={checkList.id || -1}/>)}
             </section>
         )
     }
