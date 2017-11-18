@@ -20,7 +20,7 @@ import CardModal from './CardModal'
 
 interface CardModalContainerProps {
     board: IBoard
-    card: ICard    
+    card: ICard
     boardAssignees: IUser[]
     onClose: () => void
 }
@@ -43,7 +43,7 @@ interface PropsFromDispatch {
     assignLabel: (label: ITag) => void
     createAndAssignLabel: (name: string) => void
     removeLabel: (label: ITag) => void
-    
+
     assignUser: (user: IUser) => void
     removeUser: (user: IUser) => void
     addCheckList: () => void
@@ -75,11 +75,11 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: CardModalContainerProp
         assignLabel: (label: ITag) => {
             dispatch(cardLabelActionCreator.assignLabel(ownProps.card.id, label))
         },
-        
+
         createAndAssignLabel: (name: string) => {
             dispatch(cardLabelActionCreator.createAndAssignLabel(
                 ownProps.board.id,
-                ownProps.card.id, 
+                ownProps.card.id,
                 {
                     name,
                     color: randColor()
@@ -90,11 +90,11 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: CardModalContainerProp
         removeLabel: (label: ITag) => {
             dispatch(cardLabelActionCreator.unassignLabel(ownProps.card.id, label))
         },
-        
+
         assignUser: (user: IUser) => {
             dispatch(assigneesCreator.assignUser(ownProps.card.id, user))
         },
-        
+
         removeUser: (user: IUser) => {
             dispatch(assigneesCreator.unassignUser(ownProps.card.id, user))
         },
