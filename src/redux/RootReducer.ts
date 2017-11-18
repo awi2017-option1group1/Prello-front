@@ -14,6 +14,8 @@ import { reducer as card, State as CardState } from './cards/reducers'
 import { reducer as ui, State as UiState } from './ui/reducers'
 import { reducer as cardsLabel, State as CardsLabelState } from './tags/cardsTags/reducers'
 import { reducer as boardLabel, State as BoardLabelState } from './tags/boardTags/reducers'
+import { reducer as resetPass, State as ResetState } from './resetPassword/reducers'
+import { reducer as notification, State as NotificationState } from './notifications/reducers'
 import { reducer as assignees, State as AssigneesState } from './cards/AssignedUsers/reducers'
 import { reducer as search, State as SearchState } from './search/reducers'
 
@@ -34,6 +36,8 @@ export interface RootState extends StoreEnhancerState {
     ui: UiState
     cardsLabel: CardsLabelState
     boardLabel: BoardLabelState
+    notification: NotificationState
+    resetPass: ResetState
     assignees: AssigneesState
     search: SearchState
 }
@@ -54,6 +58,8 @@ export const rootReducer = combineReducers<RootState>({
     ui,
     cardsLabel,
     boardLabel,
+    resetPass,
+    notification,
     assignees,
     checkItems,
     search,

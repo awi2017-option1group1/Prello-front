@@ -23,7 +23,7 @@ const defaultValue: State = {
         username: '',
         email: '',
         password: '',
-        notificationEnabled: false,
+        notificationsEnabled: false,
     }
 }
 
