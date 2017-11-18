@@ -1,10 +1,20 @@
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
+import { push } from 'react-router-redux'
 
 import { RootState, Dispatch } from '../../redux/RootReducer'
 import { actionCreators } from '../../redux/cards/actions'
 import { ICard } from '../../redux/cards/types'
 
 import CardsList from './DroppableCardsList'
+
+interface RouterProps {
+    match: {
+        params: {
+            id: string
+        }
+    }
+}
 
 interface CardsListContainerProps {
     listId: number | undefined
@@ -19,7 +29,7 @@ interface PropsFromState {
 
 interface PropsFromDispatch {
     loadData?: () => void
-    select: (card: ICard) => void
+    open: (card: ICard) => void
 }
 
 const mapStateToProps = (state: RootState,  ownProps: CardsListContainerProps) => {
@@ -42,7 +52,7 @@ const mapStateToProps = (state: RootState,  ownProps: CardsListContainerProps) =
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch, ownProps: CardsListContainerProps) => {
+const mapDispatchToProps = (dispatch: Dispatch, ownProps: CardsListContainerProps & RouterProps) => {
     return {
         loadData: () => { 
             if (ownProps.listId) {
@@ -50,15 +60,18 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: CardsListContainerProp
             }
         },
 
-        select: (card: ICard) => {
+        open: (card: ICard) => {
             dispatch(actionCreators.openCard(card)) 
+            dispatch(push(`/boards/${ownProps.match.params.id}/cards/${card.id}`)) 
         }
     }
 }
 
-const CardsListContainer = connect<PropsFromState, PropsFromDispatch, CardsListContainerProps>(
-    mapStateToProps,
-    mapDispatchToProps
-)(CardsList)
+const CardsListContainer = withRouter(
+    connect<PropsFromState, PropsFromDispatch, CardsListContainerProps>(
+        mapStateToProps,
+        mapDispatchToProps
+    )(CardsList)
+)
 
 export default CardsListContainer

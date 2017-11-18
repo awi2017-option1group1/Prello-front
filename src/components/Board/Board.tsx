@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Button, Modal } from 'semantic-ui-react'
+import { Button, Modal, Input, Form } from 'semantic-ui-react'
 
 import { IBoard } from '../../redux/boards/types'
 import { IList } from '../../redux/lists/types'
@@ -15,6 +15,7 @@ import CreateCardModal from '../CreateCardModal'
 import Spinner from '../common/Spinner'
 import EditableTitle from '../common/EditableTitle'
 import LabelTable from '../LabelTable'
+import UsersTable from '../UsersTable'
 import TasksLists from '../TasksLists'
 import PageNotFound from '../../routes/PageNotFound'
 
@@ -22,6 +23,7 @@ import './board.css'
 
 export interface BoardProps extends StateProps {
     board: IBoard
+
     labels: ITag[]
     listToAppendCard: IList | null
     openedCard: ICard | null
@@ -36,14 +38,25 @@ export interface BoardProps extends StateProps {
     createLabel: () => void
     updateLabel: (label: ITag, newValues: Partial<ITag>) => void
     deleteLabel: (label: ITag) => void
+    addUser: (userName: String) => void
+    removeUser: (user: IUser) => void
 }
 
 class Board extends React.Component<BoardProps> {
+
     componentWillMount() {
         this.props.loadData!()
     }
 
     render() {
+        let usernameToAdd: String = ''
+
+        const addUser = () => {
+            if (usernameToAdd) {
+                this.props.addUser(usernameToAdd)
+            }
+        }
+
         if (this.props.loading) {
             return <Spinner />
         }
@@ -57,20 +70,20 @@ class Board extends React.Component<BoardProps> {
                 <SplitHeader>
                     <EditableTitle type="h1" content={this.props.board.name} onSubmit={this.props.setTitle} />
                     <div>
-                        <Button 
-                            content="Add column" 
-                            icon="plus" 
-                            labelPosition="left" 
-                            primary={true} 
-                            circular={true} 
-                            onClick={this.props.addList} 
+                        <Button
+                            content="Add column"
+                            icon="plus"
+                            labelPosition="left"
+                            primary={true}
+                            circular={true}
+                            onClick={this.props.addList}
                         />
-                        <Modal 
+                        <Modal
                             trigger={
-                                <Button 
-                                    content="Manage labels" 
-                                    icon="tags" 
-                                    labelPosition="left" 
+                                <Button
+                                    content="Manage labels"
+                                    icon="tags"
+                                    labelPosition="left"
                                     circular={true}
                                 />
                             }
@@ -79,22 +92,69 @@ class Board extends React.Component<BoardProps> {
                         >
                             <Modal.Header>
                                 Labels
-                                <Button 
-                                    content="Add label" 
-                                    icon="plus" 
-                                    labelPosition="left" 
+                                <Button
+                                    content="Add label"
+                                    icon="plus"
+                                    labelPosition="left"
                                     floated="right"
-                                    primary={true} 
+                                    primary={true}
                                     circular={true}
                                     className="modal-header-button"
                                     onClick={this.props.createLabel}
                                 />
                             </Modal.Header>
                             <Modal.Content>
-                                <LabelTable 
-                                    labels={this.props.labels} 
+                                <LabelTable
+                                    labels={this.props.labels}
                                     updateLabel={this.props.updateLabel}
                                     deleteLabel={this.props.deleteLabel}
+                                />
+                            </Modal.Content>
+                        </Modal>
+                        <Modal
+                            trigger={
+                                <Button
+                                    content="Manage users"
+                                    icon="user"
+                                    labelPosition="left"
+                                    circular={true}
+                                />
+                            }
+                            closeIcon={true}
+                            size="large"
+                        >
+                            <Modal.Header>
+                                Assigned users
+                                <Form className="add-username-form">
+                                    <Form.Group>
+                                        <Input
+                                            className="username-input"
+                                            placeholder="Username"
+                                            onChange={(e, data) => {
+                                                const value = data.value
+                                                if (typeof value === 'string') {
+                                                    usernameToAdd = value
+                                                }
+                                            }}
+                                        />
+                                        <Button
+                                            content="Add user"
+                                            icon="plus"
+                                            labelPosition="left"
+                                            floated="right"
+                                            primary={true}
+                                            circular={false}
+                                            className="modal-header-button"
+                                            onClick={addUser}
+                                        />
+                                    </Form.Group>
+
+                                </Form>
+                            </Modal.Header>
+                            <Modal.Content>
+                                <UsersTable
+                                    users={this.props.assignees}
+                                    removeUser={this.props.removeUser}
                                 />
                             </Modal.Content>
                         </Modal>
@@ -107,11 +167,11 @@ class Board extends React.Component<BoardProps> {
                     save={this.props.saveCard}
                     cancel={this.props.closeCreateCard}
                 />
-                {this.props.openedCard !== null && 
-                    <CardModal 
+                {this.props.openedCard !== null &&
+                    <CardModal
                         board={this.props.board}
-                        onClose={this.props.closeCard} 
-                        card={this.props.openedCard} 
+                        onClose={this.props.closeCard}
+                        card={this.props.openedCard}
                         boardAssignees={this.props.assignees}
                     />
                 }
