@@ -68,8 +68,7 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
         case UPDATE_BOARD:
             return {
                 ...state,
-                error: null,
-                isProcessing: true,
+                error: null
             }
 
         case UPDATE_BOARD_SUCCESS:

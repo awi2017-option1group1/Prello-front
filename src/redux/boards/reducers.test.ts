@@ -320,7 +320,7 @@ describe('Register reducer', () => {
 
         expect(
             reducer(
-                {                    
+                {
                     error: null,
                     isProcessing: false,
                     board: boardModel,
@@ -340,4 +340,4 @@ describe('Register reducer', () => {
         })
     })
 
-}) 
+})
