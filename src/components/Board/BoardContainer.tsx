@@ -1,4 +1,5 @@
 import { withRouter } from 'react-router'
+import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
 import { DropResult } from 'react-beautiful-dnd'
 
@@ -14,6 +15,7 @@ import { IBoard } from '../../redux/boards/types'
 import { IList } from '../../redux/lists/types'
 import { ICard } from '../../redux/cards/types'
 import { ITag } from '../../redux/tags/types'
+import { IUser } from '../../redux/users/types'
 
 import Board from './DnDContextBoard'
 
@@ -28,6 +30,8 @@ interface BoardContainerProps {
 interface PropsFromState {
     board: IBoard
     labels: ITag[]
+    assignees: IUser[]
+
     listToAppendCard: IList | null
     openedCard: ICard | null
     error?: string | null
@@ -44,6 +48,8 @@ interface PropsFromDispatch {
     createLabel: () => void
     updateLabel: (label: ITag, newValues: Partial<ITag>) => void
     deleteLabel: (label: ITag) => void
+    addUser: (username: String) => void
+    removeUser: (user: IUser) => void
     onDragEnd: (result: DropResult) => void
 }
 
@@ -51,6 +57,7 @@ const mapStateToProps = (state: RootState) => {
     return {
         board: state.board.board,
         labels: state.boardLabel.labels,
+        assignees: state.board.users,
         listToAppendCard: state.board.listToAppendCard,
         openedCard: state.card,
         error: state.board.error,
@@ -60,7 +67,7 @@ const mapStateToProps = (state: RootState) => {
 
 const mapDispatchToProps = (dispatch: Dispatch, ownProps: BoardContainerProps) => {
     return {
-        loadData: () => { 
+        loadData: () => {
             dispatch(boardsActionsCreators.fetchBoard(Number(ownProps.match.params.id)))
             dispatch(labelsActionCreators.fetchBoardLabels(Number(ownProps.match.params.id)))
         },
@@ -84,6 +91,7 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: BoardContainerProps) =
 
         closeCard: () => {
             dispatch(cardsActionCreators.closeCard())
+            dispatch(push(`/boards/${ownProps.match.params.id}`))
         },
 
         createLabel: () => {
@@ -96,9 +104,17 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: BoardContainerProps) =
         updateLabel: (label: ITag, newValues: Partial<ITag>) => {
             dispatch(labelsActionCreators.updateLabel(label, newValues))
         },
-        
+
         deleteLabel: (label: ITag) => {
             dispatch(labelsActionCreators.deleteLabel(label))
+        },
+
+        addUser: (username: String) => {
+            dispatch(boardsActionsCreators.addUser(Number(ownProps.match.params.id), username))
+        },
+
+        removeUser: (user: IUser) => {
+            dispatch(boardsActionsCreators.removeUser(Number(ownProps.match.params.id), user))
         },
 
         onDragEnd: (result: DropResult) => {
@@ -122,7 +138,7 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: BoardContainerProps) =
                             Number(cardId),
                             Number(sourceList),
                             result.source.index,
-                            Number(destinationList), 
+                            Number(destinationList),
                             result.destination!.index
                         )
                     )

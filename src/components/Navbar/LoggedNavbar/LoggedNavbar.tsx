@@ -1,12 +1,12 @@
 import * as React from 'react'
 import { NavLink, Link } from 'react-router-dom'
-import { Menu, MenuItem, MenuMenu, Icon, Label, Popup, PopupContent,
+import { Menu, MenuItem, MenuMenu, Icon, Popup, PopupContent, Label,
     ItemGroup, Item, ItemContent, ItemHeader, ItemMeta } from 'semantic-ui-react'
 
 import { ILoggedUser } from '../../../redux/users/types'
 
 import SearchBar from '../../SearchBar'
-
+import Notifications from './Notifications'
 import './LoggedNavbar.css'
 
 class LoggedNavbarProps {
@@ -21,10 +21,10 @@ class LoggedNavbar extends React.Component<LoggedNavbarProps> {
     renderMenuItem() {
         return (
             <MenuItem>
-                <Label 
-                    circular={true} 
-                    color="olive" 
-                    size="large" 
+                <Label
+                    circular={true}
+                    color="olive"
+                    size="large"
                     className="initial"
                 >
                     {this.props.user.username.substring(0, 1).toUpperCase()}
@@ -53,15 +53,11 @@ class LoggedNavbar extends React.Component<LoggedNavbarProps> {
                     <SearchBar />
                 </MenuItem>
                 <MenuMenu position="right">
-                    <Link to="/profile#notifications" className="item">
-                        <Icon name="alarm" />
-                        Notifications
-                        <Label circular={true} color="grey" content="0" />
-                    </Link>
-                    <Popup 
-                        trigger={this.renderMenuItem()} 
-                        on="click" 
-                        position="bottom center" 
+                    <Notifications />
+                    <Popup
+                        trigger={this.renderMenuItem()}
+                        on="click"
+                        position="bottom center"
                         id="navbar-more"
                     >
                         <PopupContent>
@@ -100,7 +96,7 @@ class LoggedNavbar extends React.Component<LoggedNavbarProps> {
                 </MenuMenu>
             </Menu>
         )
-    } 
+    }
 }
 
 export default LoggedNavbar
