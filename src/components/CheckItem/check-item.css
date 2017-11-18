@@ -1,0 +1,13 @@
+.task-completed p {
+    text-decoration: line-through;
+}
+
+.ui.grid.check-item > * {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.add-task {
+    margin-top: 15px;
+}
+

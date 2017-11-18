@@ -16,6 +16,9 @@ interface PropsFromDispatch {
     setFullName: (fullName: string) => void
     setEmail: (email: string) => void
     setPseudo: (pseudo: string) => void
+    setBio: (bio: string) => void
+    toggleNotifications: () => void
+    setPassword: (password: string) => void
 }
 
 const mapStateToProps = (state: RootState) => {
@@ -39,6 +42,15 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
         setPseudo: (pseudo: string) => {
             dispatch(actionCreators.updateUser({ username: pseudo }))
         },
+        setBio: (bio: string) => {
+            dispatch(actionCreators.updateUser({ bio: bio }))
+        },
+        toggleNotifications: () => {
+            dispatch(actionCreators.toggleNotifications())
+        },
+        setPassword: (password: string) => {
+            dispatch(actionCreators.updateUser({ password: password }))
+        }
     }
 }
 

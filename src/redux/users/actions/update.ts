@@ -42,5 +42,17 @@ export const actionCreators = {
                 error => dispatch(actionCreators.updateUserRequestError(error.error.error))
             )
         }
+    },
+    toggleNotifications: () => {
+        return (dispatch: Dispatch, getState: () => RootState) => {
+            dispatch(actionCreators.updateUserRequest())
+            const state = getState()
+            const userId = state.auth.user!.uid
+            const newValue = !state.user.user.notificationsEnabled
+            return API.put(`/users/${userId}`, {notificationsEnabled: newValue}).then(
+                user => dispatch(actionCreators.updateUserRequestSuccess(user)),
+                error => dispatch(actionCreators.updateUserRequestError(error.error.error))
+            )
+        }
     }
 }

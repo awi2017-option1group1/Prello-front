@@ -2,6 +2,7 @@ import { Dispatch } from '../../RootReducer'
 import { API } from '../../../services/http'
 
 import { actionCreators as uiActionCreators } from '../../ui/actions'
+import { actionCreators as notificationsActionsCreators } from '../../notifications/actions'
 
 import { IBoard } from '../types'
 
@@ -56,6 +57,7 @@ export const actionCreators = {
                 board => {
                     dispatch(actionCreators.updateBoardRequestSuccess(board))
                     dispatch(uiActionCreators.showSaveMessage())
+                    dispatch(notificationsActionsCreators.fetchNotifications())
                 },
                 error => {
                     dispatch(actionCreators.updateBoardRequestError(error.error.error))
