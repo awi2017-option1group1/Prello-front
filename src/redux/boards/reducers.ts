@@ -27,7 +27,14 @@ const defaultValue: State = {
     board: {
         id: -1,
         name: '',
-        isPrivate: false
+        isPrivate: false,
+        owner: {
+            id: -1,
+            username: '',
+            email: '',
+            password: '',
+            notificationsEnabled: false,
+        }
     },
     listToAppendCard: null,
     users: []
