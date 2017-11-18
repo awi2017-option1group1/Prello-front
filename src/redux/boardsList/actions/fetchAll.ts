@@ -1,4 +1,4 @@
-import { Dispatch } from '../../RootReducer'
+import { Dispatch, RootState } from '../../RootReducer'
 import { API } from '../../../services/http'
 
 import { IBoard } from '../../boards/types'
@@ -34,9 +34,11 @@ export const actionCreators = {
         boards
     }),
     fetchBoards: () => {
-        return (dispatch: Dispatch) => {
+        return (dispatch: Dispatch, getState: () => RootState) => {
             dispatch(actionCreators.fetchBoardsRequest())
-            return API.get(`/users/1/boards`).then(
+            const state = getState()
+            const user = state.auth.user
+            return API.get(`/users/${user!.uid}/boards`).then(
                 boards => dispatch(actionCreators.fetchBoardsRequestSuccess(boards)),
                 error => dispatch(actionCreators.fetchBoardsRequestError(error.error.error))
             )

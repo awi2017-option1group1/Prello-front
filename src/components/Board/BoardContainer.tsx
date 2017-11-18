@@ -1,4 +1,5 @@
 import { withRouter } from 'react-router'
+import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
 import { DropResult } from 'react-beautiful-dnd'
 
@@ -90,6 +91,7 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: BoardContainerProps) =
 
         closeCard: () => {
             dispatch(cardsActionCreators.closeCard())
+            dispatch(push(`/boards/${ownProps.match.params.id}`))
         },
 
         createLabel: () => {

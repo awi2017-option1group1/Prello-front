@@ -4,7 +4,7 @@ import './editable-title.css'
 
 interface EditableTitleProps {
     content: string
-    type: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p'
+    type: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'password' | p
 
     onSubmit: (newValue: string) => void
 }
@@ -44,7 +44,7 @@ class EditableTitle extends React.Component<EditableTitleProps, EditableTitleSta
         this.props.onSubmit(this.state.value)
         this.setState({
             editing: false
-        })  
+        })
     }
 
     handleKeyPress(event: React.KeyboardEvent<HTMLInputElement>) {
@@ -54,13 +54,26 @@ class EditableTitle extends React.Component<EditableTitleProps, EditableTitleSta
     }
 
     render() {
-        if (this.state.editing) {
+        if (this.state.editing && this.props.type !== 'password') {
+            return (
+                <div className="ui input">
+                    <input
+                        autoFocus={true}
+                        value={this.state.value}
+                        onChange={this.handleChange}
+                        onBlur={this.handleSubmit}
+                        onKeyPress={this.handleKeyPress}
+                        onMouseDown={e => e.stopPropagation()}
+                    />
+                </div>
+            )
+        } else if (this.state.editing && this.props.type === 'password') {
             return (
                 <div className="ui input fluid">
                     <input
+                        type="password"
                         autoFocus={true}
-                        value={this.state.value} 
-                        onChange={this.handleChange} 
+                        onChange={this.handleChange}
                         onBlur={this.handleSubmit}
                         onKeyPress={this.handleKeyPress}
                         onMouseDown={e => e.stopPropagation()}
@@ -68,10 +81,10 @@ class EditableTitle extends React.Component<EditableTitleProps, EditableTitleSta
                 </div>
             )
         } else {
-            const HeaderTag = `${this.props.type}`
+            const HeaderTag = (this.props.type !== 'password') ? `${this.props.type}` : 'div'
             return (
                 <HeaderTag className="editable-title" onClick={this.handleClick}>
-                    {this.state.value}
+                    {(HeaderTag !== 'div') ? this.state.value : '******'}
                 </HeaderTag>
             )
         }
