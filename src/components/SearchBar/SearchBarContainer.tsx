@@ -7,14 +7,15 @@ import { actionCreators } from '../../redux/search/actions'
 
 import SearchBar from './SearchBar'
 
-import { ISearchCategory, ISearchObject } from '../../redux/search/types'
+import { ISearchCategory } from '../../redux/search/types'
+import { SearchResultData } from 'semantic-ui-react'
 
 interface SearchBarContainerProps {
     userID: number
 }
 
 interface PropsFromState {
-    categories: ISearchCategory[]
+    categories: ISearchCategory
     
     isProcessing: boolean,
     value: string,
@@ -22,7 +23,7 @@ interface PropsFromState {
 
 interface PropsFromDispatch {
     resetComponent: () => void
-    resultSelect: (result: ISearchObject) => void
+    resultSelect: (result: SearchResultData) => void
     searchChange: (value: string) => void
 }
 
@@ -38,7 +39,7 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: SearchBarContainerProp
     return {
         resetComponent: () => dispatch(actionCreators.reset()),
 
-        resultSelect: (result: ISearchObject) => dispatch(actionCreators.resultSelect(result)),
+        resultSelect: (result: SearchResultData) => dispatch(actionCreators.resultSelect(result)),
 
         searchChange: (value: string) => dispatch(actionCreators.fetchCategories(ownProps.userID, value)) // userID ? 
     }

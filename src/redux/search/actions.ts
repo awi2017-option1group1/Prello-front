@@ -1,8 +1,9 @@
 import { Dispatch } from '../RootReducer'
 import { API } from '../../services/http'
 import { push } from 'react-router-redux'
+import { SearchResultData } from 'semantic-ui-react'
 
-import { ISearchCategory, ISearchObject } from './types'
+import { ISearchCategory } from './types'
 
 export const ERROR = 'ERROR'
 
@@ -20,11 +21,12 @@ export type Actions = {
     },
 
     FETCH_SEARCH_CATEGORIES: {
-        type: typeof FETCH_SEARCH_CATEGORIES
+        type: typeof FETCH_SEARCH_CATEGORIES,
+        value: string
     },
     FETCH_SEARCH_CATEGORIES_SUCCESS: {
         type: typeof FETCH_SEARCH_CATEGORIES_SUCCESS,
-        categories: ISearchCategory[],
+        categories: ISearchCategory,
     },
 
     RESET: {
@@ -33,7 +35,7 @@ export type Actions = {
 
     RESULT_SELECT: {
         type: typeof RESULT_SELECT,
-        result: ISearchObject,
+        result: SearchResultData,
     },
 
 }
@@ -44,18 +46,19 @@ export const actionCreators = {
         error
     }),
     
-    fetchCategoriesRequest: (): Actions[typeof FETCH_SEARCH_CATEGORIES] => ({
-        type: FETCH_SEARCH_CATEGORIES
+    fetchCategoriesRequest: (value: string): Actions[typeof FETCH_SEARCH_CATEGORIES] => ({
+        type: FETCH_SEARCH_CATEGORIES,
+        value: value
     }),
-    fetchCategoriesRequestSuccess: (categories: ISearchCategory[]): 
+    fetchCategoriesRequestSuccess: (categories: ISearchCategory): 
     Actions[typeof FETCH_SEARCH_CATEGORIES_SUCCESS] => ({
         type: FETCH_SEARCH_CATEGORIES_SUCCESS,
         categories
     }),
     fetchCategories: (userID: number, value: string) => {
         return (dispatch: Dispatch) => {
-            dispatch(actionCreators.fetchCategoriesRequest())
-            return API.get(`search/${userID}/${value}`).then( // TODO
+            dispatch(actionCreators.fetchCategoriesRequest(value))
+            return API.get(`/users/${userID}/search/${value}`).then(
                 categories => dispatch(actionCreators.fetchCategoriesRequestSuccess(categories)),
                 error => dispatch(actionCreators.RequestError(error.error.error))
             )
@@ -66,9 +69,9 @@ export const actionCreators = {
         type: RESET
     }),
 
-    resultSelect: (result: ISearchObject) => {
-        return (dispatch: Dispatch) => {      
-            dispatch(push(result.link))
+    resultSelect: (result: SearchResultData) => {
+        return (dispatch: Dispatch) => {    
+            dispatch(push(result.result.link))
         }
     },
 }

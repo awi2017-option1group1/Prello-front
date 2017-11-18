@@ -4,14 +4,13 @@ import { ISearchCategory } from './types'
 import {    FETCH_SEARCH_CATEGORIES, 
             FETCH_SEARCH_CATEGORIES_SUCCESS, 
             ERROR, 
-            RESET, 
-            RESULT_SELECT } from './actions'
+            RESET } from './actions'
 
 export type State = {
     isProcessing: boolean,
-    error?: string,
+    error?: string | null,
 
-    categories: ISearchCategory[],
+    categories: ISearchCategory,
     value: string,
 }
 
@@ -19,7 +18,7 @@ const defaultValue: State = {
     isProcessing: false,
     error: null,
 
-    categories: [],
+    categories: { },
     value: '',
 }
 
@@ -28,7 +27,8 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
         case FETCH_SEARCH_CATEGORIES:
             return {
                 ...state,
-                isProcessing: true
+                isProcessing: true,
+                value: action.value
             }
 
         case FETCH_SEARCH_CATEGORIES_SUCCESS:
@@ -50,7 +50,8 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
             return {
                 ...state,
                 isProcessing: false,
-                error: null
+                error: null,
+                value: ''
             }
 
         default:
