@@ -354,4 +354,88 @@ describe('Cards async actions', () => {
             expect(store.getActions()).toEqual(expectedActions) })
     })
 
+    it('should create FETCH_CARDS_LIST_SUCCESS', () => {
+        nock(getBaseUrl())
+        .get('/lists/9/cards')
+        .reply(200, {
+            id: 1,
+            name: 'DefaultName',
+            desc: 'DefaultDescription',
+            due: new Date('2015-03-25'),
+            dueComplete: false,
+            pos: 1
+        })
+
+        const expectedActions = [
+            { type: FETCH_CARDS_LIST,
+                listId: 9
+            },
+            { type: FETCH_CARDS_LIST_SUCCESS,
+                cards: {
+                    id: 1,
+                    name: 'DefaultName',
+                    desc: 'DefaultDescription',
+                    due: '2015-03-25T00:00:00.000Z',
+                    dueComplete: false,
+                    pos: 1
+                },
+                listId: 9
+            }
+        ]
+        const store = mockStore()
+
+        return store.dispatch(FetchAllActionCreators.fetchCardsList(9)).then(() => {
+            expect(store.getActions()).toEqual(expectedActions) })
+    })
+
+    /*
+    it('should create UPDATE_CARD_SUCCESS', () => {
+        nock(getBaseUrl())
+        .put('/cards/1/')
+        .reply(200, {
+            id: 1,
+            name: 'NewName',
+            desc: 'DefaultDescription',
+            due: new Date('2015-03-25'),
+            dueComplete: false,
+            pos: 1
+        })
+
+        const expectedActions = [
+            { type: UPDATE_CARD,
+                card: {
+                    id: 1,
+                    name: 'NewName',
+                    desc: 'DefaultDescription',
+                    due: new Date('2015-03-25'),
+                    dueComplete: false,
+                    pos: 1
+                },
+            },
+            { type: UPDATE_CARD_SUCCESS,
+                card: {
+                    id: 1,
+                    name: 'NewName',
+                    desc: 'DefaultDescription',
+                    due: new Date('2015-03-25'),
+                    dueComplete: false,
+                    pos: 1
+                },
+
+            },
+            {
+                payload: {"msg": "Content saved!", "type": "success"},
+                type: "SHOW_ALERT_MESSAGE"
+            }
+        ]
+        const store = mockStore()
+
+        return store.dispatch(UpdateActionCreators.updateCard(
+            {id: 1,name: 'DefaultName',desc: 'DefaultDescription',due: new Date('2015-03-25'),
+                dueComplete: false,pos: 1},
+            {name: 'NewName'}
+        )).then(() => {
+            expect(store.getActions()).toEqual(expectedActions) })
+    })
+    */
 })

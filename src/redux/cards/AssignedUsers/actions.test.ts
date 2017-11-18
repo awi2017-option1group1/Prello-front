@@ -7,12 +7,10 @@ import { actionCreators as FetchAllActionCreators,
 
 import { IUser } from './../../users/types'
 
-/*
 import thunk from 'redux-thunk'
 import * as nock from 'nock'
 import configureMockStore from 'redux-mock-store'
-import { getBaseUrl } from '../../services/http'
-*/
+import { getBaseUrl } from '../../../services/http'
 
 describe('AssignUsers sync actions', () => {
 
@@ -133,5 +131,71 @@ describe('AssignUsers sync actions', () => {
         }
         expect(FetchAllActionCreators.fetchAssigneesListRequestError(9, 'errorMessage')).toEqual(expectedAction)
     })
+
+})
+
+const mockStore = configureMockStore([thunk])
+
+describe('Cards async actions', () => {
+    afterEach(() => {
+        nock.cleanAll()
+    })
+
+    const userDefault: IUser = {
+        id: 4,
+        fullName: 'JeanJacquesRousseau',
+        username: 'JJR',
+        bio: new Text('ItIsMeMario'),
+        notificationEnabled: true,
+        email: 'jeanjacquesrousseau@gmail.com',
+        password: 'jeanjacques',
+        uuidToken: null,
+        boardRole: [],
+        teamRole: []
+    }
+
+    it('should create UNASSIGN_USER_SUCCESS', () => {
+        nock(getBaseUrl())
+        .delete('/cards/9/members/4')
+        .reply(200, userDefault)
+
+        const expectedActions = [
+            { type: UNASSIGN_USER,
+                cardId: 9,
+                user: userDefault
+            },
+            { type: UNASSIGN_USER_SUCCESS,
+            },
+            {
+                payload: {"msg": "Content saved!", "type": "success"},
+                type: "SHOW_ALERT_MESSAGE"
+            }
+        ]
+        const store = mockStore()
+
+        return store.dispatch(UnassignActionCreators.unassignUser(9, userDefault)).then(() => {
+            expect(store.getActions()).toEqual(expectedActions) })
+    })
+
+    /*
+    it('should create FETCH_ASSIGNEES_LIST_SUCCESS', () => {
+        nock(getBaseUrl())
+        .get(`/cards/9/members`)
+        .reply(200, userDefault)
+
+        const expectedActions = [
+            { type: FETCH_ASSIGNEES_LIST,
+                cardId: 9
+            },
+            { type: FETCH_ASSIGNEES_LIST_SUCCESS,
+                cardId: 9,
+                assignees: [userDefault]
+            }
+        ]
+        const store = mockStore()
+
+        return store.dispatch(FetchAllActionCreators.fetchAssigneesList(9)).then(() => {
+            expect(store.getActions()).toEqual(expectedActions) })
+    })*/
 
 })
