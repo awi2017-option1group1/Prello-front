@@ -4,7 +4,7 @@ import './editable-title.css'
 
 interface EditableTitleProps {
     content: string
-    type: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'password' | p
+    type: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'password' | 'p'
 
     onSubmit: (newValue: string) => void
 }

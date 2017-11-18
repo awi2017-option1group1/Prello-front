@@ -6,7 +6,9 @@ import LoggedNavbar from './LoggedNavbar'
 
 describe('<LoggedNavbar />', () => {
     it('should display a menu and a sub-menu', () => {
-        const loggedNavbar = shallow(<LoggedNavbar user={{ uid: 1, username: 'toto', email: 'titi@photon.fr' }} />)
+        const loggedNavbar = shallow(
+            <LoggedNavbar user={{ uid: 1, username: 'toto', email: 'titi@photon.fr', avatarColor: 'olive' }} />
+        )
         expect(loggedNavbar.find(Menu).length).toBe(2)
     })
 })

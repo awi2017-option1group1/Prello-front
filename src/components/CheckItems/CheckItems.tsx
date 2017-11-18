@@ -30,7 +30,7 @@ class CheckItems extends React.Component<CheckItemsProps> {
                 {this.props.checkItems.map(checkItem => (
                     <CheckItem 
                         checkItem={checkItem} 
-                        key={checkItem.id} 
+                        key={checkItem.id || -1} 
                         checkListId={this.props.checkListId} 
                     />
                 ))}

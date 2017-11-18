@@ -22,10 +22,10 @@ describe('<AssigneesAvatar />', () => {
                 assignees={[{
                     id: 1, 
                     username: 'toto', 
-                    notificationEnabled: true, 
+                    notificationsEnabled: true, 
                     email: 'toto@toto.fr', 
-                    password: 'toto'}
-                ]}
+                    password: 'toto'
+                }]}
                 onDelete={() => null}
             />
         )
@@ -38,7 +38,7 @@ describe('<AssigneesAvatar />', () => {
                 assignees={[{
                     id: 1, 
                     username: 'toto', 
-                    notificationEnabled: true, 
+                    notificationsEnabled: true, 
                     email: 'toto@toto.fr', 
                     password: 'toto'}
                 ]}
@@ -54,13 +54,13 @@ describe('<AssigneesAvatar />', () => {
                 assignees={[{
                     id: 1, 
                     username: 'toto', 
-                    notificationEnabled: true, 
+                    notificationsEnabled: true, 
                     email: 'toto@toto.fr', 
                     password: 'toto'},
                     {
                         id: 1, 
                         username: 'titi', 
-                        notificationEnabled: true, 
+                        notificationsEnabled: true, 
                         email: 'titi@titi.fr', 
                         password: 'titi'},
                 ]}
@@ -77,14 +77,14 @@ describe('<AssigneesAvatar />', () => {
                 assignees={[{
                         id: 1, 
                         username: 'toto', 
-                        notificationEnabled: true, 
+                        notificationsEnabled: true, 
                         email: 'toto@toto.fr', 
                         password: 'toto'
                     },
                     {
                         id: 1, 
                         username: 'titi', 
-                        notificationEnabled: true, 
+                        notificationsEnabled: true, 
                         email: 'titi@titi.fr', 
                         password: 'titi'},
                 ]}

@@ -11,7 +11,7 @@ interface LabelsListProps {
 }
 
 const arrayToElements = (array: ITag[]) => array.map(label => (
-    <Label label={label} key={label.id} />
+    <Label label={label} key={label.id || -1} />
 ))
 
 const LabelsList: React.StatelessComponent<LabelsListProps> = (props) => {
