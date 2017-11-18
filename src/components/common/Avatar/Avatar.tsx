@@ -1,17 +1,18 @@
 import * as React from 'react'
-import { Label, Icon } from 'semantic-ui-react'
+import { Label, Icon, SemanticCOLORS } from 'semantic-ui-react'
 
-import { IUser } from '../../../redux/users/types'
+import { IUser, ILoggedUser } from '../../../redux/users/types'
 
 interface AvatarProps {
-    user: IUser
-    onDelete?: (assignee: IUser) => void
+    user: IUser | ILoggedUser
+    onDelete?: (assignee: IUser | ILoggedUser) => void
 }
+
 const Avatar: React.StatelessComponent<AvatarProps> = (props) => {
     return (
         <Label 
             circular={true} 
-            color="olive" 
+            color={props.user.avatarColor as SemanticCOLORS}
             size="large" 
             className="initial" 
         >

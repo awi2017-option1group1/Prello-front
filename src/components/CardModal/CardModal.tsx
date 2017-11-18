@@ -5,8 +5,8 @@ import * as moment from 'moment'
 import { StateProps } from '../StateProps'
 import { ICard } from '../../redux/cards/types'
 import { ITag } from '../../redux/tags/types'
-import { ICheckList } from '../../redux/checkLists/types'
 
+import { ICheckList } from '../../redux/checkLists/types'
 import { IUser } from '../../redux/users/types'   
 
 import Spinner from '../common/Spinner'
@@ -124,14 +124,14 @@ const CardModal: React.StatelessComponent<ModalProps> = (props) => {
                 </Grid.Column>
 
                 <Grid.Column width={5}>
-                    <AssigneesSegment 
+                    <AssigneesSegment
                         assignees={props.assignees}
                         boardAssignees={props.boardAssignees}
                         assignUser={props.assignUser}
                         removeUser={props.removeUser}
                     />
 
-                    <LabelsSegment 
+                    <LabelsSegment
                         boardLabels={props.boardLabels}
                         cardLabels={props.labels}
                         addLabel={props.assignLabel}
