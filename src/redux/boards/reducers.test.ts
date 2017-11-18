@@ -49,7 +49,8 @@ describe('Register reducer', () => {
             },
             error: null,
             isProcessing: false,
-            listToAppendCard: null
+            listToAppendCard: null,
+            users: []
         })
     })
 
@@ -58,7 +59,8 @@ describe('Register reducer', () => {
             error: null,
             isProcessing: true,
             board: boardDefault,
-            listToAppendCard: null
+            listToAppendCard: null,
+            users: []
         })
     })
 
@@ -75,7 +77,8 @@ describe('Register reducer', () => {
             error: null,
             isProcessing: false,
             board: newBoardModel,
-            listToAppendCard: null
+            listToAppendCard: null,
+            users: []
         })
 
         expect(
@@ -114,7 +117,8 @@ describe('Register reducer', () => {
             error: 'ID requested',
             isProcessing: false,
             board: boardDefault,
-            listToAppendCard: null
+            listToAppendCard: null,
+            users: []
         })
 
         expect(
@@ -152,7 +156,8 @@ describe('Register reducer', () => {
             error: null,
             isProcessing: true,
             board: boardDefault,
-            listToAppendCard: null
+            listToAppendCard: null,
+            users: []
         })
 
         expect(
@@ -190,7 +195,8 @@ describe('Register reducer', () => {
             error: 'ID requested',
             isProcessing: false,
             board: boardDefault,
-            listToAppendCard: null
+            listToAppendCard: null,
+            users: []
         })
 
         expect(
@@ -229,7 +235,8 @@ describe('Register reducer', () => {
             error: null,
             isProcessing: false,
             board: newBoardModel,
-            listToAppendCard: null
+            listToAppendCard: null,
+            users: []
         })
 
         expect(
@@ -268,7 +275,8 @@ describe('Register reducer', () => {
             error: null,
             isProcessing: false,
             board: boardDefault,
-            listToAppendCard: newListModel
+            listToAppendCard: newListModel,
+            users: []
         })
 
         expect(
@@ -306,7 +314,8 @@ describe('Register reducer', () => {
             error: null,
             isProcessing: false,
             board: boardDefault,
-            listToAppendCard: null
+            listToAppendCard: null,
+            users: []
         })
 
         expect(

@@ -123,7 +123,8 @@ describe('Board async actions', () => {
             { type: FETCH_BOARD },
             { type: FETCH_BOARD_SUCCESS,
                 board: boardModel
-            }
+            },
+            { type: FETCH_BOARD}
         ]
         const store = mockStore()
 

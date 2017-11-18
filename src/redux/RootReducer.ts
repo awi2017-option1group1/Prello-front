@@ -17,6 +17,7 @@ import { reducer as boardLabel, State as BoardLabelState } from './tags/boardTag
 import { reducer as resetPass, State as ResetState } from './resetPassword/reducers'
 import { reducer as notification, State as NotificationState } from './notifications/reducers'
 import { reducer as assignees, State as AssigneesState } from './cards/AssignedUsers/reducers'
+import { reducer as search, State as SearchState } from './search/reducers'
 
 interface StoreEnhancerState { }
 
@@ -38,6 +39,7 @@ export interface RootState extends StoreEnhancerState {
     notification: NotificationState
     resetPass: ResetState
     assignees: AssigneesState
+    search: SearchState
 }
 
 export type Dispatch = ReduxDispatch<RootState>
@@ -59,5 +61,6 @@ export const rootReducer = combineReducers<RootState>({
     resetPass,
     notification,
     assignees,
-    checkItems
+    checkItems,
+    search,
 })
