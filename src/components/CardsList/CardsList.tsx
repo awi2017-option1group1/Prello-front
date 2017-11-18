@@ -39,7 +39,7 @@ class CardsList extends React.Component<CardsListProps> {
             <CardGroup className="cards-list">
                 {!this.props.cards.length && <p className="cards-list cards-list-no-content">{this.props.emptyText}</p>}
                 {this.props.cards.map(card => 
-                    <Card card={card} key={card.id} onClick={() => this.props.open(card)} />
+                    <Card card={card} key={card.id || -1} onClick={() => this.props.open(card)} />
                 )}
             </CardGroup>
         )

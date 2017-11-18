@@ -54,7 +54,7 @@ const LabelAssignForm: React.StatelessComponent<LabelAssignFormProps> = (props) 
             <Segment basic={true} className="label-modal-segment">
                 {props.cardLabels.length === 0 && 'No labels yet!'}
                 {props.cardLabels.map(l => (
-                    <Label label={l} key={l.id} onDelete={props.removeLabel} className="label-modal" />
+                    <Label label={l} key={l.id || -1} onDelete={props.removeLabel} className="label-modal" />
                 ))}
             </Segment>
         </div>
