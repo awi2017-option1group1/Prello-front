@@ -24,6 +24,8 @@ import PageNotFound from './routes/PageNotFound'
 import ProfilePage from './routes/ProfilePage'
 import ValidConfirmPage from './routes/ValidConfirmPage'
 import RegisterSuccessPage from './routes/RegisterSuccessPage'
+import MailFormPage from './routes/MailFormPage'
+import ResetPasswordPage from './routes/ResetPasswordPage'
 
 /* Authenticate user */
 AUTH.get('/me')
@@ -32,7 +34,9 @@ AUTH.get('/me')
         store.dispatch(
             actionCreators.loginSuccess(response.me)
         )
-    },
+    }
+)
+.catch(
     error => {
         store.dispatch(
             actionCreators.loginFail()
@@ -50,11 +54,13 @@ ReactDOM.render(
                     
                     <Route path="/register/success" component={requireNotAuth(RegisterSuccessPage)}/>
                     <Route path="/register" component={requireNotAuth(RegisterPage)}/>
-                    <Route path="/overview" component={requireAuth(BoardsListPage)}/>
-                    <Route path="/boards/:id/cards/:cardId" component={requireAuth(BoardPage)}/>
-                    <Route path="/boards/:id" component={requireAuth(BoardPage)}/>
-                    <Route path="/profile" component={requireAuth(ProfilePage)}/>
                     <Route path="/users/:id/validate/:uuidToken" component={requireNotAuth(ValidConfirmPage)}/>
+                    <Route path="/password/reset" component={requireNotAuth(MailFormPage)} />
+                    <Route path="/users/:userID/reset/:uuidToken" component={requireNotAuth(ResetPasswordPage)} />
+
+                    <Route path="/overview" component={requireAuth(BoardsListPage)}/>
+                    <Route path="/boards/:id/:cards(cards)?/:cardId?" component={requireAuth(BoardPage)}/>
+                    <Route path="/profile" component={requireAuth(ProfilePage)}/>
 
                     <Route component={PageNotFound}/>
                 </Switch>

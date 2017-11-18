@@ -26,7 +26,7 @@ class TasksLists extends React.Component<TasksListsProps> {
         }
         return (
             <section id="task-lists" className="task-lists">
-                {this.props.lists.map(list => <TasksList list={list} key={list.id} />)}
+                {this.props.lists.map(list => <TasksList list={list} key={list.id || -1} />)}
             </section>
         )
     }

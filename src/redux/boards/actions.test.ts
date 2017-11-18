@@ -1,225 +1,168 @@
-// import thunk from 'redux-thunk'
-// import * as nock from 'nock'
-// import configureMockStore from 'redux-mock-store'
+import thunk from 'redux-thunk'
+import * as nock from 'nock'
 
-// import { getBaseUrl } from '../../services/http'
+import configureMockStore from 'redux-mock-store'
+import { getBaseUrl } from '../../services/http'
 
-// import { CREATE_BOARD, CREATE_BOARD_SUCCESS, 
-//     BOARD_ERROR, BOARD_SUCCESS, 
-//     REMOVE_BOARD, UPDATE_BOARD } from './actions'
-// import { actionCreators } from './actions'
+import { FETCH_BOARD, FETCH_BOARD_SUCCESS, FETCH_BOARD_ERROR } from './actions/fetch'
+import { UPDATE_BOARD, UPDATE_BOARD_ERROR, UPDATE_BOARD_SUCCESS } from './actions/update'
+import { OPEN_CREATE_CARD_MODEL, CLOSE_CREATE_CARD_MODAL } from './actions/openModal'
 
-// import { IBoard } from './types'
+import { actionCreators } from './actions'
 
-// describe('Board sync actions', () => {
+import { IBoard } from './types'
+import  { IList } from '../lists/types'
 
-//     it('should return a error action', () => {
-//         const expectedAction = {
-//             type: BOARD_ERROR,
-//             error: 'did not created',
-//         }
-//         expect(actionCreators.boardError('did not created')).toEqual(expectedAction)
-//     }),
-//     it('should return a success action', () => {
-//         const expectedAction = {
-//             type: BOARD_SUCCESS, 
-//             successMessage: 'Created successfully',
-//         }
-//         expect(actionCreators.boardSuccess('Created successfully')).toEqual(expectedAction)
-//     }),
+const boardModel: IBoard = {
+    id: 1,
+    name: 'Default Board',
+    isPrivate: true
+}
 
-//     it('should return a create board action', () => {
-//         const expectedAction = {
-//             type: CREATE_BOARD,
-//             title: '',
-//             isPrivate: false,
-//             lists: [],
-//             tags: [],
-//             userRole: [],
-//         }
-//         expect(actionCreators.createBoardRequest('', false, [], [], [])).toEqual(expectedAction)
-//     }),
-//     it('should return a success create board action', () => {
-//         const expectedAction = {
-//             type: CREATE_BOARD_SUCCESS,
-//             board: {
-//                 id: 1,
-//                 title: '',
-//                 isPrivate: false,
-//                 lists: [],
-//                 tags: [],
-//                 userRole: [],
-//             }
-//         }
-//         const board: IBoard = {
-//             id: 1,
-//             title: '',
-//             isPrivate: false,
-//             lists: [],
-//             tags: [],
-//             userRole: [],
-//         }
-//         expect(actionCreators.createBoardSuccess(board)).toEqual(expectedAction)
-//     }),
+const listModel: IList = {
+    id: 1,
+    name: 'Default List',
+    pos: 1
+}
 
-//     it('should return a remove board action', () => {
-//         const expectedAction = {
-//             type: REMOVE_BOARD
-//         }
-//         expect(actionCreators.removeBoardRequest(1)).toEqual(expectedAction)
-//     }),
+describe('Board sync actions', () => {
 
-//     it('should return an update board request action', () => {
-//         const boardTest: IBoard = {
-//                 id: 1,
-//                 title: '',
-//                 isPrivate: false,
-//                 lists: [],
-//                 tags: [],
-//                 userRole: [],
-//         }
-//         const expectedAction = {
-//             type: UPDATE_BOARD,
-//             board: boardTest
-//         }
-//         expect(actionCreators.updateBoardRequest(boardTest)).toEqual(expectedAction)
-//     })
-// })
+    /*---------------- FETCH BOARD ----------------*/
+    it('should create an action FFETCH_BOARD', () => {
+        const expectedAction = {
+            type: FETCH_BOARD,
+        }
+        expect(actionCreators.fetchBoardRequest()).toEqual(expectedAction)
+    })
 
-// const mockStore = configureMockStore([thunk])
+    it('should create an action FETCH_BOARD_ERROR', () => {
+        const expectedAction = {
+            type: FETCH_BOARD_ERROR,
+            error: 'error message'
+        }
+        expect(actionCreators.fetchBoardRequestError('error message')).toEqual(expectedAction)
+    })
 
-// describe('Board async actions', () => {
-//     afterEach(() => {
-//         nock.cleanAll()
-//     })
+    it('should create an action FETCH_BOARD_SUCCESS', () => {
+        const expectedAction = {
+            type: FETCH_BOARD_SUCCESS,
+            board: {
+                id: 1,
+                name: 'Default Board',
+                isPrivate: true
+            }
+        }
+        expect(actionCreators.fetchBoardRequestSuccess(boardModel)).toEqual(expectedAction)
+    })
 
-//     it('should create CREATE_BOARD_SUCCESS when success create response is received', () => {
-//         nock(getBaseUrl())
-//             .post('/boards')
-//             .reply(200, {   board: {
-//                                 id: 1,
-//                                 title: '',
-//                                 isPrivate: false,
-//                                 lists: [],
-//                                 tags: [],
-//                                 userRole: [],
-//                             } 
-//                         })
+    /*---------------- UPDATE BOARD ----------------*/
+    it('should create an action UPDATE_BOARD', () => {
+        const expectedAction = {
+            type: UPDATE_BOARD,
+        }
+        expect(actionCreators.updateBoardRequest()).toEqual(expectedAction)
+    })
 
-//         const expectedActions = [
-//             {   type: CREATE_BOARD,
-//                 title: '',
-//                 isPrivate: false,
-//                 lists: [],
-//                 tags: [],
-//                 userRole: [], 
-//             },
-//             { 
-//                 type: CREATE_BOARD_SUCCESS,
-//                 board: {
-//                     id: 1,
-//                     title: '',
-//                     isPrivate: false,
-//                     lists: [],
-//                     tags: [],
-//                     userRole: [],
-//                 }
-//             }
-//         ]
-//         const store = mockStore({ boards: {} })
+    it('should create an action UPDATE_BOARD_ERROR', () => {
+        const expectedAction = {
+            type: UPDATE_BOARD_ERROR,
+            error: 'error message'
+        }
+        expect(actionCreators.updateBoardRequestError('error message')).toEqual(expectedAction)
+    })
 
-//         return store.dispatch(actionCreators.createBackendBoard({
-//                 id: 1,
-//                 title: '',
-//                 isPrivate: false,
-//                 lists: [],
-//                 tags: [],
-//                 userRole: [],
-//             })).then(() => {
-//             expect(store.getActions()).toEqual(expectedActions)
-//         })
-//     })
+    it('should create an action UPDATE_BOARD_SUCCESS', () => {
+        const expectedAction = {
+            type: UPDATE_BOARD_SUCCESS,
+            board: {
+                id: 1,
+                name: 'Default Board',
+                isPrivate: true
+            }
+        }
+        expect(actionCreators.updateBoardRequestSuccess(boardModel)).toEqual(expectedAction)
+    })
+    
+    /*---------------- MODAL BOARD ----------------*/
+    it('should create an action UPDATE_BOARD', () => {
+        const expectedAction = {
+            type: OPEN_CREATE_CARD_MODEL,
+            list: {
+                id: 1,
+                name: 'Default List',
+                pos: 1
+            }
+        }
+        expect(actionCreators.openCreateCardModal(listModel)).toEqual(expectedAction)
+    })
 
-//     it('should return a BOARD_SUCCESS when the remove is done', () => {
-//         nock(getBaseUrl())
-//             .delete('/boards')
-//             .reply(200, { message: 'successfully deleted' })
+    it('should create an action CLOSE_CREATE_CARD_MODAL', () => {
+        const expectedAction = {
+            type: CLOSE_CREATE_CARD_MODAL
+        }
+        expect(actionCreators.closeCreateCardModal()).toEqual(expectedAction)
+    })
+})
 
-//         const expectedActions = [
-//             { type: REMOVE_BOARD },
-//             { type: BOARD_SUCCESS, successMessage: 'successfully deleted' }
-//         ]
-//         const store = mockStore({ boards: [{
-//             id: 1,
-//             title: '',
-//             isPrivate: false,
-//             lists: [],
-//             tags: [],
-//             userRole: []
-//         }]})
+const mockStore = configureMockStore([thunk])
+describe('Board async actions', () => {
+    afterEach(() => {
+        nock.cleanAll()
+    })
+    
+    it('should create FETCH_BOARD_SUCCESS', () => {
+        nock(getBaseUrl())
+        .get('/boards/1')
+        .reply(200, {
+            id: 1,
+            name: 'Default Board',
+            isPrivate: true
+        })
 
-//         return store.dispatch(actionCreators.removeBackendBoard(1)).then(() => {
-//             expect(store.getActions()).toEqual(expectedActions)
-//         })
-//     }),
+        const expectedActions = [
+            { type: FETCH_BOARD },
+            { type: FETCH_BOARD_SUCCESS,
+                board: boardModel
+            },
+            { type: FETCH_BOARD}
+        ]
+        const store = mockStore()
 
-//     it('should return a new board when the update is done', () => {
-//         nock(getBaseUrl())
-//         .put('/boards/1')
-//         .reply(200, {board: {
-//             id: 1,
-//             title: 'test',
-//             isPrivate: false,
-//             lists: [],
-//             tags: [],
-//             userRole: [], 
-//         }})
+        return store.dispatch(actionCreators.fetchBoard(1)).then(() => {
+            expect(store.getActions()).toEqual(expectedActions) })
+    })
+    
+    it('should create UPDATE_BOARD_SUCCESS', () => {
+        nock(getBaseUrl())
+        .put('/boards/1')
+        .reply(200, {
+            id: 1,
+            name: 'newName',
+            isPrivate: true
+        })
 
-//         const boardTest: IBoard = {
-//             id: 1, 
-//             title: 'test', 
-//             isPrivate: false, 
-//             lists: [], 
-//             tags: [],
-//             userRole: []
-//         }
-        
-//         const expectedActions = [
-//             { type: UPDATE_BOARD, board: boardTest},
-//             {
-//                 type: CREATE_BOARD_SUCCESS,
-//                 board: {
-//                     id: 1,
-//                     title: 'test',
-//                     isPrivate: false,
-//                     lists: [],
-//                     tags: [],
-//                     userRole: [], 
-//                 }
-//             }
-//         ]
-//         const store = mockStore({ boards: [
-//             {
-//                 id: 1,
-//                 title: '',
-//                 isPrivate: false,
-//                 lists: [],
-//                 tags: [],
-//                 userRole: []
-//             }]})
+        const expectedActions = [
+            { type: UPDATE_BOARD },
+            { type: UPDATE_BOARD_SUCCESS,
+                board:
+                {
+                    id: 1,
+                    name: 'newName',
+                    isPrivate: true
+                }
+            }
+        ]
+        const store = mockStore()
 
-//         return store.dispatch(actionCreators.updateBackendBoard({
-//             id: 1, 
-//             title: 'test', 
-//             isPrivate: false, 
-//             lists: [], 
-//             tags: [],
-//             userRole: []
-//         })).then(() => {
-//                 expect(store.getActions()).toEqual(expectedActions)
-//             })
-//     })
-// })
+        return store.dispatch(actionCreators.updateBoard(
+            boardModel,
+            {
+                name: 'newName'
+            }
+        )).then(() => {
+            expect(store.getActions()).toEqual(expectedActions) })
+    })      
+})
 
 describe('', () => {
     it('temporary test', () => {
