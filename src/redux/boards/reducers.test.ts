@@ -154,7 +154,7 @@ describe('Register reducer', () => {
             )
         ).toEqual({
             error: null,
-            isProcessing: true,
+            isProcessing: false,
             board: boardDefault,
             listToAppendCard: null,
             users: []
@@ -164,7 +164,7 @@ describe('Register reducer', () => {
             reducer(
                 {
                     error: null,
-                    isProcessing: false,
+                    isProcessing: true,
                     board: boardModel,
                     listToAppendCard: listModel,
                     users: []
