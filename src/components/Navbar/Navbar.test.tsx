@@ -9,7 +9,10 @@ import Navbar from './Navbar'
 describe('<Navbar />', () => {
     it('should display LoggedNavbar if isAuthenticated == true', () => {
         const navbar = shallow(
-            <Navbar isAuthenticated={true} authenticatedUser={{ uid: 1, username: 'toto', email: 'titi@photon.fr' }} />
+            <Navbar 
+                isAuthenticated={true} 
+                authenticatedUser={{ uid: 1, username: 'toto', email: 'titi@photon.fr', avatarColor: 'olive' }} 
+            />
         )
         expect(navbar.find(LoggedNavbar).length).toBe(1)
         expect(navbar.find(NormalNavbar).length).toBe(0)

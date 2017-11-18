@@ -10,7 +10,7 @@ import Alert from './components/Alert'
 import { AUTH } from './services/auth'
 import { requireNotAuth, requireAuth } from './components/Auth'
 
-import './index.css';
+import './index.css'
 
 import store, { history } from './redux/store'
 import { actionCreators } from './redux/auth/actions'
@@ -34,7 +34,9 @@ AUTH.get('/me')
         store.dispatch(
             actionCreators.loginSuccess(response.me)
         )
-    },
+    }
+)
+.catch(
     error => {
         store.dispatch(
             actionCreators.loginFail()
@@ -52,13 +54,14 @@ ReactDOM.render(
                     
                     <Route path="/register/success" component={requireNotAuth(RegisterSuccessPage)}/>
                     <Route path="/register" component={requireNotAuth(RegisterPage)}/>
-                    <Route path="/overview" component={requireAuth(BoardsListPage)}/>
-                    <Route path="/boards/:id/cards/:cardId" component={requireAuth(BoardPage)}/>
-                    <Route path="/boards/:id" component={requireAuth(BoardPage)}/>
-                    <Route path="/profile" component={requireAuth(ProfilePage)}/>
                     <Route path="/users/:id/validate/:uuidToken" component={requireNotAuth(ValidConfirmPage)}/>
                     <Route path="/password/reset" component={requireNotAuth(MailFormPage)} />
                     <Route path="/users/:userID/reset/:uuidToken" component={requireNotAuth(ResetPasswordPage)} />
+
+                    <Route path="/overview" component={requireAuth(BoardsListPage)}/>
+                    <Route path="/boards/:id/:cards(cards)?/:cardId?" component={requireAuth(BoardPage)}/>
+                    <Route path="/profile" component={requireAuth(ProfilePage)}/>
+
                     <Route component={PageNotFound}/>
                 </Switch>
             </Layout>

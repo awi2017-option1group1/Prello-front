@@ -29,7 +29,7 @@ const LabelTable: React.StatelessComponent<LabelTableProps> = (props) => {
 
                 <Table.Body>
                     {props.users.map(user => (
-                        <Table.Row key={user.id}>
+                        <Table.Row key={user.id || -1}>
                             <Table.Cell>
                                 <div>
                                     {user.email}
@@ -41,22 +41,22 @@ const LabelTable: React.StatelessComponent<LabelTableProps> = (props) => {
                                 </div>
                             </Table.Cell>
                             <Table.Cell>
-                            <ConfirmModal
-                                trigger={
-                                    <Button
-                                        icon="trash"
-                                        circular={true}
-                                        content="Remove user from board"
-                                        color="red"
-                                        size="small"
-                                    />
-                                }
-                                title="Confirm delete"
-                                content={`Are you sure you want to remove user '${user.username}' ? `}
-                                confirmButton="Yes, delete"
-                                cancelButton="No, cancel"
-                                onConfirm={() => props.removeUser(user)}
-                            />
+                                {props.users.length > 1 && <ConfirmModal
+                                    trigger={
+                                        <Button
+                                            icon="trash"
+                                            circular={true}
+                                            content="Remove user from board"
+                                            color="red"
+                                            size="small"
+                                        />
+                                    }
+                                    title="Confirm delete"
+                                    content={`Are you sure you want to remove user '${user.username}' ? `}
+                                    confirmButton="Yes, delete"
+                                    cancelButton="No, cancel"
+                                    onConfirm={() => props.removeUser(user)}
+                                />}
                             </Table.Cell>
                         </Table.Row>
                     ))}

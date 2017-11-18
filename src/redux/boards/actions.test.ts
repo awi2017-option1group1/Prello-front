@@ -5,7 +5,7 @@ import configureMockStore from 'redux-mock-store'
 import { getBaseUrl } from '../../services/http'
 
 import { FETCH_BOARD, FETCH_BOARD_SUCCESS, FETCH_BOARD_ERROR } from './actions/fetch'
-import { UPDATE_BOARD, UPDATE_BOARD_ERROR, UPDATE_BOARD_SUCCESS, UPDATE_BOARD_TITLE } from './actions/update'
+import { UPDATE_BOARD, UPDATE_BOARD_ERROR, UPDATE_BOARD_SUCCESS } from './actions/update'
 import { OPEN_CREATE_CARD_MODEL, CLOSE_CREATE_CARD_MODAL } from './actions/openModal'
 
 import { actionCreators } from './actions'

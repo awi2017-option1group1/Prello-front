@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Button, Modal, Input, Form } from 'semantic-ui-react'
+import { Button, Modal, Input, Form, Segment } from 'semantic-ui-react'
 
 import { IBoard } from '../../redux/boards/types'
 import { IList } from '../../redux/lists/types'
@@ -125,33 +125,34 @@ class Board extends React.Component<BoardProps> {
                         >
                             <Modal.Header>
                                 Assigned users
-                                <Form className="add-username-form">
-                                    <Form.Group>
-                                        <Input
-                                            className="username-input"
-                                            placeholder="Username"
-                                            onChange={(e, data) => {
-                                                const value = data.value
-                                                if (typeof value === 'string') {
-                                                    usernameToAdd = value
-                                                }
-                                            }}
-                                        />
+                            </Modal.Header>
+                            <Modal.Content>
+                                <Segment>
+                                    <h2>Add a user</h2>
+                                    <Form className="add-username-form">
+                                        <Form.Group>
+                                            <Input
+                                                className="username-input"
+                                                placeholder="Username"
+                                                onChange={(e, data) => {
+                                                    const value = data.value
+                                                    if (typeof value === 'string') {
+                                                        usernameToAdd = value
+                                                    }
+                                                }}
+                                            />
+                                        </Form.Group>
                                         <Button
                                             content="Add user"
                                             icon="plus"
                                             labelPosition="left"
-                                            floated="right"
+                                            circular={true}
                                             primary={true}
-                                            circular={false}
                                             className="modal-header-button"
                                             onClick={addUser}
                                         />
-                                    </Form.Group>
-
-                                </Form>
-                            </Modal.Header>
-                            <Modal.Content>
+                                    </Form>
+                                </Segment>
                                 <UsersTable
                                     users={this.props.assignees}
                                     removeUser={this.props.removeUser}

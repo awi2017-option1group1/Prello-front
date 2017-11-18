@@ -84,7 +84,8 @@ describe('Register reducer', () => {
                     error: 'ID requested',
                     isProcessing: true,
                     board: boardModel,
-                    listToAppendCard: listModel
+                    listToAppendCard: listModel,
+                    users: []
                 },
                 {
                     type: FETCH_BOARD_SUCCESS,
@@ -95,7 +96,8 @@ describe('Register reducer', () => {
             error: null,
             isProcessing: false,
             board: newBoardModel,
-            listToAppendCard: listModel
+            listToAppendCard: listModel,
+            users: []
         })
     })
 
@@ -121,7 +123,8 @@ describe('Register reducer', () => {
                     error: null,
                     isProcessing: true,
                     board: boardDefault,
-                    listToAppendCard: null
+                    listToAppendCard: null,
+                    users: []
                 },
                 {
                     type: FETCH_BOARD_ERROR,
@@ -132,7 +135,8 @@ describe('Register reducer', () => {
             error: 'ID requested',
             isProcessing: false,
             board: boardDefault,
-            listToAppendCard: null
+            listToAppendCard: null,
+            users: []
         })
     })
 
@@ -157,7 +161,8 @@ describe('Register reducer', () => {
                     error: null,
                     isProcessing: false,
                     board: boardModel,
-                    listToAppendCard: listModel
+                    listToAppendCard: listModel,
+                    users: []
                 },
                 {
                     type: UPDATE_BOARD
@@ -167,7 +172,8 @@ describe('Register reducer', () => {
             error: null,
             isProcessing: true,
             board: boardModel,
-            listToAppendCard: listModel
+            listToAppendCard: listModel,
+            users: []
         })
     })
 
@@ -193,7 +199,8 @@ describe('Register reducer', () => {
                     error: null,
                     isProcessing: true,
                     board: boardModel,
-                    listToAppendCard: listModel
+                    listToAppendCard: listModel,
+                    users: []
                 },
                 {
                     type: UPDATE_BOARD_ERROR,
@@ -204,7 +211,8 @@ describe('Register reducer', () => {
             error: 'ID requested',
             isProcessing: false,
             board: boardModel,
-            listToAppendCard: listModel
+            listToAppendCard: listModel,
+            users: []
         })
     })
 
@@ -230,7 +238,8 @@ describe('Register reducer', () => {
                     error: null,
                     isProcessing: true,
                     board: boardModel,
-                    listToAppendCard: listModel
+                    listToAppendCard: listModel,
+                    users: []
                 },
                 {
                     type: UPDATE_BOARD_SUCCESS,
@@ -241,7 +250,8 @@ describe('Register reducer', () => {
             error: null,
             isProcessing: false,
             board: newBoardModel,
-            listToAppendCard: listModel
+            listToAppendCard: listModel,
+            users: []
         })
     })
 
@@ -267,7 +277,8 @@ describe('Register reducer', () => {
                     error: null,
                     isProcessing: false,
                     board: boardModel,
-                    listToAppendCard: listModel
+                    listToAppendCard: listModel,
+                    users: []
                 },
                 {
                     type: OPEN_CREATE_CARD_MODEL,
@@ -278,7 +289,8 @@ describe('Register reducer', () => {
             error: null,
             isProcessing: false,
             board: boardModel,
-            listToAppendCard: newListModel
+            listToAppendCard: newListModel,
+            users: []
         })
     })
 
@@ -303,7 +315,8 @@ describe('Register reducer', () => {
                     error: null,
                     isProcessing: false,
                     board: boardModel,
-                    listToAppendCard: listModel
+                    listToAppendCard: listModel,
+                    users: []
                 },
                 {
                     type: CLOSE_CREATE_CARD_MODAL
@@ -313,7 +326,8 @@ describe('Register reducer', () => {
             error: null,
             isProcessing: false,
             board: boardModel,
-            listToAppendCard: null
+            listToAppendCard: null,
+            users: []
         })
     })
 

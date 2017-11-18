@@ -1,4 +1,4 @@
-import { Dispatch, RootState } from '../../RootReducer'
+import { Dispatch } from '../../RootReducer'
 import { API } from '../../../services/http'
 
 import { actionCreators as uiActionCreators } from '../../ui/actions'
@@ -38,12 +38,11 @@ export const actionCreators = {
         board
     }),
     createBoard: () => {
-        return (dispatch: Dispatch, getState: () => RootState) => {
+        return (dispatch: Dispatch) => {
             dispatch(actionCreators.createBoardRequest({
                 name: 'EmptyBoard'
             }))
-            const userId = getState().auth.user!.uid
-            return API.post(`/users/${userId}/boards`).then(
+            return API.post(`/boards`).then(
                 board => {
                     dispatch(actionCreators.createBoardRequestSuccess(board))
                     dispatch(uiActionCreators.showSaveMessage())
