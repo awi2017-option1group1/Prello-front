@@ -24,6 +24,8 @@ import PageNotFound from './routes/PageNotFound'
 import ProfilePage from './routes/ProfilePage'
 import ValidConfirmPage from './routes/ValidConfirmPage'
 import RegisterSuccessPage from './routes/RegisterSuccessPage'
+import MailFormPage from './routes/MailFormPage'
+import ResetPasswordPage from './routes/ResetPasswordPage'
 
 /* Authenticate user */
 AUTH.get('/me')
@@ -55,7 +57,8 @@ ReactDOM.render(
                     <Route path="/boards/:id" component={requireAuth(BoardPage)}/>
                     <Route path="/profile" component={requireAuth(ProfilePage)}/>
                     <Route path="/users/:id/validate/:uuidToken" component={requireNotAuth(ValidConfirmPage)}/>
-
+                    <Route path="/password/reset" component={requireNotAuth(MailFormPage)} />
+                    <Route path="/users/:userID/reset/:uuidToken" component={requireNotAuth(ResetPasswordPage)} />
                     <Route component={PageNotFound}/>
                 </Switch>
             </Layout>
