@@ -6,7 +6,7 @@ export interface ServerConfig {
 }
 
 export interface Config {
-    env: 'development'/* | 'production' | 'test'*/
+    env: 'development' | 'production' | 'test'
 
     server: ServerConfig
 }
