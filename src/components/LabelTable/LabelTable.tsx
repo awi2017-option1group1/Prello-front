@@ -34,7 +34,7 @@ const LabelTable: React.StatelessComponent<LabelTableProps> = (props) => {
 
                 <Table.Body>
                     {props.labels.map(label => (
-                        <Table.Row key={label.id}>
+                        <Table.Row key={label.id || -1}>
                             <Table.Cell>
                                 <Label label={label} />
                             </Table.Cell>

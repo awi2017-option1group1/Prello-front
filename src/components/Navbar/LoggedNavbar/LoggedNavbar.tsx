@@ -1,11 +1,24 @@
 import * as React from 'react'
 import { NavLink, Link } from 'react-router-dom'
-import { Menu, MenuItem, MenuMenu, Icon, Label, Popup, PopupContent,
-    ItemGroup, Item, ItemContent, ItemHeader, ItemMeta } from 'semantic-ui-react'
+import {
+    Icon,
+    Item,
+    ItemContent,
+    ItemGroup,
+    ItemHeader,
+    ItemMeta,
+    Menu,
+    MenuItem,
+    MenuMenu,
+    Popup,
+    PopupContent,
+} from 'semantic-ui-react'
 
 import { ILoggedUser } from '../../../redux/users/types'
 
+import Avatar from '../../common/Avatar/Avatar'
 import SearchBar from '../../SearchBar'
+import Notifications from './Notifications'
 
 import './LoggedNavbar.css'
 
@@ -21,14 +34,7 @@ class LoggedNavbar extends React.Component<LoggedNavbarProps> {
     renderMenuItem() {
         return (
             <MenuItem>
-                <Label 
-                    circular={true} 
-                    color="olive" 
-                    size="large" 
-                    className="initial"
-                >
-                    {this.props.user.username.substring(0, 1).toUpperCase()}
-                </Label>
+                <Avatar user={this.props.user} />
             </MenuItem>
         )
     }
@@ -37,31 +43,27 @@ class LoggedNavbar extends React.Component<LoggedNavbarProps> {
         return (
             <Menu stackable={true}>
                 <MenuItem header={true}>Prello</MenuItem>
-                <NavLink to="/overview" className="item">
+                <NavLink to="/overview" className="item" activeClassName="">
                     <Icon name="home" />
                     Home
                 </NavLink>
-                <NavLink to="/overview" className="item">
+                <NavLink to="/overview" className="item" activeClassName="">
                     <Icon name="block layout" />
                     Boards
                 </NavLink>
-                <NavLink to="/team" className="item">
+                <NavLink to="/team" className="item disabled" activeClassName="">
                     <Icon name="users" />
                     Teams
                 </NavLink>
                 <MenuItem>
-                    <SearchBar />
+                    <SearchBar userID={this.props.user.uid}/>
                 </MenuItem>
                 <MenuMenu position="right">
-                    <Link to="/profile#notifications" className="item">
-                        <Icon name="alarm" />
-                        Notifications
-                        <Label circular={true} color="grey" content="0" />
-                    </Link>
-                    <Popup 
-                        trigger={this.renderMenuItem()} 
-                        on="click" 
-                        position="bottom center" 
+                    <Notifications />
+                    <Popup
+                        trigger={this.renderMenuItem()}
+                        on="click"
+                        position="bottom center"
                         id="navbar-more"
                     >
                         <PopupContent>
@@ -82,11 +84,11 @@ class LoggedNavbar extends React.Component<LoggedNavbarProps> {
                                     <Icon name="user" />
                                     Update my profile
                                 </Link>
-                                <Link to="/profile#notifications" className="item">
+                                <Link to="/profile#notifications" className="item disabled">
                                     <Icon name="alarm" />
                                     Notifications
                                 </Link>
-                                <Link to="/profile/settings" className="item">
+                                <Link to="/profile/settings" className="item disabled">
                                     <Icon name="settings" />
                                     Settings
                                 </Link>
@@ -100,7 +102,7 @@ class LoggedNavbar extends React.Component<LoggedNavbarProps> {
                 </MenuMenu>
             </Menu>
         )
-    } 
+    }
 }
 
 export default LoggedNavbar
