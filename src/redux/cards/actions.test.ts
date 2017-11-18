@@ -1,15 +1,15 @@
 import { actionCreators as CreateActionCreators,
-    CREATE_CARD, CREATE_CARD_SUCCESS, CREATE_CARD_ERROR} from './actions/create'
+    CREATE_CARD, CREATE_CARD_SUCCESS, CREATE_CARD_ERROR } from './actions/create'
 import { actionCreators as FetchActionCreators,
-    FETCH_CARD, FETCH_CARD_SUCCESS, FETCH_CARD_ERROR} from './actions/fetch'
+    FETCH_CARD, FETCH_CARD_SUCCESS, FETCH_CARD_ERROR } from './actions/fetch'
 import { actionCreators as FetchAllActionCreators,
-    FETCH_CARDS_LIST, FETCH_CARDS_LIST_SUCCESS, FETCH_CARDS_LIST_ERROR} from './actions/fetchAll'
+    FETCH_CARDS_LIST, FETCH_CARDS_LIST_SUCCESS, FETCH_CARDS_LIST_ERROR } from './actions/fetchAll'
 import { actionCreators as DeleteActionCreators,
-    DELETE_CARD, DELETE_CARD_ERROR, DELETE_CARD_SUCCESS} from './actions/delete'
+    DELETE_CARD, DELETE_CARD_ERROR, DELETE_CARD_SUCCESS } from './actions/delete'
 import { actionCreators as UpdateActionCreators,
-    UPDATE_CARD, UPDATE_CARD_ERROR, UPDATE_CARD_SUCCESS} from './actions/update'
+    UPDATE_CARD, UPDATE_CARD_ERROR, UPDATE_CARD_SUCCESS } from './actions/update'
 import { actionCreators as MoveActionCreators,
-    MOVE_CARD, MOVE_CARD_SUCCESS, MOVE_CARD_ERROR} from './actions/move'
+    MOVE_CARD, MOVE_CARD_SUCCESS, MOVE_CARD_ERROR } from './actions/move'
 import { actionCreators as SelectActionCreators,
     OPEN_CARD, CLOSE_CARD } from './actions/select'
 
@@ -313,8 +313,8 @@ describe('Cards async actions', () => {
                 }
             },
             {
-                payload: {"msg": "Content saved!", "type": "success"},
-                type: "SHOW_ALERT_MESSAGE"
+                payload: {'msg': 'Content saved!', 'type': 'success'},
+                type: 'SHOW_ALERT_MESSAGE'
             }
         ]
         const store = mockStore()
@@ -424,8 +424,8 @@ describe('Cards async actions', () => {
 
             },
             {
-                payload: {"msg": "Content saved!", "type": "success"},
-                type: "SHOW_ALERT_MESSAGE"
+                payload: {'msg': 'Content saved!', 'type': 'success'},
+                type: 'SHOW_ALERT_MESSAGE'
             }
         ]
         const store = mockStore()

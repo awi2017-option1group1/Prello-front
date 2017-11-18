@@ -1,9 +1,9 @@
 import { actionCreators as AssignActionCreators,
-    ASSIGN_USER, ASSIGN_USER_ERROR, ASSIGN_USER_SUCCESS} from './actions/assign'
+    ASSIGN_USER, ASSIGN_USER_ERROR, ASSIGN_USER_SUCCESS } from './actions/assign'
 import { actionCreators as UnassignActionCreators,
-    UNASSIGN_USER, UNASSIGN_USER_ERROR, UNASSIGN_USER_SUCCESS} from './actions/unassign'
+    UNASSIGN_USER, UNASSIGN_USER_ERROR, UNASSIGN_USER_SUCCESS } from './actions/unassign'
 import { actionCreators as FetchAllActionCreators,
-    FETCH_ASSIGNEES_LIST, FETCH_ASSIGNEES_LIST_ERROR, FETCH_ASSIGNEES_LIST_SUCCESS} from './actions/fetchAll'
+    FETCH_ASSIGNEES_LIST, FETCH_ASSIGNEES_LIST_ERROR, FETCH_ASSIGNEES_LIST_SUCCESS } from './actions/fetchAll'
 
 import { IUser } from './../../users/types'
 
@@ -167,8 +167,8 @@ describe('Cards async actions', () => {
             { type: UNASSIGN_USER_SUCCESS,
             },
             {
-                payload: {"msg": "Content saved!", "type": "success"},
-                type: "SHOW_ALERT_MESSAGE"
+                payload: {'msg': 'Content saved!', 'type': 'success'},
+                type: 'SHOW_ALERT_MESSAGE'
             }
         ]
         const store = mockStore()
