@@ -25,13 +25,12 @@ describe('Register reducer', () => {
         id: 4,
         fullName: 'JeanJacquesRousseau',
         username: 'JJR',
-        bio: new Text('ItIsMeMario'),
-        notificationEnabled: true,
+        bio: 'ItIsMeMario',
+        notificationsEnabled: true,
         email: 'jeanjacquesrousseau@gmail.com',
         password: 'jeanjacques',
         uuidToken: null,
-        boardRole: [],
-        teamRole: []
+        avatarColor: 'red'
     }
 
     it('should return the initial state', () => {

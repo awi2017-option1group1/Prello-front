@@ -18,30 +18,18 @@ describe('AssignUsers sync actions', () => {
         id: 4,
         fullName: 'JeanJacquesRousseau',
         username: 'JJR',
-        bio: new Text('ItIsMeMario'),
-        notificationEnabled: true,
+        bio: 'ItIsMeMario',
+        notificationsEnabled: true,
         email: 'jeanjacquesrousseau@gmail.com',
         password: 'jeanjacques',
         uuidToken: null,
-        boardRole: [],
-        teamRole: []
+        avatarColor: 'red'
     }
 
     it('should create an action ASSIGN_USER', () => {
         const expectedAction = {
             type: ASSIGN_USER,
-            user: {
-                id: 4,
-                fullName: 'JeanJacquesRousseau',
-                username: 'JJR',
-                bio: new Text('ItIsMeMario'),
-                notificationEnabled: true,
-                email: 'jeanjacquesrousseau@gmail.com',
-                password: 'jeanjacques',
-                uuidToken: null,
-                boardRole: [],
-                teamRole: []
-            },
+            user: userDefault,
             cardId: 9
         }
         expect(AssignActionCreators.assignUserRequest(9, userDefault)).toEqual(expectedAction)
@@ -64,18 +52,7 @@ describe('AssignUsers sync actions', () => {
     it('should create an action UNASSIGN_USER', () => {
         const expectedAction = {
             type: UNASSIGN_USER,
-            user: {
-                id: 4,
-                fullName: 'JeanJacquesRousseau',
-                username: 'JJR',
-                bio: new Text('ItIsMeMario'),
-                notificationEnabled: true,
-                email: 'jeanjacquesrousseau@gmail.com',
-                password: 'jeanjacques',
-                uuidToken: null,
-                boardRole: [],
-                teamRole: []
-            },
+            user: userDefault,
             cardId: 9
         }
         expect(UnassignActionCreators.unassignUserRequest(9, userDefault)).toEqual(expectedAction)
@@ -107,18 +84,7 @@ describe('AssignUsers sync actions', () => {
         const expectedAction = {
             type: FETCH_ASSIGNEES_LIST_SUCCESS,
             cardID: 9,
-            assignees: [{
-                id: 4,
-                fullName: 'JeanJacquesRousseau',
-                username: 'JJR',
-                bio: new Text('ItIsMeMario'),
-                notificationEnabled: true,
-                email: 'jeanjacquesrousseau@gmail.com',
-                password: 'jeanjacques',
-                uuidToken: null,
-                boardRole: [],
-                teamRole: []
-            }]
+            assignees: [userDefault]
         }
         expect(FetchAllActionCreators.fetchAssigneesListRequestSuccess(9, [userDefault])).toEqual(expectedAction)
     })
@@ -145,13 +111,12 @@ describe('Cards async actions', () => {
         id: 4,
         fullName: 'JeanJacquesRousseau',
         username: 'JJR',
-        bio: new Text('ItIsMeMario'),
-        notificationEnabled: true,
+        bio: 'ItIsMeMario',
+        notificationsEnabled: true,
         email: 'jeanjacquesrousseau@gmail.com',
         password: 'jeanjacques',
         uuidToken: null,
-        boardRole: [],
-        teamRole: []
+        avatarColor: 'red'
     }
 
     it('should create UNASSIGN_USER_SUCCESS', () => {
