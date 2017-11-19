@@ -134,7 +134,7 @@ describe('Register reducer', () => {
             )
         ).toEqual({
             error: null,
-            isProcessing: true,
+            isProcessing: false,
             checkLists: [checkListsDefault],
         })
 
@@ -152,7 +152,7 @@ describe('Register reducer', () => {
             )
         ).toEqual({
             error: null,
-            isProcessing: true,
+            isProcessing: false,
             checkLists: [checkListsDefault],
         })
     })
@@ -177,7 +177,7 @@ describe('Register reducer', () => {
                 {
                     checkLists: [],
                     error: null,
-                    isProcessing: true
+                    isProcessing: false
                 },
                 {
                     type: CREATE_CHECKLIST_SUCCESS,
