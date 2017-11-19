@@ -13,6 +13,13 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
         case OPEN_CARD:
             return action.card
 
+        case UPDATE_CARD:
+            if (state && action.card.id === state.id) {
+                return action.card
+            } else {
+                return state
+            }
+
         case CLOSE_CARD:
             return null
 

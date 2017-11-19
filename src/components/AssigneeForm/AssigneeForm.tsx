@@ -30,7 +30,7 @@ const AssigneesForm: React.StatelessComponent<AssigneesFormProps> = (props) => {
                 options={options}
                 placeholder="Search..."
                 selection={true}
-                allowAdditions={true}
+                allowAdditions={false}
                 search={true}
                 fluid={true}
                 onChange={(e, data) => {

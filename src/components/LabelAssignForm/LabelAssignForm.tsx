@@ -20,7 +20,7 @@ export interface LabelAssignFormProps {
 const LabelAssignForm: React.StatelessComponent<LabelAssignFormProps> = (props) => {
     const options = _.differenceBy(props.boardLabels, props.cardLabels, 'id')
         .map(l => ({
-            key: l.id,
+            key: l.id || -1,
             text: l.name,
             value: l.id,
             content: <Label label={l} empty={true} />
