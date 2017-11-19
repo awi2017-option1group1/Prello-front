@@ -1,11 +1,10 @@
 import * as React from 'react'
-import { shallow, mount } from 'enzyme'
-import { spy } from 'sinon'
+import { shallow } from 'enzyme'
 
 import Label from './Label'
 import { ITag } from '../../../redux/tags/types'
 
-const tagTest : ITag = {
+const tagTest: ITag = {
     id: 1,
     name: 'tagTest',
     color: 'red'
