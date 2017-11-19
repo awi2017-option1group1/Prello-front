@@ -56,7 +56,14 @@ describe('Board sync actions', () => {
             board: {
                 id: 1,
                 name: 'Default Board',
-                isPrivate: true
+                isPrivate: true,
+                owner: {
+                    id: -1,
+                    username: '',
+                    email: '',
+                    password: '',
+                    notificationsEnabled: false,
+                }
             }
         }
         expect(actionCreators.fetchBoardRequestSuccess(boardModel)).toEqual(expectedAction)
@@ -84,7 +91,14 @@ describe('Board sync actions', () => {
             board: {
                 id: 1,
                 name: 'Default Board',
-                isPrivate: true
+                isPrivate: true,
+                owner: {
+                    id: -1,
+                    username: '',
+                    email: '',
+                    password: '',
+                    notificationsEnabled: false,
+                }
             }
         }
         expect(actionCreators.updateBoardRequestSuccess(boardModel)).toEqual(expectedAction)
@@ -123,7 +137,14 @@ describe('Board async actions', () => {
         .reply(200, {
             id: 1,
             name: 'Default Board',
-            isPrivate: true
+            isPrivate: true,
+            owner: {
+                id: -1,
+                username: '',
+                email: '',
+                password: '',
+                notificationsEnabled: false,
+            }
         })
 
         const expectedActions = [
