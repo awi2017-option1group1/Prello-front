@@ -10,9 +10,9 @@ export type IUser = {
     avatarColor?: string
 }
 
-export type ILoggedUser = {
-    uid: number,
-    email: string,
-    username: string,
+export class ILoggedUser {
+    uid: number
+    email: string
+    username: string
     avatarColor: string
 }
