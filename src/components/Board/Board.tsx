@@ -179,6 +179,7 @@ class Board extends React.Component<BoardProps> {
                                 <UsersTable
                                     users={this.props.assignees}
                                     removeUser={this.props.removeUser}
+                                    connectedUser={this.props.connectedUser}
                                 />
                             </Modal.Content>
                         </Modal>
