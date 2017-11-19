@@ -53,7 +53,7 @@ describe('Register reducer', () => {
                 }
             )
         ).toEqual({
-            9: { error: null, isProcessing: true, items: [] }
+            9: { error: null, isProcessing: false, items: [] }
         })
     })
 
