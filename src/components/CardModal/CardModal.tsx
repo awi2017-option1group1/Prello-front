@@ -84,6 +84,7 @@ const CardModal: React.StatelessComponent<ModalProps> = (props) => {
                     <EditableMarkdown
                         content={props.card.desc ? props.card.desc : 'No description yet!'}
                         onSubmit={(desc: string) => props.updateCard({ desc })}
+                        canEdit={true}
                     />
                     </Segment>
 
