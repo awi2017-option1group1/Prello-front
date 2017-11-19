@@ -1,10 +1,10 @@
 import { TEST } from '../testActions'
 import { reducer } from './reducers'
 
-import {    
-    FETCH_USER, 
-    FETCH_USER_ERROR, 
-    FETCH_USER_SUCCESS 
+import {
+    FETCH_USER,
+    FETCH_USER_ERROR,
+    FETCH_USER_SUCCESS
 } from './actions/fetch'
 import { UPDATE_USER, UPDATE_USER_ERROR, UPDATE_USER_SUCCESS } from './actions/update'
 
@@ -218,4 +218,4 @@ describe('User reducer', () => {
         })
     })
 
-}) 
+})
