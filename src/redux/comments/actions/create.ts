@@ -10,7 +10,7 @@ export const CREATE_COMMENT_ERROR = 'CREATE_COMMENT_ERROR'
 export type Actions = {
     CREATE_COMMENT: {
         type: typeof CREATE_COMMENT
-        comment: Partial<IComment>,
+        comment: Partial<IComment>
     },
     CREATE_COMMENT_ERROR: {
         type: typeof CREATE_COMMENT_ERROR,
@@ -18,12 +18,12 @@ export type Actions = {
     },
     CREATE_COMMENT_SUCCESS: {
         type: typeof CREATE_COMMENT_SUCCESS,
-        comment: IComment,
+        comment: IComment
     }
 }
 
 export const actionCreators = {
-    createCommentRequest: (cardId: number, comment: Partial<IComment>): Actions[typeof CREATE_COMMENT] => ({
+    createCommentRequest: (comment: Partial<IComment>): Actions[typeof CREATE_COMMENT] => ({
         type: CREATE_COMMENT,
         comment
     }),
@@ -31,7 +31,7 @@ export const actionCreators = {
         type: CREATE_COMMENT_ERROR,
         error
     }),
-    createCommentRequestSuccess: (comment: IComment, cardId: number): Actions[typeof CREATE_COMMENT_SUCCESS] => ({
+    createCommentRequestSuccess: (comment: IComment): Actions[typeof CREATE_COMMENT_SUCCESS] => ({
         type: CREATE_COMMENT_SUCCESS,
         comment,
     }),
@@ -44,9 +44,9 @@ export const actionCreators = {
                 notificationsEnabled: false,
                 password: ''
             }
-            dispatch(actionCreators.createCommentRequest(cardId, { ...values, user: author }))
+            dispatch(actionCreators.createCommentRequest({ ...values, user: author }))
             return API.post(`/cards/${cardId}/comments`, values).then(
-                commentRes => dispatch(actionCreators.createCommentRequestSuccess(commentRes, cardId)),
+                commentRes => dispatch(actionCreators.createCommentRequestSuccess(commentRes)),
                 error => dispatch(actionCreators.createCommentRequestError(error.error.error))
             )
         }

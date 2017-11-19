@@ -50,7 +50,7 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
             return {
                 ...state,
                 labels: state.labels
-                    .filter(l => l.id !== null && l.id !== undefined)
+                    .filter(l => l.id !== null && l.id !== undefined && l.id !== action.label.id)
                     .concat(action.label)
             }
 

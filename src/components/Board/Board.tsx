@@ -30,6 +30,8 @@ export interface BoardProps extends StateProps {
     openedCard: ICard | null
     assignees: IUser[]
 
+    closeBoard: () => void
+
     setTitle: (title: string) => void
     addList: () => void
     saveCard: (name: string) => void
@@ -48,6 +50,10 @@ class Board extends React.Component<BoardProps> {
 
     componentWillMount() {
         this.props.loadData!()
+    }
+
+    componentWillUnmount() {
+        this.props.closeBoard()
     }
 
     render() {
@@ -179,6 +185,7 @@ class Board extends React.Component<BoardProps> {
                                 <UsersTable
                                     users={this.props.assignees}
                                     removeUser={this.props.removeUser}
+                                    connectedUser={this.props.connectedUser}
                                 />
                             </Modal.Content>
                         </Modal>
@@ -197,7 +204,6 @@ class Board extends React.Component<BoardProps> {
                         board={this.props.board}
                         onClose={this.props.closeCard}
                         card={this.props.openedCard}
-                        boardAssignees={this.props.assignees}
                     />
                 }
             </section>
