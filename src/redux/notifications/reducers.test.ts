@@ -2,11 +2,9 @@ import { TEST } from '../testActions'
 import { reducer } from './reducers'
 
 import { FETCH_NOTIFICATIONS, FETCH_NOTIFICATIONS_ERROR, FETCH_NOTIFICATIONS_SUCCESS } from './actions/fetchAll'
-import {    DELETE_NOTIFICATIONS, 
-            DELETE_NOTIFICATIONS_ERROR, 
+import {    DELETE_NOTIFICATIONS,
+            DELETE_NOTIFICATIONS_ERROR,
             DELETE_NOTIFICATIONS_SUCCESS } from './actions/delete'
-
-import { actionCreators } from './actions'
 
 import { INotification } from './types'
 
@@ -211,4 +209,4 @@ describe('Register reducer', () => {
             notifications: []
         })
     })
-}) 
+})
