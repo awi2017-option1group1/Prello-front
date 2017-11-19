@@ -29,7 +29,6 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
 
             case FETCH_CHECKLISTS_SUCCESS:
                 return {
-                    ...state,
                     error: null,
                     isProcessing: false,
                     checkLists: action.checkLists
@@ -37,20 +36,22 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
 
             case FETCH_CHECKLISTS_ERROR:
                 return {
-                    ...state,
+                    checkLists: [],
                     error: action.error,
                     isProcessing: false
                 }
 
             case CREATE_CHECKLIST:
                 return {
-                    ...state,
+                    isProcessing: true,
+                    error: null,
                     checkLists: state.checkLists.concat(action.checkList as ICheckList)
                 }
 
             case CREATE_CHECKLIST_SUCCESS:
                 return {
-                    ...state,
+                    isProcessing: false,
+                    error: null,
                     checkLists: state.checkLists
                         .filter(c => c.id !== null && c.id !== undefined)
                         .concat(action.checkList)
@@ -58,21 +59,23 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
 
             case UPDATE_CHECKLIST:
                 return {
-                    ...state,
+                    isProcessing: true,
+                    error: null,
                     checkLists: state.checkLists.map(l => {
                         if (l.id === action.checkList.id) {
                             return action.checkList
                         } else {
                             return l
                         }
-                    })              
+                    })
                 }
 
             case REMOVE_CHECKLIST:
                 return {
-                    ...state,
+                    isProcessing: true,
+                    error: null,
                     checkLists: state.checkLists
-                        .filter(c => c.id !== action.checkList.id)               
+                        .filter(c => c.id !== action.checkList.id)
                 }
 
             default:

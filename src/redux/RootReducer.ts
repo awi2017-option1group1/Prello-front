@@ -11,6 +11,7 @@ import { reducer as user, State as UserState } from './users/reducers'
 import { reducer as checkItems, State as CheckItemListState } from './checkItemsList/reducers'
 import { reducer as cards, State as CardsState } from './cards/cardsLists/reducers'
 import { reducer as card, State as CardState } from './cards/reducers'
+import { reducer as comments, State as CommentsState } from './comments/reducers'
 import { reducer as ui, State as UiState } from './ui/reducers'
 import { reducer as cardsLabel, State as CardsLabelState } from './tags/cardsTags/reducers'
 import { reducer as boardLabel, State as BoardLabelState } from './tags/boardTags/reducers'
@@ -33,6 +34,7 @@ export interface RootState extends StoreEnhancerState {
     register: RegisterState
     cards: CardsState
     card: CardState
+    comments: CommentsState
     ui: UiState
     cardsLabel: CardsLabelState
     boardLabel: BoardLabelState
@@ -50,6 +52,7 @@ export const rootReducer = combineReducers<RootState>({
     lists,
     cards,
     card,
+    comments,
     auth,
     register,
     boardsList,
