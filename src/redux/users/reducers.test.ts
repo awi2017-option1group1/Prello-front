@@ -1,15 +1,9 @@
 import { TEST } from '../testActions'
 import { reducer } from './reducers'
 
-import { IUser } from './types'
-import { IList } from '../lists/types'
-
 import {    FETCH_USER, 
     FETCH_USER_ERROR, 
-    FETCH_USER_SUCCESS, 
-    CONFIRM_EMAIL, 
-    CONFIRM_EMAIL_ERROR, 
-    CONFIRM_EMAIL_SUCCESS } from './actions/fetch'
+    FETCH_USER_SUCCESS } from './actions/fetch'
 import { UPDATE_USER, UPDATE_USER_ERROR, UPDATE_USER_SUCCESS } from './actions/update'
 
 describe('User reducer', () => {
