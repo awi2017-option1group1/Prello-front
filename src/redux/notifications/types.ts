@@ -3,5 +3,6 @@ export type INotification = {
     about: number,
     from: number,
     type: string,
+    date?: Date,
     userId: number
 }
