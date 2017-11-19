@@ -13,3 +13,8 @@
 //         expect(actionCreators.cardError('did not created')).toEqual(expectedAction)
 //     })
 // })
+describe('Card actions test', () => {
+    it('should be ok', () => {
+        expect(0).toEqual(0)
+    })
+})
