@@ -9,16 +9,23 @@ Prello's application front-end (a Trello-like application).
 
 ## Requirements
 
-To run the project, you need to have at least `node v8` and `npm v5`.
+- `Node >= 8`
+- `Npm >= 5`
+- UNIX systems (Linux or iOS) are preferred
+
+- - - - - - - - -
 
 ## Installation
 
-- Clone the github repository. 
+-  Clone the github repository. 
+-  git clone 
 
-    `git clone https://github.com/awi2017-option1group1/Prello-front`
-- Install the dependencies for development mode 
+`https://github.com/awi2017-option1group1/Prello-front`
 
-	`npm install`
+
+-  Install the dependencies for development mode
+
+    `npm install`
 
 ## Execution
 
@@ -28,12 +35,17 @@ To run the project, you need to have at least `node v8` and `npm v5`.
 - To run the application in development mode (need the back-end up and running) 
 
     `npm run start:dev`
+
 - To run the application in production mode (need the back-end up and running) 
 
 	`npm run build && npm start`
+
 - To run the tests
 
 	`npm test`
+
+You should be able to see `localhost:3000` (if you have not change the port).
+See nginx installation part to finish the setup.
 
 - - - - - - - - -
 

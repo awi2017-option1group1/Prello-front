@@ -35,7 +35,7 @@ const listModel: IList = {
 describe('Board sync actions', () => {
 
     /*---------------- FETCH BOARD ----------------*/
-    it('should create an action FFETCH_BOARD', () => {
+    it('should create an action FETCH_BOARD', () => {
         const expectedAction = {
             type: FETCH_BOARD,
         }
