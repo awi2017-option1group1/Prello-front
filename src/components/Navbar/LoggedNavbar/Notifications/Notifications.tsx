@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Link } from 'react-router-dom'
 import { Label, Popup, PopupContent, MenuItem, Icon, Button, List } from 'semantic-ui-react'
+import * as moment from 'moment'
 import { INotification } from '../../../../redux/notifications/types'
 
 import './Notifications.css'
@@ -43,15 +44,24 @@ class Notifications extends React.Component<NotifDropDownProps> {
         const itemsList = this.props.notifications.map(n => {
 
             const content = (n.type === 'board_updated') ?
-                `The board ${n.about} has been updated by the user ${n.from}` :
-                `The user ${n.from} added you to the card ${n.about}`
+                    `The board ${n.about} has been updated by the user ${n.from}` :
+                (n.type === 'card_user_assigned') ?
+                    `The user ${n.from} added you to the card ${n.about}` :
+                    `The card ${n.about} you are assigned to have been updated by user ${n.from}`
+
+            const link = (n.type === 'board_updated') ?
+                    `/boards/${n.about}` :
+                (n.type === 'card_user_assigned') ?
+                    `/boards/${n.about}` :
+                    `/boards/${n.about}`
 
             return (
                 <List.Item key={n.id}>
                     <List.Icon name="block layout" size="large" verticalAlign="middle" />
                     <List.Content>
+                        {(n.date) ? moment(n.date, moment.ISO_8601).fromNow() : ''}
                         <List.Header>
-                            <Link to={'/boards/' + n.about} className="item">
+                            <Link to={link} className="item">
                                 {content}
                             </Link>
                         </List.Header>
