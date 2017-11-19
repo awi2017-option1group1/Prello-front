@@ -7,7 +7,7 @@ import { CREATE_CHECKLIST, CREATE_CHECKLIST_SUCCESS } from './../checkLists/acti
 import { UPDATE_CHECKLIST } from './../checkLists/actions/update'
 import { REMOVE_CHECKLIST } from './../checkLists/actions/delete'
 
-describe('Register reducer', () => {
+describe('CheckListsList reducer', () => {
 
     const checkListsDefault: ICheckList = {
         id: -1,
@@ -134,7 +134,7 @@ describe('Register reducer', () => {
             )
         ).toEqual({
             error: null,
-            isProcessing: false,
+            isProcessing: true,
             checkLists: [checkListsDefault],
         })
 
@@ -152,7 +152,7 @@ describe('Register reducer', () => {
             )
         ).toEqual({
             error: null,
-            isProcessing: false,
+            isProcessing: true,
             checkLists: [checkListsDefault],
         })
     })
