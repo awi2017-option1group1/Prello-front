@@ -7,6 +7,11 @@ import {
     UPDATE_BOARD_USERS_SUCCESS,
     REMOVE_BOARD_USER_SUCCESS
 } from './actions/update'
+import {
+    DELETE_BOARD,
+    DELETE_BOARD_ERROR,
+    DELETE_BOARD_SUCCESS
+} from './actions/delete'
 import { OPEN_CREATE_CARD_MODEL, CLOSE_CREATE_CARD_MODAL } from './actions/openModal'
 
 import { IBoard } from './types'
@@ -27,7 +32,14 @@ const defaultValue: State = {
     board: {
         id: -1,
         name: '',
-        isPrivate: false
+        isPrivate: false,
+        owner: {
+            id: -1,
+            username: '',
+            email: '',
+            password: '',
+            notificationsEnabled: false,
+        }
     },
     listToAppendCard: null,
     users: []
@@ -112,6 +124,24 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
             return {
                 ...state,
                 listToAppendCard: null
+            }
+
+        case DELETE_BOARD:
+            return {
+                ...state,
+                error: null
+            }
+
+        case DELETE_BOARD_ERROR:
+            return {
+                ...state,
+                error: action.error
+            }
+
+        case DELETE_BOARD_SUCCESS:
+            return {
+                ...state,
+                board: null
             }
 
         default:

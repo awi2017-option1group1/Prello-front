@@ -59,24 +59,26 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
             }
         
         case FETCH_ASSIGNEES_LIST_ERROR: 
-        return {
-            ...state,
-            [action.cardID]: {
-                assignees: [],
-                error: action.error,
-                isProcessing: false
+            return {
+                ...state,
+                [action.cardID]: {
+                    assignees: [],
+                    error: action.error,
+                    isProcessing: false
+                }
             }
-        }
 
         case ASSIGN_USER:
-        return {
-            ...state,
-            [action.cardId]: {
-                assignees: state[action.cardId].assignees.concat(action.user),
-                error: null,
-                isProcessing: false
+            return {
+                ...state,
+                [action.cardId]: {
+                    assignees: state[action.cardId].assignees
+                        .filter(a => a.id !== action.user.id)
+                        .concat(action.user),
+                    error: null,
+                    isProcessing: false
+                }
             }
-        }
         
         case UNASSIGN_USER:
             return {

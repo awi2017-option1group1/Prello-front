@@ -43,7 +43,6 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
                 return {
                     ...state,
                     error: null,
-                    boards: state.boards.concat(action.board as IBoard)
                 }
 
             case CREATE_BOARD_SUCCESS:

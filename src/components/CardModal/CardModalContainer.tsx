@@ -20,8 +20,7 @@ import CardModal from './CardModal'
 
 interface CardModalContainerProps {
     board: IBoard
-    card: ICard    
-    boardAssignees: IUser[]
+    card: ICard
     onClose: () => void
 }
 
@@ -43,7 +42,7 @@ interface PropsFromDispatch {
     assignLabel: (label: ITag) => void
     createAndAssignLabel: (name: string) => void
     removeLabel: (label: ITag) => void
-    
+
     assignUser: (user: IUser) => void
     removeUser: (user: IUser) => void
     addCheckList: () => void
@@ -54,7 +53,7 @@ const mapStateToProps = (state: RootState,  ownProps: CardModalContainerProps) =
         card: ownProps.card,
         boardLabels: state.boardLabel.labels,
         labels: state.cardsLabel[ownProps.card.id].labels,
-        boardAssignees: ownProps.boardAssignees, // TODO: Fetch from state
+        boardAssignees: state.board.users,
         assignees: state.assignees[ownProps.card.id].assignees,
         checkLists: state.checkLists.checkLists
     }
@@ -75,11 +74,11 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: CardModalContainerProp
         assignLabel: (label: ITag) => {
             dispatch(cardLabelActionCreator.assignLabel(ownProps.card.id, label))
         },
-        
+
         createAndAssignLabel: (name: string) => {
             dispatch(cardLabelActionCreator.createAndAssignLabel(
                 ownProps.board.id,
-                ownProps.card.id, 
+                ownProps.card.id,
                 {
                     name,
                     color: randColor()
@@ -90,11 +89,11 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: CardModalContainerProp
         removeLabel: (label: ITag) => {
             dispatch(cardLabelActionCreator.unassignLabel(ownProps.card.id, label))
         },
-        
+
         assignUser: (user: IUser) => {
             dispatch(assigneesCreator.assignUser(ownProps.card.id, user))
         },
-        
+
         removeUser: (user: IUser) => {
             dispatch(assigneesCreator.unassignUser(ownProps.card.id, user))
         },

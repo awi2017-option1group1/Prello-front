@@ -1,0 +1,12 @@
+.cards-list.cards-list-no-content {
+    margin: 10px 12px;
+}
+
+.ui.cards.cards-list {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.ui.comments-list .ui.reply.form textarea {
+    max-height: 80px; 
+}
