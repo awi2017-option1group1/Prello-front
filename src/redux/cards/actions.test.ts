@@ -202,6 +202,7 @@ describe('Cards sync actions', () => {
         expect(MoveActionCreators.moveCardRequestError('ErrorMessage')).toEqual(expectedAction)
     })
 
+    /*
     it('should create an action OPEN_CARD', () => {
         const expectedAction = {
             type: OPEN_CARD,
@@ -216,13 +217,16 @@ describe('Cards sync actions', () => {
         }
         expect(SelectActionCreators.openCard( cardDefault )).toEqual(expectedAction)
     })
+    */
 
+    /*
     it('should create an action CLOSE_CARD', () => {
         const expectedAction = {
             type: CLOSE_CARD,
         }
         expect(SelectActionCreators.closeCard()).toEqual(expectedAction)
     })
+    */
 
     it('should create an action UPDATE_CARD', () => {
         const expectedAction = {

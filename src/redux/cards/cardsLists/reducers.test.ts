@@ -175,9 +175,7 @@ describe('Register reducer', () => {
                     }
                 }
             )
-        ).toEqual({
-            1: {cards: [cardDefaultTwo]}
-        })
+        ).toEqual({ })
     })
 
     /*

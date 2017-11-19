@@ -71,7 +71,7 @@ describe('Register reducer', () => {
                     card: cardDefault,
                 }
             )
-        ).toEqual( cardDefault )
+        ).toEqual( null )
 
         expect(
             reducer(
