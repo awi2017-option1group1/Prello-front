@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Comment as SmComment, Segment } from 'semantic-ui-react'
+import { Comment as SmComment, Segment, Grid, GridColumn } from 'semantic-ui-react'
 import * as moment from 'moment'
 
 import { StateProps } from '../StateProps'
@@ -35,7 +35,7 @@ const CommentComponent: React.StatelessComponent<CommentProps> = (props) => {
     ) : ''
 
     const timeSinceLastChange = (props.comment.updatedDate !== props.comment.createdDate ) ? (
-        <div>Last edited {timeSince(props.comment.updatedDate)}</div>
+        <div>{timeSince(props.comment.createdDate)}, Last edited {timeSince(props.comment.updatedDate)}</div>
     ) : (
         <div>{timeSince(props.comment.createdDate)}</div>
     )
@@ -47,17 +47,27 @@ const CommentComponent: React.StatelessComponent<CommentProps> = (props) => {
     return (
         <SmComment>
             <SmComment.Content>
-                <SmComment.Author><Avatar user={props.comment.user}/> {props.comment.user.username} </SmComment.Author>
-                <SmComment.Metadata>
-                    {timeSinceLastChange}
-                </SmComment.Metadata>
-                <EditableMarkdown
-                        content={props.comment.content}
-                        onSubmit={(desc: string) => props.setContent(props.comment, { content: desc })}
-                />
-                <SmComment.Actions>
-                    {deleteIcom}
-                </SmComment.Actions>
+                <Grid columns={2}>
+                    <GridColumn width="1">
+                        <Avatar user={props.comment.user}/>
+                    </GridColumn>
+                    <GridColumn width="15">
+                        <SmComment.Author>{props.comment.user.username}</SmComment.Author>
+                        <SmComment.Metadata>
+                            {timeSinceLastChange}
+                        </SmComment.Metadata>
+                        <Segment>
+                            <EditableMarkdown
+                                    content={props.comment.content}
+                                    onSubmit={(desc: string) => props.setContent(props.comment, { content: desc })}
+                                    canEdit={props.loggedUser!.uid === props.comment.user.id}
+                            />
+                        </Segment>
+                        <SmComment.Actions>
+                            {deleteIcom}
+                        </SmComment.Actions>
+                    </GridColumn>         
+                </Grid>
             </SmComment.Content>
         </SmComment>
     )

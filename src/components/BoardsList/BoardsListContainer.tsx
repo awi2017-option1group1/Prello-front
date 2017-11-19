@@ -4,13 +4,15 @@ import { connect } from 'react-redux'
 import { RootState, Dispatch } from '../../redux/RootReducer'
 import { actionCreators as boardsListActionsCreators } from '../../redux/boardsList/actions'
 import { IBoard } from '../../redux/boards/types'
+import { ILoggedUser } from '../../redux/users/types'
 
 import BoardsList from './BoardsList'
 
 interface PropsFromState {
     boards: IBoard[]
     error?: string | null
-    loading?: boolean
+    loading?: boolean,
+    connectedUser: ILoggedUser
 }
 
 interface PropsFromDispatch {
@@ -22,7 +24,8 @@ const mapStateToProps = (state: RootState) => {
     return {
         boards: state.boardsList.boards,
         error: state.boardsList.error,
-        loading: state.boardsList.isProcessing
+        loading: state.boardsList.isProcessing,
+        connectedUser: state.auth.user!
     }
 }
 

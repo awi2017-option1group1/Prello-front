@@ -16,7 +16,14 @@ import  { IList } from '../lists/types'
 const boardModel: IBoard = {
     id: 1,
     name: 'Default Board',
-    isPrivate: true
+    isPrivate: true,
+    owner: {
+        id: -1,
+        username: '',
+        email: '',
+        password: '',
+        notificationsEnabled: false,
+    }
 }
 
 const listModel: IList = {
@@ -49,7 +56,14 @@ describe('Board sync actions', () => {
             board: {
                 id: 1,
                 name: 'Default Board',
-                isPrivate: true
+                isPrivate: true,
+                owner: {
+                    id: -1,
+                    username: '',
+                    email: '',
+                    password: '',
+                    notificationsEnabled: false,
+                }
             }
         }
         expect(actionCreators.fetchBoardRequestSuccess(boardModel)).toEqual(expectedAction)
@@ -77,12 +91,19 @@ describe('Board sync actions', () => {
             board: {
                 id: 1,
                 name: 'Default Board',
-                isPrivate: true
+                isPrivate: true,
+                owner: {
+                    id: -1,
+                    username: '',
+                    email: '',
+                    password: '',
+                    notificationsEnabled: false,
+                }
             }
         }
         expect(actionCreators.updateBoardRequestSuccess(boardModel)).toEqual(expectedAction)
     })
-    
+
     /*---------------- MODAL BOARD ----------------*/
     it('should create an action UPDATE_BOARD', () => {
         const expectedAction = {
@@ -109,14 +130,21 @@ describe('Board async actions', () => {
     afterEach(() => {
         nock.cleanAll()
     })
-    
+
     it('should create FETCH_BOARD_SUCCESS', () => {
         nock(getBaseUrl())
         .get('/boards/1')
         .reply(200, {
             id: 1,
             name: 'Default Board',
-            isPrivate: true
+            isPrivate: true,
+            owner: {
+                id: -1,
+                username: '',
+                email: '',
+                password: '',
+                notificationsEnabled: false,
+            }
         })
 
         const expectedActions = [
@@ -131,7 +159,7 @@ describe('Board async actions', () => {
         return store.dispatch(actionCreators.fetchBoard(1)).then(() => {
             expect(store.getActions()).toEqual(expectedActions) })
     })
-    
+
     it('should create UPDATE_BOARD_SUCCESS', () => {
         nock(getBaseUrl())
         .put('/boards/1')
@@ -161,7 +189,7 @@ describe('Board async actions', () => {
             }
         )).then(() => {
             expect(store.getActions()).toEqual(expectedActions) })
-    })      
+    })
 })
 
 describe('', () => {

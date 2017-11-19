@@ -21,7 +21,6 @@ import CardModal from './CardModal'
 interface CardModalContainerProps {
     board: IBoard
     card: ICard
-    boardAssignees: IUser[]
     onClose: () => void
 }
 
@@ -54,7 +53,7 @@ const mapStateToProps = (state: RootState,  ownProps: CardModalContainerProps) =
         card: ownProps.card,
         boardLabels: state.boardLabel.labels,
         labels: state.cardsLabel[ownProps.card.id].labels,
-        boardAssignees: ownProps.boardAssignees, // TODO: Fetch from state
+        boardAssignees: state.board.users,
         assignees: state.assignees[ownProps.card.id].assignees,
         checkLists: state.checkLists.checkLists
     }

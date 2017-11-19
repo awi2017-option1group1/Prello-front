@@ -36,8 +36,11 @@ export default class EmailForm extends React.Component<ForgotPasswordProps, Emai
     }
 
     handleSubmit() {
+        /*tslint:disable */
+        console.log(this.state)
         const { email } = this.state
         this.props.sendMail(email)
+        this.props.redirect()
     }
 
     hasErrors(emailLink: ValueLink<string>) {
@@ -93,9 +96,6 @@ export default class EmailForm extends React.Component<ForgotPasswordProps, Emai
                                     disabled={this.props.isProcessing 
                                         || this.hasErrors(emailLink) }
                                     content="Send the mail"
-                                    onClick={() =>  
-                                        this.props.redirect()
-                                    }
                                 />
                             </Segment>
                         </Form>

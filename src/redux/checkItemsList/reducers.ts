@@ -21,6 +21,7 @@ const defaultValue: State = {}
 
 export const reducer = (state: State = defaultValue, action: RootAction) => {
         switch (action.type) {
+
             case FETCH_CHECKLISTS_SUCCESS:
                 const newState = defaultValue
                 action.checkLists.forEach(c => {
@@ -38,7 +39,7 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
                     [action.checkList.id]: {
                         items: [],
                         error: null,
-                        isProcessing: true    
+                        isProcessing: false    
                     }
                 }
 
@@ -48,7 +49,7 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
                     [action.checkListId]: {
                         items: [],
                         error: null,
-                        isProcessing: true    
+                        isProcessing: true
                     }
                 }
 
@@ -57,8 +58,8 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
                     ...state,
                     [action.checkListId]: {
                         items: action.checkItems,
-                        error: null, 
-                        isProcessing: false    
+                        error: null,
+                        isProcessing: false
                     }
                 }
 
@@ -68,7 +69,7 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
                     [action.checkListId]: {
                         items: [],
                         error: action.error,
-                        isProcessing: false    
+                        isProcessing: false
                     }
                 }
 
@@ -87,7 +88,7 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
                     [action.checkListId]: {
                         ...state[action.checkListId],
                         items: state[action.checkListId].items
-                            .filter(i => i.id !== null && i.id !== undefined)
+                            .filter(i => i.id !== null && i.id !== undefined && i.id !== action.checkItem.id)
                             .concat(action.checkItem as ICheckItem)
                     }
                 }

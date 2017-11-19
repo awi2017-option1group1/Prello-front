@@ -9,7 +9,7 @@ export const UPDATE_CHECKITEM_ERROR = 'UPDATE_CHECKITEM_ERROR'
 export const UPDATE_CHECKITEM_SUCCESS = 'UPDATE_CHECKITEM_SUCCESS'
 
 export type Actions = {
-    UPDATE_CHECKITEM: {   
+    UPDATE_CHECKITEM: {
         type: typeof UPDATE_CHECKITEM,
         checkItem: ICheckItem,
         checkListId: number
@@ -45,8 +45,8 @@ export const actionCreators = {
                 Object.assign({}, checkItem, newValues)
             ))
             return API.put(`/checkitems/${checkItem.id}`, newValues).then(
-                response => {
-                    dispatch(actionCreators.updateCheckItemRequestSuccess(response.checkItem))
+                checkItemUpdated => {
+                    dispatch(actionCreators.updateCheckItemRequestSuccess(checkItemUpdated))
                     dispatch(uiActionCreators.showSaveMessage())
                 },
                 error => {

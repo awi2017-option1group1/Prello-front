@@ -3,10 +3,11 @@ import { Table, Button } from 'semantic-ui-react'
 
 import ConfirmModal from '../common/ConfirmModal/ConfirmModal'
 
-import { IUser } from '../../redux/users/types'
+import { IUser, ILoggedUser } from '../../redux/users/types'
 
 export interface LabelTableProps {
     users: IUser[]
+    connectedUser: ILoggedUser
 
     removeUser: (user: IUser) => void
 }
@@ -40,8 +41,9 @@ const LabelTable: React.StatelessComponent<LabelTableProps> = (props) => {
                                     {user.username}
                                 </div>
                             </Table.Cell>
-                            <Table.Cell>
-                                {props.users.length > 1 && <ConfirmModal
+                            {(user.id !== props.connectedUser.uid) ?
+                            (<Table.Cell>
+                                <ConfirmModal
                                     trigger={
                                         <Button
                                             icon="trash"
@@ -56,8 +58,8 @@ const LabelTable: React.StatelessComponent<LabelTableProps> = (props) => {
                                     confirmButton="Yes, delete"
                                     cancelButton="No, cancel"
                                     onConfirm={() => props.removeUser(user)}
-                                />}
-                            </Table.Cell>
+                                />
+                            </Table.Cell>) : <Table.Cell content="Board owner"/>}
                         </Table.Row>
                     ))}
                 </Table.Body>

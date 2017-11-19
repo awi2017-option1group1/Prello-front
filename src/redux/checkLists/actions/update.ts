@@ -52,5 +52,15 @@ export const actionCreators = {
                 },
             )
         }
+    },
+
+    updateCheckListTitle: (checkList: ICheckList, params: {name?: string}) => {
+        return (dispatch: Dispatch) => {
+            dispatch(actionCreators.updateCheckListRequest(checkList))
+            return API.put(`/checklists/${checkList.id}`, params).then(
+                newCheckList => dispatch(actionCreators.updateCheckListRequestSuccess(newCheckList)),
+                error => dispatch(actionCreators.updateCheckListRequestError(error.error.error))
+            )
+        }
     }
 }

@@ -3,12 +3,20 @@ import { reducer } from './reducers'
 
 import { IBoard } from './types'
 import { IList } from '../lists/types'
+import { IUser } from '../users/types'
 
 import { FETCH_BOARD, FETCH_BOARD_SUCCESS, FETCH_BOARD_ERROR } from './actions/fetch'
 import { UPDATE_BOARD, UPDATE_BOARD_ERROR, UPDATE_BOARD_SUCCESS } from './actions/update'
 import { OPEN_CREATE_CARD_MODEL, CLOSE_CREATE_CARD_MODAL } from './actions/openModal'
 
 describe('Register reducer', () => {
+    const owner: IUser = {
+        id: -1,
+        username: '',
+        email: '',
+        password: '',
+        notificationsEnabled: false,
+    }
 
     const listModel: IList = {
         id: 1,
@@ -25,19 +33,22 @@ describe('Register reducer', () => {
     const boardModel: IBoard = {
         id: 1,
         name: 'Default Board',
-        isPrivate: true
+        isPrivate: true,
+        owner: owner
     }
 
     const boardDefault: IBoard = {
         id: -1,
         name: '',
-        isPrivate: false
+        isPrivate: false,
+        owner: owner
     }
 
     const newBoardModel: IBoard = {
         id: 2,
         name: 'new board',
-        isPrivate: true
+        isPrivate: true,
+        owner: owner
     }
 
     it('should return the initial state', () => {
@@ -45,7 +56,14 @@ describe('Register reducer', () => {
             board: {
                 id: -1,
                 name: '',
-                isPrivate: false
+                isPrivate: false,
+                owner: {
+                    id: -1,
+                    username: '',
+                    email: '',
+                    password: '',
+                    notificationsEnabled: false,
+                }
             },
             error: null,
             isProcessing: false,
@@ -320,7 +338,7 @@ describe('Register reducer', () => {
 
         expect(
             reducer(
-                {                    
+                {
                     error: null,
                     isProcessing: false,
                     board: boardModel,
@@ -340,4 +358,4 @@ describe('Register reducer', () => {
         })
     })
 
-}) 
+})

@@ -12,6 +12,7 @@ export const UPDATE_COMMENT_SUCCESS = 'UPDATE_COMMENT_SUCCESS'
 export type Actions = {
     UPDATE_COMMENT: {
         type: typeof UPDATE_COMMENT,
+        comment: IComment
     },
     UPDATE_COMMENT_ERROR: {
         type: typeof UPDATE_COMMENT_ERROR,
@@ -24,8 +25,9 @@ export type Actions = {
 }
 
 export const actionCreators = {
-    updateCommentRequest: (): Actions[typeof UPDATE_COMMENT] => ({
-        type: UPDATE_COMMENT
+    updateCommentRequest: (comment: IComment): Actions[typeof UPDATE_COMMENT] => ({
+        type: UPDATE_COMMENT,
+        comment
     }),
     updateCommentRequestError: (error: string): Actions[typeof UPDATE_COMMENT_ERROR] => ({
         type: UPDATE_COMMENT_ERROR,
@@ -37,7 +39,9 @@ export const actionCreators = {
     }),
     updateComment: (currentComment: IComment, newValues: Partial<IComment>) => {
         return (dispatch: Dispatch) => {
-            dispatch(actionCreators.updateCommentRequest())
+            dispatch(actionCreators.updateCommentRequest(
+                Object.assign({}, currentComment, newValues)
+            ))
             return API.put(`/comments/${currentComment.id}`, newValues).then(
                 newComment => {
                     dispatch(actionCreators.updateCommentRequestSuccess(newComment))
