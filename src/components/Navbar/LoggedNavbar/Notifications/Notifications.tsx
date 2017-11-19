@@ -20,7 +20,7 @@ class Notifications extends React.Component<NotifDropDownProps> {
     componentDidMount() {
         this.props.loadData!()
     }
-    
+
     createGroupedNotifications (notifications: INotification[]): [{notif: INotification, quantity: number}] {
         let grouped: [{notif: INotification, quantity: number}] =
             [{notif: notifications[0], quantity: 1}]
@@ -40,18 +40,24 @@ class Notifications extends React.Component<NotifDropDownProps> {
     render() {
         // const groupedNotifications = this.createGroupedNotifications(this.props.notifications)
 
-        const itemsList = this.props.notifications.map(n => (
-            <List.Item key={n.id}>
-                <List.Icon name="block layout" size="large" verticalAlign="middle" />
-                <List.Content>
-                    <List.Header>
-                        <Link to={'/boards/' + n.about} className="item">
-                            The board {n.about} has been updated by the user {n.from}
-                        </Link>
-                    </List.Header>
-                </List.Content>
-            </List.Item>
-        ))
+        const itemsList = this.props.notifications.map(n => {
+
+            const content = (n.type === 'board_updated') ?
+                `The board ${n.about} has been updated by the user ${n.from}` :
+                `The user ${n.from} added you to the card ${n.about}`
+
+            return (
+                <List.Item key={n.id}>
+                    <List.Icon name="block layout" size="large" verticalAlign="middle" />
+                    <List.Content>
+                        <List.Header>
+                            <Link to={'/boards/' + n.about} className="item">
+                                {content}
+                            </Link>
+                        </List.Header>
+                    </List.Content>
+                </List.Item>
+            )})
 
         const UserMenu = (
             <MenuItem>
@@ -66,7 +72,7 @@ class Notifications extends React.Component<NotifDropDownProps> {
                     color="red"
                     circular={true}
                     content={this.props.notifications.length}
-                />}    
+                />}
             </MenuItem>
         )
 
