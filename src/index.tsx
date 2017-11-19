@@ -15,6 +15,9 @@ import './index.css'
 import store, { history } from './redux/store'
 import { actionCreators } from './redux/auth/actions'
 
+import { wsClient } from './services/websockets'
+import { RealTimeRedux } from './redux/realtime'
+
 /* Pages Components Imports */
 import IndexPage from './routes/IndexPage'
 import RegisterPage from './routes/RegisterPage'
@@ -34,6 +37,15 @@ AUTH.get('/me')
         store.dispatch(
             actionCreators.loginSuccess(response.me)
         )
+        
+        wsClient.initialize()
+        wsClient.on('connected', () => {
+            wsClient.on('authorized', () => {        
+                RealTimeRedux(wsClient)
+            })
+        
+            wsClient.on('unauthorized', () => null)
+        })
     }
 )
 .catch(

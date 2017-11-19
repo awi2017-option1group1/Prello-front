@@ -56,7 +56,14 @@ describe('Register reducer', () => {
             board: {
                 id: -1,
                 name: '',
-                isPrivate: false
+                isPrivate: false,
+                owner: {
+                    id: -1,
+                    username: '',
+                    email: '',
+                    password: '',
+                    notificationsEnabled: false,
+                }
             },
             error: null,
             isProcessing: false,
