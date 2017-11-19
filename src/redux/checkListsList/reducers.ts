@@ -59,7 +59,7 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
 
             case UPDATE_CHECKLIST:
                 return {
-                    isProcessing: true,
+                    isProcessing: false,
                     error: null,
                     checkLists: state.checkLists.map(l => {
                         if (l.id === action.checkList.id) {
@@ -72,7 +72,7 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
 
             case REMOVE_CHECKLIST:
                 return {
-                    isProcessing: true,
+                    isProcessing: false,
                     error: null,
                     checkLists: state.checkLists
                         .filter(c => c.id !== action.checkList.id)
