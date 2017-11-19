@@ -54,6 +54,8 @@ export const RealTimeBoard = (websocket: WSClient) => {
             dispatch(deleteCardsActionCreators.deleteCardRequest(payload.card))
             dispatch(cardsActionCreators.createCardSuccess(payload.list.id, payload.card))
             dispatch(cardsActionCreators.updateCardRequest(payload.card))
+        } else {
+            dispatch(cardsActionCreators.updateCardRequest(payload.card))
         }
     })
 

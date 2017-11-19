@@ -19,6 +19,8 @@ import { IUser, ILoggedUser } from '../../redux/users/types'
 
 import Board from './DnDContextBoard'
 
+import { wsClient } from '../../services/websockets'
+
 interface BoardContainerProps {
     match: {
         params: {
@@ -40,6 +42,7 @@ interface PropsFromState {
 
 interface PropsFromDispatch {
     loadData?: () => void
+    closeBoard: () => void
     setTitle: (title: string) => void
     addList: () => void
     saveCard: (name: string, desc: string) => void
@@ -69,9 +72,14 @@ const mapStateToProps = (state: RootState) => {
 
 const mapDispatchToProps = (dispatch: Dispatch, ownProps: BoardContainerProps) => {
     return {
-        loadData: () => {
+        loadData: () => {       
             dispatch(boardsActionsCreators.fetchBoard(Number(ownProps.match.params.id)))
             dispatch(labelsActionCreators.fetchBoardLabels(Number(ownProps.match.params.id)))
+            wsClient.emitOnReady('request-connection', { object: 'board', id: ownProps.match.params.id })
+        },
+
+        closeBoard: () => {
+            wsClient.emit('remove-connection', { object: 'board', id: ownProps.match.params.id })
         },
 
         setTitle: (title: string) => {

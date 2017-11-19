@@ -40,9 +40,7 @@ AUTH.get('/me')
         
         wsClient.initialize()
         wsClient.on('connected', () => {
-            wsClient.on('authorized', () => {
-                wsClient.emit('request-connection', { object: 'board', id: 3 })
-        
+            wsClient.on('authorized', () => {        
                 RealTimeRedux(wsClient)
             })
         

@@ -12,10 +12,19 @@ export class WSClient {
 
     private initialized: boolean
     private client: SocketIOClient.Socket | null
+    
+    private ready: boolean
+    /* tslint:disable */
+    private pendingEvents: any[]
+    /* tslint:enable */
 
     constructor() {
         this.initialized = false
         this.client = null
+        this.ready = false
+        this.pendingEvents = []
+
+        this.sendAllPendingEvents = this.sendAllPendingEvents.bind(this)
     }
 
     public initialize() {
@@ -37,6 +46,8 @@ export class WSClient {
         }
 
         this.client!.on(event, callback)
+
+        this.client!.on('authorized', () => this.sendAllPendingEvents())
     }
 
     /* tslint:disable */
@@ -47,6 +58,24 @@ export class WSClient {
         }
 
         this.client!.emit(event, ...args)
+    }
+
+    /* tslint:disable */
+    public emitOnReady(event: string, ...args: any[]) {
+    /* tslint:enable */
+        if (!this.ready) {
+            this.pendingEvents.push({
+                event,
+                args
+            })
+        } else {
+            this.client!.emit(event, ...args)
+        }
+    }
+
+    private sendAllPendingEvents() {
+        this.ready = true
+        this.pendingEvents.forEach(e => this.emit(e.event, ...e.args))
     }
 
     private isInitialized() {
