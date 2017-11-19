@@ -43,7 +43,7 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
 
             case CREATE_CHECKLIST:
                 return {
-                    isProcessing: false,
+                    isProcessing: true,
                     error: null,
                     checkLists: state.checkLists.concat(action.checkList as ICheckList)
                 }

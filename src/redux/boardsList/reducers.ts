@@ -43,12 +43,15 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
                 return {
                     ...state,
                     error: null,
+                    isProcessing: true,
+                    boards: state.boards.concat(action.board as IBoard)
                 }
 
             case CREATE_BOARD_SUCCESS:
                 return {
                     ...state,
                     error: null,
+                    isProcessing: false,
                     boards: state.boards
                         .filter(b => b.id !== null && b.id !== undefined)
                         .concat(action.board as IBoard)
@@ -57,6 +60,7 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
             case CREATE_BOARD_ERROR:
                 return {
                     ...state,
+                    isProcessing: false,
                     error: action.error
                 }
 

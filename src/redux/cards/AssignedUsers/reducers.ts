@@ -21,16 +21,17 @@ const defaultValue: State = {}
 
 export const reducer = (state: State = defaultValue, action: RootAction) => {
     switch (action.type) {
+
         case FETCH_CARDS_LIST_SUCCESS:
             const newStateFetchList = Object.assign({}, state)
-            action.cards.forEach(card => newStateFetchList[card.id] = { 
+            action.cards.forEach(card => newStateFetchList[card.id] = {
                 assignees: [],
                 error: null,
-                isProcessing: false               
+                isProcessing: false
             })
             return newStateFetchList
 
-        case CREATE_CARD_SUCCESS: 
+        case CREATE_CARD_SUCCESS:
             return {
                 ...state,
                 [action.card.id]: {
@@ -39,9 +40,9 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
                     isProcessing: false
                 }
             }
-        case FETCH_ASSIGNEES_LIST: 
+        case FETCH_ASSIGNEES_LIST:
             return {
-                ...state, 
+                ...state,
                 [action.cardID]: {
                     assignees: [],
                     error: null,
@@ -55,10 +56,10 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
                     assignees: action.assignees,
                     error: null,
                     isProcessing: false
-                }               
+                }
             }
-        
-        case FETCH_ASSIGNEES_LIST_ERROR: 
+
+        case FETCH_ASSIGNEES_LIST_ERROR:
             return {
                 ...state,
                 [action.cardID]: {
@@ -79,7 +80,7 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
                     isProcessing: false
                 }
             }
-        
+
         case UNASSIGN_USER:
             return {
                 ...state,
@@ -89,7 +90,7 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
                     isProcessing: false
                 }
             }
-            
+
         default:
             return state
     }
