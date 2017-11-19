@@ -162,4 +162,5 @@ export const RealTimeNotification = (websocket: WSClient) => {
 
 export const RealTimeRedux = (websocket: WSClient) => {
     RealTimeBoard(websocket)
+    RealTimeNotification(websocket)
 }   
