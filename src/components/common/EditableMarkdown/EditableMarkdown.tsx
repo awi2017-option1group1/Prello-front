@@ -7,8 +7,11 @@ import './editable-markdown.css'
 
 interface EditableMarkdownProps {
     content: string
+    editing?: boolean
+    canEdit?: boolean
 
     onSubmit: (newValue: string) => void
+    onCancel?: () => void
 }
 
 interface EditableMarkdownState {
@@ -23,7 +26,7 @@ class EditableMarkdown extends React.Component<EditableMarkdownProps, EditableMa
         this.state = {
             value: props.content,
             startValue: props.content,
-            editing: false
+            editing: props.editing !== undefined ? props.editing : false
         }
 
         this.handleClick = this.handleClick.bind(this)
@@ -36,9 +39,11 @@ class EditableMarkdown extends React.Component<EditableMarkdownProps, EditableMa
     }
 
     handleClick() {
-        this.setState({
-            editing: true
-        })
+        if (this.props.canEdit !== undefined && this.props.canEdit) {
+            this.setState({
+                editing: true
+            })
+        }
     }
 
     handleChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
@@ -48,6 +53,9 @@ class EditableMarkdown extends React.Component<EditableMarkdownProps, EditableMa
     }
 
     handleCancel() {
+        if (this.props.onCancel) {
+            this.props.onCancel()
+        }
         this.setState({
             editing: false,
             value: this.state.startValue
@@ -79,6 +87,7 @@ class EditableMarkdown extends React.Component<EditableMarkdownProps, EditableMa
                 placeholder="Tell us more about the card..." 
                 onChange={this.handleChange}
                 value={this.state.value}
+                autoFocus={true}
             />
         )
     }
@@ -119,7 +128,14 @@ class EditableMarkdown extends React.Component<EditableMarkdownProps, EditableMa
             )
         } else {
             return (
-                <div className="editable-markdown" onClick={this.handleClick}>
+                <div 
+                    className={
+                        this.props.canEdit !== undefined && this.props.canEdit
+                        ? 'editable-markdown editable'
+                        : 'editable-markdown'
+                    } 
+                    onClick={this.handleClick}
+                >
                     {this.renderPreview()}
                 </div>
             )

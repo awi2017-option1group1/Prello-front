@@ -93,7 +93,6 @@ const CardModal: React.StatelessComponent<ModalProps> = (props) => {
                     }
                     <CheckLists cardId={props.card.id} />
 
-                    <h3>Comments</h3>
                     <CommentList cardId={props.card.id} />
                 </Grid.Column>
 

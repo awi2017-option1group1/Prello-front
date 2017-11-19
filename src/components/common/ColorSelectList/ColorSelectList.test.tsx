@@ -1,6 +1,5 @@
 import * as React from 'react'
-import { shallow, mount } from 'enzyme'
-import { spy } from 'sinon'
+import { shallow } from 'enzyme'
 
 import { Dropdown } from 'semantic-ui-react'
 

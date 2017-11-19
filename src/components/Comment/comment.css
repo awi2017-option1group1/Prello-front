@@ -1,3 +1,11 @@
 .ui.comment {
     width: 100%
 }
+
+.author {
+    float: left;
+}
+
+.comment .ui.segment {
+    margin: 0.25em 0;
+}

@@ -8,7 +8,6 @@ export const CREATE_COMMENT_SUCCESS = 'CREATE_COMMENT_SUCCESS'
 export const CREATE_COMMENT_ERROR = 'CREATE_COMMENT_ERROR'
 
 export type Actions = {
-
     CREATE_COMMENT: {
         type: typeof CREATE_COMMENT
         comment: Partial<IComment>,
@@ -39,7 +38,13 @@ export const actionCreators = {
     createComment: (values: Partial<IComment>) => {
         return (dispatch: Dispatch, getState: () => RootState) => {
             const cardId = getState().card!.id
-            dispatch(actionCreators.createCommentRequest(cardId, values))
+            const author = {
+                ...getState().auth.user!,
+                id: getState().auth.user!.uid,
+                notificationsEnabled: false,
+                password: ''
+            }
+            dispatch(actionCreators.createCommentRequest(cardId, { ...values, user: author }))
             return API.post(`/cards/${cardId}/comments`, values).then(
                 commentRes => dispatch(actionCreators.createCommentRequestSuccess(commentRes, cardId)),
                 error => dispatch(actionCreators.createCommentRequestError(error.error.error))

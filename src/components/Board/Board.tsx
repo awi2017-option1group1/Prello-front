@@ -67,9 +67,7 @@ class Board extends React.Component<BoardProps> {
             <ConfirmModal
                 trigger={
                     <Button
-                        content="Delete board"
                         icon="trash"
-                        labelPosition="left"
                         color="red"
                         circular={true}
                     />

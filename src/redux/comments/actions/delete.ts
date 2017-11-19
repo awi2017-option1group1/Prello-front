@@ -11,6 +11,7 @@ export const DELETE_COMMENT_ERROR = 'DELETE_COMMENT_ERROR'
 export type Actions = {
     DELETE_COMMENT: {
         type: typeof DELETE_COMMENT,
+        comment: IComment
     },
     DELETE_COMMENT_ERROR: {
         type: typeof DELETE_COMMENT_ERROR,
@@ -24,7 +25,8 @@ export type Actions = {
 
 export const actionCreators = {
     deleteCommentRequest: (comment: IComment): Actions[typeof DELETE_COMMENT] => ({
-        type: DELETE_COMMENT
+        type: DELETE_COMMENT,
+        comment
     }),
     deleteCommentRequestError: (error: string): Actions[typeof DELETE_COMMENT_ERROR] => ({
         type: DELETE_COMMENT_ERROR,

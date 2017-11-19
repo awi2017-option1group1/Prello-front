@@ -20,25 +20,6 @@ const defaultValue: State = {
     isProcessing: true
 }
 
-const deleteComment = (comments: IComment[], commentToDelete: IComment): IComment[] => {
-    const newComments: IComment[] = []
-    var commentFound = false
-    comments.forEach(c => {
-        if (c.id && c.id === commentToDelete.id) {
-            commentFound = true
-        } else {
-            newComments.push(c)
-        }
-    })
-    return newComments
-}
-
-const updateComment = (comments: IComment[], commentToUpdate: IComment): IComment[] => {
-    const index = comments.findIndex(c => commentToUpdate.id === c.id )
-    comments[index] = commentToUpdate
-    return comments
-}
-
 export const reducer = (state: State = defaultValue, action: RootAction) => {
     switch (action.type) {
 
@@ -46,13 +27,15 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
         case CREATE_COMMENT:
             return {
                 ...state,
-                isProcessing: true,
+                comments: state.comments.concat(action.comment as IComment)
             }
 
         case CREATE_COMMENT_SUCCESS:
             return {
                 ...state,
-                comments: state.comments.concat(action.comment as IComment),
+                comments: state.comments
+                    .filter(c => c.id !== null && c.id !== undefined)
+                    .concat(action.comment),
                 isProcessing: false
             }
 
@@ -90,7 +73,14 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
         case UPDATE_COMMENT:
             return {
                 ...state,
-                isProcessing: true
+                comments: state.comments
+                    .map(c => {
+                        if (c.id === action.comment.id) {
+                            return action.comment
+                        } else {
+                            return c
+                        }
+                    })
             }
 
         case UPDATE_COMMENT_ERROR:
@@ -104,7 +94,6 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
         case UPDATE_COMMENT_SUCCESS:
             return {
                 ...state,
-                comments: updateComment(state.comments, action.comment),
                 isProcessing: false
             }
 
@@ -112,7 +101,8 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
         case DELETE_COMMENT:
             return {
                 ...state,
-                isProcessing: true
+                comments: state.comments
+                    .filter(c => c.id !== action.comment.id)
             }
 
         case DELETE_COMMENT_ERROR:
@@ -125,7 +115,6 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
         case DELETE_COMMENT_SUCCESS:
             return {
                 ...state,
-                comments: deleteComment(state.comments, action.comment),
                 isProcessing: false
             }
 
