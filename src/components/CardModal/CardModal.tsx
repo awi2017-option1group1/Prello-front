@@ -1,13 +1,13 @@
 import * as React from 'react'
-import { Card as SmCard, Button, Modal, Grid, Comment, Header, Form, Segment } from 'semantic-ui-react'
+import { Card as SmCard, Button, Modal, Grid, Header, Segment } from 'semantic-ui-react'
 import * as moment from 'moment'
 
 import { StateProps } from '../StateProps'
 import { ICard } from '../../redux/cards/types'
 import { ITag } from '../../redux/tags/types'
-
+import CommentList from '../CommentsList'
 import { ICheckList } from '../../redux/checkLists/types'
-import { IUser } from '../../redux/users/types'   
+import { IUser } from '../../redux/users/types'
 
 import Spinner from '../common/Spinner'
 import EditableTitle from '../common/EditableTitle'
@@ -84,43 +84,17 @@ const CardModal: React.StatelessComponent<ModalProps> = (props) => {
                     <EditableMarkdown
                         content={props.card.desc ? props.card.desc : 'No description yet!'}
                         onSubmit={(desc: string) => props.updateCard({ desc })}
+                        canEdit={true}
                     />
                     </Segment>
 
                     {
-                        props.checkLists.length > 0 && 
+                        props.checkLists.length > 0 &&
                         <h3>Checklists ({props.checkLists.length})</h3>
                     }
                     <CheckLists cardId={props.card.id} />
 
-                    <Comment.Group>
-                        <Header as="h3" dividing={true}>Comments (1)</Header>
-                        <Form size="small">
-                            <Form.TextArea />
-                            <Button
-                                circular={true}
-                                content="Add Comment"
-                                labelPosition="left"
-                                icon="edit"
-                                primary={true}
-                            />
-                        </Form>
-                        <Comment>
-                            <Comment.Avatar src="https://semantic-ui.com/images/avatar/small/elliot.jpg" />
-                            <Comment.Content>
-                                <Comment.Author as="a">Matt</Comment.Author>
-                                <Comment.Metadata>
-                                <div>Today at 5:42PM</div>
-                                </Comment.Metadata>
-                                <Comment.Text>How artistic!</Comment.Text>
-                                <Comment.Actions>
-                                    <Comment.Action>Reply</Comment.Action>
-                                    <Comment.Action>Update</Comment.Action>
-                                    <Comment.Action>Delete</Comment.Action>
-                                </Comment.Actions>
-                            </Comment.Content>
-                        </Comment>
-                    </Comment.Group>
+                    <CommentList cardId={props.card.id} />
                 </Grid.Column>
 
                 <Grid.Column width={5}>

@@ -3,6 +3,7 @@ export interface ServerConfig {
     port: number
     apiSuffix: string
     authSuffix: string
+    realtimeSuffix: string
 }
 
 export interface Config {
@@ -23,7 +24,8 @@ const configs: MultiConfig = {
             host: 'https://photon.igpolytech.fr',
             port: 3000,
             apiSuffix: 'api',
-            authSuffix: 'auth'
+            authSuffix: 'auth',
+            realtimeSuffix: 'realtime'
         }
     },
 
@@ -34,7 +36,8 @@ const configs: MultiConfig = {
             host: process.env.SERVER_HOST || 'http://localhost',
             port: process.env.PORT || 3000,
             apiSuffix: process.env.API_SUFFIX || 'api',
-            authSuffix: process.env.AUTH_SUFFIX || 'auth'
+            authSuffix: process.env.AUTH_SUFFIX || 'auth',
+            realtimeSuffix: process.env.REALTIME_SUFFIX || 'realtime',
         }
     }
 }

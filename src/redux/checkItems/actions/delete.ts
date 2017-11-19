@@ -9,16 +9,16 @@ export const REMOVE_CHECKITEM_ERROR = 'REMOVE_CHECKITEM_ERROR'
 export const REMOVE_CHECKITEM_SUCCESS = 'REMOVE_CHECKITEM_SUCCESS'
 
 export type Actions = {
-    REMOVE_CHECKITEM: {   
+    REMOVE_CHECKITEM: {
         type: typeof REMOVE_CHECKITEM,
         checkItem: ICheckItem,
         checkListId: number
     },
-    REMOVE_CHECKITEM_ERROR: {     
+    REMOVE_CHECKITEM_ERROR: {
         type: typeof REMOVE_CHECKITEM_ERROR,
         error: string
     },
-    REMOVE_CHECKITEM_SUCCESS: {   
+    REMOVE_CHECKITEM_SUCCESS: {
         type: typeof REMOVE_CHECKITEM_SUCCESS,
         checkItem: ICheckItem
     },

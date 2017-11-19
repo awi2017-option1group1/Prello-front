@@ -26,7 +26,7 @@ export type Actions = {
 }
 
 export const actionCreators = {
-    createCheckItemRequest: (checkListId: number, checkItem: Partial<ICheckItem>): 
+    createCheckItemRequest: (checkListId: number, checkItem: Partial<ICheckItem>):
         Actions[typeof CREATE_CHECKITEM] => ({
         type: CREATE_CHECKITEM,
         checkItem,

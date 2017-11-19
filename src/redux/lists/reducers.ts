@@ -111,14 +111,21 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
             }
 
         case DELETE_BOARD_LIST:
-            const index = state.lists.indexOf(action.list)
-            return {
-                ...state,
-                error: null,
-                lists: [
-                    ...state.lists.slice(0, index),
-                    ...state.lists.slice(index + 1)
-                ]
+            const index = state.lists.findIndex(l => l.id === action.list.id)
+            if (index === -1) {
+                return {
+                    ...state,
+                    error: null
+                }
+            } else {
+                return {
+                    ...state,
+                    error: null,
+                    lists: [
+                        ...state.lists.slice(0, index),
+                        ...state.lists.slice(index + 1)
+                    ]
+                }
             }
 
         case DELETE_BOARD_LIST_ERROR:
