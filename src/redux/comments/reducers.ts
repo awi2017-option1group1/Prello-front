@@ -34,7 +34,7 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
             return {
                 ...state,
                 comments: state.comments
-                    .filter(c => c.id !== null && c.id !== undefined)
+                    .filter(c => c.id !== null && c.id !== undefined && c.id !== action.comment.id)
                     .concat(action.comment),
                 isProcessing: false
             }

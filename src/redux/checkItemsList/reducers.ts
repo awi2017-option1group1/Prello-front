@@ -87,7 +87,7 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
                     [action.checkListId]: {
                         ...state[action.checkListId],
                         items: state[action.checkListId].items
-                            .filter(i => i.id !== null && i.id !== undefined)
+                            .filter(i => i.id !== null && i.id !== undefined && i.id !== action.checkItem.id)
                             .concat(action.checkItem as ICheckItem)
                     }
                 }

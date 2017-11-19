@@ -6,7 +6,11 @@ import Card, { CardProps } from './Card'
 import './draggable-card.css'
 
 const DraggableCard: React.StatelessComponent<CardProps> = (props) => (
+<<<<<<< Updated upstream
     <Draggable draggableId={`draggable-card-${props.card.id}`} type="CARD">
+=======
+    <Draggable draggableId={`draggable-${props.card.id}`} type="CARD">
+>>>>>>> Stashed changes
         {(provided, snapshot) => (
             <div className="draggable-card">
                 <div 

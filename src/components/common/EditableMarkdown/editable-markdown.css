@@ -1,11 +1,7 @@
 .editable-markdown.editable {
     cursor: pointer;
     width: 100%;
-    min-height: 100px;
-}
-
-.ui.form .markdown-preview {
-    min-height: 160px;
+    min-height: 20px;
 }
 
 .markdown-tab {

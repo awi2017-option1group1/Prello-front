@@ -43,7 +43,7 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
 
             case CREATE_CHECKLIST:
                 return {
-                    isProcessing: true,
+                    isProcessing: false,
                     error: null,
                     checkLists: state.checkLists.concat(action.checkList as ICheckList)
                 }
@@ -53,7 +53,7 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
                     isProcessing: false,
                     error: null,
                     checkLists: state.checkLists
-                        .filter(c => c.id !== null && c.id !== undefined)
+                        .filter(c => c.id !== null && c.id !== undefined && c.id !== action.checkList.id)
                         .concat(action.checkList)
                 }
 

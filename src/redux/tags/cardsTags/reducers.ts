@@ -75,7 +75,9 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
             return {
                 ...state,
                 [action.cardId]: {
-                    labels: state[action.cardId].labels.concat(action.label),
+                    labels: state[action.cardId].labels
+                        .filter(l => l.id !== undefined && l.id !== action.label.id)
+                        .concat(action.label),
                     error: null,
                     isProcessing: false
                 }

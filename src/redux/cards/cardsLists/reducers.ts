@@ -22,12 +22,16 @@ export type State = {
 const defaultValue: State = {}
 
 // Find the list where is the card
-const findCardListId = (lists: State, card: ICard): number => {
+const findCardListId = (lists: State, card: ICard): number | undefined => {
     const keys = Object.keys(lists)
     const listId = keys.find(key => {
         return lists[key].cards.find((c: ICard) => c.id === card.id) !== undefined
     })
-    return Number(listId)
+    if (listId) {
+        return Number(listId)
+    } else {
+        return undefined
+    }
 }
 
 // Update a list
@@ -85,7 +89,7 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
                 [action.listId]: {
                     ...state[action.listId],
                     cards: state[action.listId].cards
-                        .filter(c => c.id !== null && c.id !== undefined)
+                        .filter(c => c.id !== null && c.id !== undefined && c.id !== action.card .id)
                         .concat(action.card)
                 }
             }
@@ -143,7 +147,7 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
             }
 
         case UPDATE_CARD:
-            const listIdUpdate = findCardListId(state, action.card)
+            const listIdUpdate = findCardListId(state, action.card)!
             return {
                 ...state,
                 [listIdUpdate]: {
@@ -154,16 +158,20 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
 
         case DELETE_CARD:
             const listIdDelete = findCardListId(state, action.card)
-            const index = state[listIdDelete].cards.findIndex(c => c.id === action.card.id)
-            return {
-                ...state,
-                [listIdDelete]: {
-                    ...state[listIdDelete],
-                    cards: [
-                        ...state[listIdDelete].cards.slice(0, index),
-                        ...state[listIdDelete].cards.slice(index + 1)
-                    ]
+            if (listIdDelete) {
+                const index = state[listIdDelete].cards.findIndex(c => c.id === action.card.id)
+                return {
+                    ...state,
+                    [listIdDelete]: {
+                        ...state[listIdDelete],
+                        cards: [
+                            ...state[listIdDelete].cards.slice(0, index),
+                            ...state[listIdDelete].cards.slice(index + 1)
+                        ]
+                    }
                 }
+            } else {
+                return state
             }
 
         default:
