@@ -5,13 +5,14 @@ import { IBoard } from '../../redux/boards/types'
 import { IList } from '../../redux/lists/types'
 import { ICard } from '../../redux/cards/types'
 import { ITag } from '../../redux/tags/types'
-import { IUser } from '../../redux/users/types'
+import { IUser, ILoggedUser } from '../../redux/users/types'
 
 import { StateProps } from '../StateProps'
 
 import SplitHeader from '../common/SplitHeader'
 import CardModal from '../CardModal'
 import CreateCardModal from '../CreateCardModal'
+import ConfirmModal from '../common/ConfirmModal/ConfirmModal'
 import Spinner from '../common/Spinner'
 import EditableTitle from '../common/EditableTitle'
 import LabelTable from '../LabelTable'
@@ -23,7 +24,7 @@ import './board.css'
 
 export interface BoardProps extends StateProps {
     board: IBoard
-
+    connectedUser: ILoggedUser
     labels: ITag[]
     listToAppendCard: IList | null
     openedCard: ICard | null
@@ -40,6 +41,7 @@ export interface BoardProps extends StateProps {
     deleteLabel: (label: ITag) => void
     addUser: (userName: String) => void
     removeUser: (user: IUser) => void
+    deleteBoard: (board: IBoard) => void
 }
 
 class Board extends React.Component<BoardProps> {
@@ -51,11 +53,32 @@ class Board extends React.Component<BoardProps> {
     render() {
         let usernameToAdd: String = ''
 
+        const deleteSelf = () => {
+            this.props.deleteBoard(this.props.board)
+        }
+
         const addUser = () => {
             if (usernameToAdd) {
                 this.props.addUser(usernameToAdd)
             }
         }
+
+        const deleteButton = (this.props.board.owner.id === this.props.connectedUser.uid) ? (
+            <ConfirmModal
+                trigger={
+                    <Button
+                        icon="trash"
+                        color="red"
+                        circular={true}
+                    />
+                }
+                title="Confirm delete"
+                content={`Are you sure you want to delete this board ?`}
+                confirmButton="Yes, delete"
+                cancelButton="No, cancel"
+                onConfirm={deleteSelf}
+            />
+        ) : ''
 
         if (this.props.loading) {
             return <Spinner />
@@ -159,6 +182,7 @@ class Board extends React.Component<BoardProps> {
                                 />
                             </Modal.Content>
                         </Modal>
+                        {deleteButton}
                     </div>
                 </SplitHeader>
                 <TasksLists boardId={this.props.board.id} />
