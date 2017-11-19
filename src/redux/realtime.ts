@@ -7,6 +7,7 @@ import { actionCreators as listsActionCreators } from './lists/actions'
 import { ICard } from './cards/types'
 import { actionCreators as cardsActionCreators } from './cards/actions'
 import { actionCreators as deleteCardsActionCreators } from './cards/actions/delete'
+import { actionCreators as assignedCardsActionCreators } from './cards/AssignedUsers/actions'
 
 import { ITag } from './tags/types'
 import { actionCreators as boardLabelsActionCreators } from './tags/boardTags/actions'
@@ -20,6 +21,9 @@ import { actionCreators as checkListsActionCreators } from './checkLists/actions
 
 import { ICheckItem } from './checkItems/types'
 import { actionCreators as checkItemsActionCreators } from './checkItems/actions'
+
+import { IUser } from './users/types'
+import { actionCreators as notificationsActionCreators } from './notifications/actions'
 
 const { dispatch, getState } = store
 
@@ -45,10 +49,12 @@ export const RealTimeBoard = (websocket: WSClient) => {
     })
 
     websocket.on('update-card', (payload: Payload<{ card: ICard, list: IList }>) => {
-        // This is a trick to handle the card movements
-        dispatch(deleteCardsActionCreators.deleteCardRequest(payload.card))
-        dispatch(cardsActionCreators.createCardSuccess(payload.list.id, payload.card))
-        dispatch(cardsActionCreators.updateCardRequest(payload.card))
+        if (getState().cards[payload.list.id].cards.findIndex(c => c.id === payload.card.id) === -1) {
+            // This is a trick to handle the card movements
+            dispatch(deleteCardsActionCreators.deleteCardRequest(payload.card))
+            dispatch(cardsActionCreators.createCardSuccess(payload.list.id, payload.card))
+            dispatch(cardsActionCreators.updateCardRequest(payload.card))
+        }
     })
 
     websocket.on('delete-card', (payload: Payload<{ card: ICard }>) => {
@@ -122,6 +128,25 @@ export const RealTimeBoard = (websocket: WSClient) => {
         dispatch(checkItemsActionCreators.removeCheckItemRequest(payload.checkList.id, payload.checkItem))
     })
 
+    // MEMBERS
+
+    websocket.on('assign-card-member', (payload: Payload<{ card: ICard, member: IUser }>) => {
+        dispatch(assignedCardsActionCreators.assignUserRequest(payload.card.id, payload.member))
+    })
+
+    websocket.on('unassign-card-member', (payload: Payload<{ card: ICard, member: IUser }>) => {
+        dispatch(assignedCardsActionCreators.unassignUserRequest(payload.card.id, payload.member))
+    })
+}
+
+export const RealTimeNotification = (websocket: WSClient) => {
+    websocket.on('add-notification', (payload: Payload<{}>) => {
+        dispatch(notificationsActionCreators.fetchNotifications())
+    })
+
+    websocket.on('delete-notifications', (payload: Payload<{}>) => {
+        dispatch(notificationsActionCreators.deleteNotificationsRequestSuccess())
+    })
 }
 
 export const RealTimeRedux = (websocket: WSClient) => {

@@ -3,7 +3,7 @@ import { CREATE_BOARD_LIST_SUCCESS } from '../../lists/actions/create'
 import { CREATE_CARD, CREATE_CARD_SUCCESS } from '../actions/create'
 import { UPDATE_CARD } from '../actions/update'
 import { DELETE_CARD } from '../actions/delete'
-import { MOVE_CARD, MOVE_CARD_SUCCESS } from '../actions/move'
+import { MOVE_CARD } from '../actions/move'
 import { FETCH_CARDS_LIST, FETCH_CARDS_LIST_ERROR, FETCH_CARDS_LIST_SUCCESS } from '../actions/fetchAll'
 
 import { RootAction } from '../../RootAction'
@@ -135,15 +135,6 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
                     ...state[action.destinationList.listId],
                     cards: action.destinationList.list
                 }
-            }
-
-        case MOVE_CARD_SUCCESS:
-            return {
-                ...state,
-                [action.destinationList.listId]: {
-                    ...state[action.destinationList.listId],
-                    cards: action.destinationList.list
-                }              
             }
 
         case UPDATE_CARD:

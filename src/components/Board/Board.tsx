@@ -198,7 +198,6 @@ class Board extends React.Component<BoardProps> {
                         board={this.props.board}
                         onClose={this.props.closeCard}
                         card={this.props.openedCard}
-                        boardAssignees={this.props.assignees}
                     />
                 }
             </section>
