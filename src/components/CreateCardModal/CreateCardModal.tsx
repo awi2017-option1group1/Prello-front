@@ -32,27 +32,35 @@ class CreateCardModel extends React.Component<CreateCardModalProps, CreateCardMo
     }
 
     render() {
+
+        const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+            if (event.key === 'Enter') {
+                this.props.save(this.state.name, this.state.desc)
+            }
+        }
+
         return (
-            <Modal 
+            <Modal
                 open={this.props.isOpen}
                 closeIcon={true}
                 onClose={this.props.cancel}
+                onKeyPress={handleKeyPress}
             >
                 <Header icon="list layout" content={`Add a new task in '${this.props.listName}'`} />
                 <ModalContent>
                     <Form>
                         <FormField>
                             <label>Name</label>
-                            <input 
-                                placeholder="Task name" 
-                                value={this.state.name} 
-                                onChange={(e) => this.setState({ name: e.target.value })} 
+                            <input
+                                placeholder="Task name"
+                                value={this.state.name}
+                                onChange={(e) => this.setState({ name: e.target.value })}
                             />
                         </FormField>
-                        <Form.TextArea 
-                            label="Description" 
-                            placeholder="Tell us more about the card..." 
-                            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => 
+                        <Form.TextArea
+                            label="Description"
+                            placeholder="Tell us more about the card..."
+                            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
                                 this.setState({ desc: e.target.value }
                             )}
                         />
@@ -62,9 +70,9 @@ class CreateCardModel extends React.Component<CreateCardModalProps, CreateCardMo
                     <Button color="red" circular={true} onClick={this.props.cancel}>
                         <Icon name="cancel" /> Cancel
                     </Button>
-                    <Button 
-                        color="green" 
-                        circular={true} 
+                    <Button
+                        color="green"
+                        circular={true}
                         onClick={() => this.props.save(this.state.name, this.state.desc)}
                     >
                         <Icon name="checkmark" /> Save
