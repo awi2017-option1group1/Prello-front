@@ -77,7 +77,7 @@ export const actionCreators = {
             dispatch(actionCreators.confirmUserRequest())
             return API.post(`/users/${userID}/confirm/${uuidToken}`).then(
                 user => dispatch(actionCreators.confirmUserSuccess(user)),
-                error => dispatch(actionCreators.confirmUserError(error))
+                error => dispatch(actionCreators.confirmUserError(error.error.error))
             )
         }
     }
