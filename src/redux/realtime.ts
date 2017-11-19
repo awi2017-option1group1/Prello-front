@@ -1,6 +1,9 @@
 import store from './store'
 import { WSClient, Payload } from '../services/websockets'
 
+import { IBoard } from './boards/types'
+import { actionCreators as boardsActionCreators } from './boards/actions'
+
 import { IList } from './lists/types'
 import { actionCreators as listsActionCreators } from './lists/actions'
 
@@ -28,6 +31,12 @@ import { actionCreators as notificationsActionCreators } from './notifications/a
 const { dispatch, getState } = store
 
 export const RealTimeBoard = (websocket: WSClient) => {
+    // BOARD
+
+    websocket.on('update-board', (payload: Payload<{ board: IBoard }>) => {
+        dispatch(boardsActionCreators.updateBoardRequestSuccess(payload.board))
+    })
+
     // LIST
 
     websocket.on('create-list', (payload: Payload<{ list: IList }>) => {
