@@ -15,7 +15,7 @@ import { IBoard } from '../../redux/boards/types'
 import { IList } from '../../redux/lists/types'
 import { ICard } from '../../redux/cards/types'
 import { ITag } from '../../redux/tags/types'
-import { IUser } from '../../redux/users/types'
+import { IUser, ILoggedUser } from '../../redux/users/types'
 
 import Board from './DnDContextBoard'
 
@@ -31,7 +31,7 @@ interface PropsFromState {
     board: IBoard
     labels: ITag[]
     assignees: IUser[]
-
+    connectedUser: ILoggedUser
     listToAppendCard: IList | null
     openedCard: ICard | null
     error?: string | null
@@ -51,6 +51,7 @@ interface PropsFromDispatch {
     addUser: (username: String) => void
     removeUser: (user: IUser) => void
     onDragEnd: (result: DropResult) => void
+    deleteBoard: (board: IBoard) => void
 }
 
 const mapStateToProps = (state: RootState) => {
@@ -62,6 +63,7 @@ const mapStateToProps = (state: RootState) => {
         openedCard: state.card,
         error: state.board.error,
         loading: state.board.isProcessing,
+        connectedUser: state.auth.user!,
     }
 }
 
@@ -147,6 +149,10 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: BoardContainerProps) =
                 default:
                     break
             }
+        },
+
+        deleteBoard: (board: IBoard) => {
+            dispatch(boardsActionsCreators.deleteBoard(board))
         }
     }
 }

@@ -41,7 +41,7 @@ const LabelTable: React.StatelessComponent<LabelTableProps> = (props) => {
                                 </div>
                             </Table.Cell>
                             <Table.Cell>
-                                {props.users.length > 1 && <ConfirmModal
+                                <ConfirmModal
                                     trigger={
                                         <Button
                                             icon="trash"
@@ -56,7 +56,7 @@ const LabelTable: React.StatelessComponent<LabelTableProps> = (props) => {
                                     confirmButton="Yes, delete"
                                     cancelButton="No, cancel"
                                     onConfirm={() => props.removeUser(user)}
-                                />}
+                                />
                             </Table.Cell>
                         </Table.Row>
                     ))}

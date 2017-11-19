@@ -38,7 +38,7 @@ export const reducer = (state: State = defaultValue, action: RootAction) => {
                     [action.checkList.id]: {
                         items: [],
                         error: null,
-                        isProcessing: true    
+                        isProcessing: false    
                     }
                 }
 
